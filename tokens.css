@@ -1,0 +1,60 @@
+/* ==========================================================================
+   TAPLITO BRAND BOOK V2.0 (SRPANJ 2026.) - CANONICAL DESIGN TOKENS
+   Jedan izvor istine za Taplito brand (Warm paper + premium orange)
+   ========================================================================== */
+
+:root {
+    --color-paper: #F5F2EB;
+    --color-paper-subtle: #EFECE4;
+    --color-elevated: #FFFFFF;
+    --color-elevated-hover: #FCFBF8;
+    
+    /* 10% Premium Orange - Primarna akcentna radnja */
+    --color-orange: #F97316;
+    --color-orange-hover: #EA580C;
+    --color-orange-light: #FFF7ED;
+    --color-orange-border: #FFD8B4;
+    --color-orange-glow: rgba(249, 115, 22, 0.22);
+    
+    /* Tekst i neutralne boje */
+    --color-cacao: #2D2623;
+    --color-cacao-muted: #6F635C;
+    --color-cacao-light: #A89F9B;
+    
+    /* Obrubi */
+    --color-border: #E6E1D6;
+    --color-border-strong: #D1C9BC;
+    --color-border-focus: rgba(249, 115, 22, 0.35);
+    
+    /* Statusne boje */
+    --color-status-success: #10B981;
+    --color-status-success-bg: #ECFDF5;
+    --color-status-error: #EF4444;
+    --color-status-error-bg: #FEF2F2;
+    --color-status-warning: #D97706;
+    --color-status-warning-bg: #FFFBEB;
+    
+    /* Tipografija */
+    --font-heading: 'Outfit', -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+    --font-body: 'Inter', -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+    
+    --text-xs: 11px;
+    --text-sm: 14px;
+    --text-base: 17px;
+    --text-lg: 22px;
+    --text-xl: 28px;
+    --text-2xl: 35px;
+    
+    --shadow-sm: 0 1px 3px rgba(45, 38, 35, 0.05), 0 1px 2px rgba(45, 38, 35, 0.03);
+    --shadow-md: 0 4px 14px -2px rgba(45, 38, 35, 0.08), 0 2px 6px -1px rgba(45, 38, 35, 0.04);
+    --shadow-lg: 0 16px 36px -4px rgba(45, 38, 35, 0.12), 0 6px 14px -2px rgba(45, 38, 35, 0.06);
+    
+    --radius-sm: 8px;
+    --radius-md: 12px;
+    --radius-lg: 16px;
+    --radius-xl: 20px;
+    --radius-full: 9999px;
+    
+    --transition-fast: 0.15s ease;
+    --transition-normal: 0.25s cubic-bezier(0.4, 0, 0.2, 1);
+}

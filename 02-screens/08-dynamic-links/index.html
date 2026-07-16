@@ -1,0 +1,422 @@
+<!DOCTYPE html>
+<html lang="hr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Dynamic Links - Taplito Admin V2.0</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Outfit:wght@500;600;700;800;900&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="../../tokens.css">
+    <link rel="stylesheet" href="../../global.css">
+    <style>
+        .copy-btn {
+            background: none;
+            border: none;
+            cursor: pointer;
+            color: var(--color-cacao-muted);
+            padding: 4px;
+            transition: color 0.15s ease;
+        }
+        .copy-btn:hover {
+            color: var(--color-orange);
+        }
+        .link-row {
+            cursor: pointer;
+            transition: background 0.15s ease;
+        }
+        .link-row:hover {
+            background: var(--color-paper-subtle);
+        }
+    </style>
+</head>
+<body>
+    <div class="app-container">
+        <!-- Sidebar - Exact Barok Standard Native Navigation -->
+        <aside class="sidebar">
+            <div class="sidebar-brand-top">
+                <a href="../../index.html" class="brand-lockup">
+                    <div class="brand-badge">T</div>
+                    <div class="brand-wordmark">TAPLITO</div>
+                </a>
+            </div>
+
+            <a href="../07-settings/index.html" class="tenant-switcher">
+                <div class="tenant-box-left">
+                    <div class="tenant-icon">B</div>
+                    <div>
+                        <div class="tenant-name">Barok Standard</div>
+                        <div style="font-size: 11px; color: var(--color-cacao-muted);">Tenant UI · Split</div>
+                    </div>
+                </div>
+                <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M7 15l5 5 5-5"/><path d="M7 9l5-5 5 5"/></svg>
+            </a>
+
+            <div class="nav-section">
+                <div class="nav-section-header">Platform</div>
+                <a href="../07-settings/index.html" class="nav-item">
+                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor"><circle cx="12" cy="12" r="3"/><path d="M19.4 15a1.65 1.65 0 0 0 .33 1.82l.06.06a2 2 0 0 1 0 2.83 2 2 0 0 1-2.83 0l-.06-.06a1.65 1.65 0 0 0-1.82-.33 1.65 1.65 0 0 0-1 1.51V21a2 2 0 0 1-2 2 2 2 0 0 1-2-2v-.09A1.65 1.65 0 0 0 9 19.4a1.65 1.65 0 0 0-1.82.33l-.06.06a2 2 0 0 1-2.83 0 2 2 0 0 1 0-2.83l.06-.06a1.65 1.65 0 0 0 .33-1.82 1.65 1.65 0 0 0-1.51-1H3a2 2 0 0 1-2-2 2 2 0 0 1 2-2h.09A1.65 1.65 0 0 0 4.6 9a1.65 1.65 0 0 0-.33-1.82l-.06-.06a2 2 0 0 1 0-2.83 2 2 0 0 1 2.83 0l.06.06a1.65 1.65 0 0 0 1.82.33H9a1.65 1.65 0 0 0 1-1.51V3a2 2 0 0 1 2-2 2 2 0 0 1 2 2v.09a1.65 1.65 0 0 0 1 1.51 1.65 1.65 0 0 0 1.82-.33l.06-.06a2 2 0 0 1 2.83 0 2 2 0 0 1 0 2.83l-.06-.06a1.65 1.65 0 0 0-.33 1.82V9a1.65 1.65 0 0 0 1.51 1H21a2 2 0 0 1 2 2 2 2 0 0 1-2 2h-.09a1.65 1.65 0 0 0-1.51 1z"/></svg>
+                    Settings
+                </a>
+            </div>
+
+            <div class="nav-section">
+                <div class="nav-section-header">Manage <span>v</span></div>
+                <a href="../02-products/index.html" class="nav-item">
+                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor"><rect x="3" y="3" width="7" height="7" rx="1"/><rect x="14" y="3" width="7" height="7" rx="1"/><rect x="14" y="14" width="7" height="7" rx="1"/><rect x="3" y="14" width="7" height="7" rx="1"/></svg>
+                    Products
+                </a>
+                <a href="../04-service-points/index.html" class="nav-item">
+                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor"><circle cx="12" cy="12" r="10"/><path d="M12 8v4l3 3"/></svg>
+                    Service Points
+                </a>
+                <a href="../03-menus/index.html" class="nav-item">
+                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor"><path d="M4 6h16M4 12h16M4 18h16"/></svg>
+                    Menus
+                </a>
+                <a href="../08-dynamic-links/index.html" class="nav-item active">
+                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor"><path d="M10 13a5 5 0 0 0 7.54.54l3-3a5 5 0 0 0-7.07-7.07l-1.72 1.71"/><path d="M14 11a5 5 0 0 0-7.54-.54l-3 3a5 5 0 0 0 7.07 7.07l1.71-1.71"/></svg>
+                    Dynamic Links
+                </a>
+                <a href="../09-accounts/index.html" class="nav-item">
+                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor"><path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M23 21v-2a4 4 0 0 0-3-3.87"/><path d="M16 3.13a4 4 0 0 1 0 7.75"/></svg>
+                    Accounts
+                </a>
+            </div>
+
+            <div class="nav-section">
+                <div class="nav-section-header">Integrations <span>v</span></div>
+                <a href="../06-integrations/index.html" class="nav-item">
+                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor"><path d="M12 2v20M17 5H9.5a3.5 3.5 0 0 0 0 7h5a3.5 3.5 0 0 1 0 7H6"/></svg>
+                    POS
+                </a>
+                <a href="../10-payment-providers/index.html" class="nav-item">
+                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor"><rect x="1" y="4" width="22" height="16" rx="2" ry="2"/><line x1="1" y1="10" x2="23" y2="10"/></svg>
+                    Payment Providers
+                </a>
+                <a href="../11-api-keys/index.html" class="nav-item">
+                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor"><path d="M21 2l-2 2m-7.61 7.61a5.5 5.5 0 1 1-7.778 7.778 5.5 5.5 0 0 1 7.777-7.777zm0 0L15.5 7.5m0 0l3 3L22 7l-3-3m-3.5 3.5L19 4"/></svg>
+                    API Keys
+                </a>
+            </div>
+
+            <div class="nav-section">
+                <div class="nav-section-header">Analytics <span>v</span></div>
+                <a href="../05-orders/index.html" class="nav-item">
+                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><polyline points="14 2 14 8 20 8"/><line x1="16" y1="13" x2="8" y2="13"/><line x1="16" y1="17" x2="8" y2="17"/></svg>
+                    Orders
+                </a>
+                <a href="../12-tips/index.html" class="nav-item">
+                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor"><line x1="12" y1="1" x2="12" y2="23"/><path d="M17 5H9.5a3.5 3.5 0 0 0 0 7h5a3.5 3.5 0 0 1 0 7H6"/></svg>
+                    Tips
+                </a>
+            </div>
+        </aside>
+
+        <!-- Main Content Area -->
+        <div class="main-wrapper">
+            <header class="top-header">
+                <div class="header-title-box">
+                    <div class="breadcrumb">
+                        <a href="../../index.html">Barok</a> <span>›</span> <a href="../08-dynamic-links/index.html">Manage</a> <span>›</span> <span style="color: var(--color-cacao);">Dynamic Links</span>
+                    </div>
+                    <span class="header-subtitle" style="font-size: 14px;">Manage dynamic QR codes for Barok</span>
+                </div>
+                <div class="header-actions">
+                    <button class="btn btn-secondary" onclick="alert('Generiranje masovnog izvoza dinamčkih linkova (.CSV)...')">
+                        Export CSV
+                    </button>
+                    <!-- Primarna akcija u 10% Premium Orange -->
+                    <button class="btn btn-primary" onclick="alert('Kreiranje novog dinamičkog QR koda...')">
+                        + Create Dynamic Link
+                    </button>
+                </div>
+            </header>
+
+            <main class="content-area">
+                <!-- Title matching screenshot exact layout -->
+                <div style="margin-bottom: 20px;">
+                    <h2 style="font-size: 26px; font-weight: 800; color: var(--color-cacao);">Dynamic Links</h2>
+                    <p style="font-size: 14px; color: var(--color-cacao-muted); margin: 4px 0 0 0;">Manage dynamic QR codes for Barok</p>
+                </div>
+
+                <!-- Table Header Bar exact to screenshot -->
+                <div style="font-size: 13px; font-weight: 600; color: var(--color-cacao-muted); margin-bottom: 12px;">
+                    Dynamic codes for QR generation (<span id="total-links-count">14</span> total)
+                </div>
+
+                <!-- Exact Table matching screenshot input_file_2.png -->
+                <div class="card" style="padding: 0; overflow: hidden;">
+                    <div class="table-wrapper">
+                        <table class="admin-table">
+                            <thead>
+                                <tr>
+                                    <th style="width: 40px;"><input type="checkbox" style="width: 16px; height: 16px; accent-color: var(--color-orange);"></th>
+                                    <th style="width: 50px;">#</th>
+                                    <th style="width: 160px;">Code</th>
+                                    <th style="width: 140px;">Label</th>
+                                    <th>Dynamic Link</th>
+                                </tr>
+                            </thead>
+                            <tbody id="links-tbody">
+                                <tr class="link-row" onclick="openLinkDetails('1', '0v5PsP2ft4', 'Stol7', 'sp_mho10dyd_8vfp27')">
+                                    <td onclick="event.stopPropagation();"><input type="checkbox" style="width: 16px; height: 16px; accent-color: var(--color-orange);"></td>
+                                    <td><span style="font-weight: 700;">1</span></td>
+                                    <td><span style="font-family: var(--font-heading); font-weight: 700;">0v5PsP2ft4</span></td>
+                                    <td><span class="badge badge-neutral">Stol7</span></td>
+                                    <td>
+                                        <div style="display: flex; align-items: center; gap: 8px;">
+                                            <span style="color: var(--color-cacao-muted); font-size: 13px;">https://app.taplito.com/barok/sp_mho10dyd_8vfp27</span>
+                                            <button class="copy-btn" onclick="copyToClipboard('https://app.taplito.com/barok/sp_mho10dyd_8vfp27', event)">📄</button>
+                                        </div>
+                                    </td>
+                                </tr>
+                                <tr class="link-row" onclick="openLinkDetails('2', '1hNOsab7Rf', 'Stol3', 'sp_mho0yvg2_tkv7wq')">
+                                    <td onclick="event.stopPropagation();"><input type="checkbox" style="width: 16px; height: 16px; accent-color: var(--color-orange);"></td>
+                                    <td><span style="font-weight: 700;">2</span></td>
+                                    <td><span style="font-family: var(--font-heading); font-weight: 700;">1hNOsab7Rf</span></td>
+                                    <td><span class="badge badge-neutral">Stol3</span></td>
+                                    <td>
+                                        <div style="display: flex; align-items: center; gap: 8px;">
+                                            <span style="color: var(--color-cacao-muted); font-size: 13px;">https://app.taplito.com/barok/sp_mho0yvg2_tkv7wq</span>
+                                            <button class="copy-btn" onclick="copyToClipboard('https://app.taplito.com/barok/sp_mho0yvg2_tkv7wq', event)">📄</button>
+                                        </div>
+                                    </td>
+                                </tr>
+                                <tr class="link-row" onclick="openLinkDetails('3', '2LpSmZeajh', 'Stol14', 'sp_mho11knu_o2ki70')">
+                                    <td onclick="event.stopPropagation();"><input type="checkbox" style="width: 16px; height: 16px; accent-color: var(--color-orange);"></td>
+                                    <td><span style="font-weight: 700;">3</span></td>
+                                    <td><span style="font-family: var(--font-heading); font-weight: 700;">2LpSmZeajh</span></td>
+                                    <td><span class="badge badge-neutral">Stol14</span></td>
+                                    <td>
+                                        <div style="display: flex; align-items: center; gap: 8px;">
+                                            <span style="color: var(--color-cacao-muted); font-size: 13px;">https://app.taplito.com/barok/sp_mho11knu_o2ki70</span>
+                                            <button class="copy-btn" onclick="copyToClipboard('https://app.taplito.com/barok/sp_mho11knu_o2ki70', event)">📄</button>
+                                        </div>
+                                    </td>
+                                </tr>
+                                <tr class="link-row" onclick="openLinkDetails('4', '3QfDuBj8M8', 'Stol1', 'sp_mhlqr9x1_i8hvrj')">
+                                    <td onclick="event.stopPropagation();"><input type="checkbox" style="width: 16px; height: 16px; accent-color: var(--color-orange);"></td>
+                                    <td><span style="font-weight: 700;">4</span></td>
+                                    <td><span style="font-family: var(--font-heading); font-weight: 700;">3QfDuBj8M8</span></td>
+                                    <td><span class="badge badge-neutral">Stol1</span></td>
+                                    <td>
+                                        <div style="display: flex; align-items: center; gap: 8px;">
+                                            <span style="color: var(--color-cacao-muted); font-size: 13px;">https://app.taplito.com/barok/sp_mhlqr9x1_i8hvrj</span>
+                                            <button class="copy-btn" onclick="copyToClipboard('https://app.taplito.com/barok/sp_mhlqr9x1_i8hvrj', event)">📄</button>
+                                        </div>
+                                    </td>
+                                </tr>
+                                <tr class="link-row" onclick="openLinkDetails('5', '5ycXZuqJVM', 'Stol11', 'sp_mho1101j_z038uj')">
+                                    <td onclick="event.stopPropagation();"><input type="checkbox" style="width: 16px; height: 16px; accent-color: var(--color-orange);"></td>
+                                    <td><span style="font-weight: 700;">5</span></td>
+                                    <td><span style="font-family: var(--font-heading); font-weight: 700;">5ycXZuqJVM</span></td>
+                                    <td><span class="badge badge-neutral">Stol11</span></td>
+                                    <td>
+                                        <div style="display: flex; align-items: center; gap: 8px;">
+                                            <span style="color: var(--color-cacao-muted); font-size: 13px;">https://app.taplito.com/barok/sp_mho1101j_z038uj</span>
+                                            <button class="copy-btn" onclick="copyToClipboard('https://app.taplito.com/barok/sp_mho1101j_z038uj', event)">📄</button>
+                                        </div>
+                                    </td>
+                                </tr>
+                                <tr class="link-row" onclick="openLinkDetails('6', 'fE1Z1K9Lqi', 'Stol6', 'sp_mho0zyue_hvti3i')">
+                                    <td onclick="event.stopPropagation();"><input type="checkbox" style="width: 16px; height: 16px; accent-color: var(--color-orange);"></td>
+                                    <td><span style="font-weight: 700;">6</span></td>
+                                    <td><span style="font-family: var(--font-heading); font-weight: 700;">fE1Z1K9Lqi</span></td>
+                                    <td><span class="badge badge-neutral">Stol6</span></td>
+                                    <td>
+                                        <div style="display: flex; align-items: center; gap: 8px;">
+                                            <span style="color: var(--color-cacao-muted); font-size: 13px;">https://app.taplito.com/barok/sp_mho0zyue_hvti3i</span>
+                                            <button class="copy-btn" onclick="copyToClipboard('https://app.taplito.com/barok/sp_mho0zyue_hvti3i', event)">📄</button>
+                                        </div>
+                                    </td>
+                                </tr>
+                                <tr class="link-row" onclick="openLinkDetails('7', 'FEM7ntDwK7', 'Stol8', 'sp_mho10j6x_tttihy')">
+                                    <td onclick="event.stopPropagation();"><input type="checkbox" style="width: 16px; height: 16px; accent-color: var(--color-orange);"></td>
+                                    <td><span style="font-weight: 700;">7</span></td>
+                                    <td><span style="font-family: var(--font-heading); font-weight: 700;">FEM7ntDwK7</span></td>
+                                    <td><span class="badge badge-neutral">Stol8</span></td>
+                                    <td>
+                                        <div style="display: flex; align-items: center; gap: 8px;">
+                                            <span style="color: var(--color-cacao-muted); font-size: 13px;">https://app.taplito.com/barok/sp_mho10j6x_tttihy</span>
+                                            <button class="copy-btn" onclick="copyToClipboard('https://app.taplito.com/barok/sp_mho10j6x_tttihy', event)">📄</button>
+                                        </div>
+                                    </td>
+                                </tr>
+                                <tr class="link-row" onclick="openLinkDetails('8', 'gIEJsZJUI8', 'Stol15', 'sp_mho11spm_n5og64')">
+                                    <td onclick="event.stopPropagation();"><input type="checkbox" style="width: 16px; height: 16px; accent-color: var(--color-orange);"></td>
+                                    <td><span style="font-weight: 700;">8</span></td>
+                                    <td><span style="font-family: var(--font-heading); font-weight: 700;">gIEJsZJUI8</span></td>
+                                    <td><span class="badge badge-neutral">Stol15</span></td>
+                                    <td>
+                                        <div style="display: flex; align-items: center; gap: 8px;">
+                                            <span style="color: var(--color-cacao-muted); font-size: 13px;">https://app.taplito.com/barok/sp_mho11spm_n5og64</span>
+                                            <button class="copy-btn" onclick="copyToClipboard('https://app.taplito.com/barok/sp_mho11spm_n5og64', event)">📄</button>
+                                        </div>
+                                    </td>
+                                </tr>
+                                <tr class="link-row" onclick="openLinkDetails('9', 'Is27X5YtIY', 'Stol4', 'sp_mho0zfhs_t0ani1')">
+                                    <td onclick="event.stopPropagation();"><input type="checkbox" style="width: 16px; height: 16px; accent-color: var(--color-orange);"></td>
+                                    <td><span style="font-weight: 700;">9</span></td>
+                                    <td><span style="font-family: var(--font-heading); font-weight: 700;">Is27X5YtIY</span></td>
+                                    <td><span class="badge badge-neutral">Stol4</span></td>
+                                    <td>
+                                        <div style="display: flex; align-items: center; gap: 8px;">
+                                            <span style="color: var(--color-cacao-muted); font-size: 13px;">https://app.taplito.com/barok/sp_mho0zfhs_t0ani1</span>
+                                            <button class="copy-btn" onclick="copyToClipboard('https://app.taplito.com/barok/sp_mho0zfhs_t0ani1', event)">📄</button>
+                                        </div>
+                                    </td>
+                                </tr>
+                                <tr class="link-row" onclick="openLinkDetails('10', 'P5P02x9n4H', '-', 'sp_mho12_unassigned')">
+                                    <td onclick="event.stopPropagation();"><input type="checkbox" style="width: 16px; height: 16px; accent-color: var(--color-orange);"></td>
+                                    <td><span style="font-weight: 700;">10</span></td>
+                                    <td><span style="font-family: var(--font-heading); font-weight: 700;">P5P02x9n4H</span></td>
+                                    <td><span style="color: var(--color-cacao-muted);">-</span></td>
+                                    <td>
+                                        <div style="display: flex; align-items: center; gap: 8px;">
+                                            <span style="color: var(--color-cacao-muted); font-size: 13px;">https://app.taplito.com/barok/sp_mho12_unassigned</span>
+                                            <button class="copy-btn" onclick="copyToClipboard('https://app.taplito.com/barok/sp_mho12_unassigned', event)">📄</button>
+                                        </div>
+                                    </td>
+                                </tr>
+                                <tr class="link-row" onclick="openLinkDetails('11', 'PW7z9WKRKK', 'Stol13', 'sp_mho119ro_ibxv5f')">
+                                    <td onclick="event.stopPropagation();"><input type="checkbox" style="width: 16px; height: 16px; accent-color: var(--color-orange);"></td>
+                                    <td><span style="font-weight: 700;">11</span></td>
+                                    <td><span style="font-family: var(--font-heading); font-weight: 700;">PW7z9WKRKK</span></td>
+                                    <td><span class="badge badge-neutral">Stol13</span></td>
+                                    <td>
+                                        <div style="display: flex; align-items: center; gap: 8px;">
+                                            <span style="color: var(--color-cacao-muted); font-size: 13px;">https://app.taplito.com/barok/sp_mho119ro_ibxv5f</span>
+                                            <button class="copy-btn" onclick="copyToClipboard('https://app.taplito.com/barok/sp_mho119ro_ibxv5f', event)">📄</button>
+                                        </div>
+                                    </td>
+                                </tr>
+                                <tr class="link-row" onclick="openLinkDetails('12', 'QwD3shLnZH', 'Stol2', 'sp_mho0yjop_sl99im')">
+                                    <td onclick="event.stopPropagation();"><input type="checkbox" style="width: 16px; height: 16px; accent-color: var(--color-orange);"></td>
+                                    <td><span style="font-weight: 700;">12</span></td>
+                                    <td><span style="font-family: var(--font-heading); font-weight: 700;">QwD3shLnZH</span></td>
+                                    <td><span class="badge badge-neutral">Stol2</span></td>
+                                    <td>
+                                        <div style="display: flex; align-items: center; gap: 8px;">
+                                            <span style="color: var(--color-cacao-muted); font-size: 13px;">https://app.taplito.com/barok/sp_mho0yjop_sl99im</span>
+                                            <button class="copy-btn" onclick="copyToClipboard('https://app.taplito.com/barok/sp_mho0yjop_sl99im', event)">📄</button>
+                                        </div>
+                                    </td>
+                                </tr>
+                                <tr class="link-row" onclick="openLinkDetails('13', 'wRP4kKeaUl', 'Stol9', 'sp_mho10o0y_mkhq1t')">
+                                    <td onclick="event.stopPropagation();"><input type="checkbox" style="width: 16px; height: 16px; accent-color: var(--color-orange);"></td>
+                                    <td><span style="font-weight: 700;">13</span></td>
+                                    <td><span style="font-family: var(--font-heading); font-weight: 700;">wRP4kKeaUl</span></td>
+                                    <td><span class="badge badge-neutral">Stol9</span></td>
+                                    <td>
+                                        <div style="display: flex; align-items: center; gap: 8px;">
+                                            <span style="color: var(--color-cacao-muted); font-size: 13px;">https://app.taplito.com/barok/sp_mho10o0y_mkhq1t</span>
+                                            <button class="copy-btn" onclick="copyToClipboard('https://app.taplito.com/barok/sp_mho10o0y_mkhq1t', event)">📄</button>
+                                        </div>
+                                    </td>
+                                </tr>
+                                <tr class="link-row" onclick="openLinkDetails('14', 'xCMFRq02aH', 'Stol12', 'sp_mho114l7_sh1hjo')">
+                                    <td onclick="event.stopPropagation();"><input type="checkbox" style="width: 16px; height: 16px; accent-color: var(--color-orange);"></td>
+                                    <td><span style="font-weight: 700;">14</span></td>
+                                    <td><span style="font-family: var(--font-heading); font-weight: 700;">xCMFRq02aH</span></td>
+                                    <td><span class="badge badge-neutral">Stol12</span></td>
+                                    <td>
+                                        <div style="display: flex; align-items: center; gap: 8px;">
+                                            <span style="color: var(--color-cacao-muted); font-size: 13px;">https://app.taplito.com/barok/sp_mho114l7_sh1hjo</span>
+                                            <button class="copy-btn" onclick="copyToClipboard('https://app.taplito.com/barok/sp_mho114l7_sh1hjo', event)">📄</button>
+                                        </div>
+                                    </td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            </main>
+        </div>
+    </div>
+
+    <!-- MODAL: Dynamic Link Details & Remove Option ("When I go inside of it") -->
+    <div id="modal-link-details" class="modal-overlay">
+        <div class="modal-box" style="max-width: 520px; padding: 28px;">
+            <div style="display: flex; justify-content: space-between; align-items: flex-start; margin-bottom: 6px;">
+                <h3 style="margin: 0; font-size: 22px; font-weight: 800; color: var(--color-cacao);">Dynamic Link Details</h3>
+                <button type="button" class="btn btn-secondary" style="padding: 4px 10px; border: none; font-size: 16px;" onclick="closeLinkDetails()">✕</button>
+            </div>
+            <p style="font-size: 13px; color: var(--color-cacao-muted); margin: 0 0 20px 0;">
+                Inspect configuration and manage QR destination or removal.
+            </p>
+
+            <div style="background: var(--color-paper-subtle); border: 1px solid var(--color-border); border-radius: var(--radius-sm); padding: 18px; margin-bottom: 20px;">
+                <div style="display: flex; justify-content: space-between; margin-bottom: 12px;">
+                    <span style="font-size: 13px; color: var(--color-cacao-muted);">Code ID:</span>
+                    <span style="font-family: var(--font-heading); font-weight: 800; color: var(--color-cacao); font-size: 16px;" id="detail-code">0v5PsP2ft4</span>
+                </div>
+                <div style="display: flex; justify-content: space-between; margin-bottom: 12px;">
+                    <span style="font-size: 13px; color: var(--color-cacao-muted);">Assigned Label:</span>
+                    <span class="badge badge-neutral" id="detail-label">Stol7</span>
+                </div>
+                <div style="display: flex; justify-content: space-between; margin-bottom: 12px;">
+                    <span style="font-size: 13px; color: var(--color-cacao-muted);">Target Service Point:</span>
+                    <span style="font-weight: 600; color: var(--color-cacao);" id="detail-sp">sp_mho10dyd_8vfp27</span>
+                </div>
+                <div style="margin-top: 14px; padding-top: 14px; border-top: 1px solid var(--color-border);">
+                    <span style="font-size: 12px; color: var(--color-cacao-muted); display: block; margin-bottom: 4px;">Dynamic Destination URL:</span>
+                    <div style="display: flex; align-items: center; justify-content: space-between; background: var(--color-elevated); padding: 8px 12px; border-radius: var(--radius-sm); border: 1px solid var(--color-border);">
+                        <span style="font-size: 13px; font-weight: 600; color: var(--color-cacao); word-break: break-all;" id="detail-url">https://app.taplito.com/barok/sp_mho10dyd_8vfp27</span>
+                        <button class="btn btn-secondary" style="padding: 4px 10px; font-size: 12px;" onclick="copyToClipboard(document.getElementById('detail-url').innerText, event)">Copy</button>
+                    </div>
+                </div>
+            </div>
+
+            <!-- REMOVE LINK OPTION REQUESTED BY USER -->
+            <div style="border-top: 1px solid var(--color-border); padding-top: 20px; display: flex; justify-content: space-between; align-items: center;">
+                <button type="button" class="btn btn-secondary" onclick="closeLinkDetails()">Close</button>
+                <button type="button" class="btn btn-danger" style="padding: 10px 20px; font-weight: 700; display: flex; align-items: center; gap: 8px;" onclick="removeCurrentLink()">
+                    🗑️ Remove Dynamic Link
+                </button>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        let currentActiveRow = null;
+
+        function copyToClipboard(text, e) {
+            if(e) e.stopPropagation();
+            navigator.clipboard.writeText(text);
+            alert('Copied to clipboard: ' + text);
+        }
+
+        function openLinkDetails(num, code, label, sp) {
+            currentActiveRow = event.currentTarget;
+            document.getElementById('detail-code').innerText = code;
+            document.getElementById('detail-label').innerText = label;
+            document.getElementById('detail-sp').innerText = sp;
+            document.getElementById('detail-url').innerText = 'https://app.taplito.com/barok/' + sp;
+            document.getElementById('modal-link-details').classList.add('open');
+        }
+
+        function closeLinkDetails() {
+            document.getElementById('modal-link-details').classList.remove('open');
+            currentActiveRow = null;
+        }
+
+        function removeCurrentLink() {
+            const code = document.getElementById('detail-code').innerText;
+            if(confirm('Trajno ukloniti dinamički link "' + code + '"? (Remove dynamic QR link target)')) {
+                if(currentActiveRow) {
+                    currentActiveRow.style.opacity = '0';
+                    setTimeout(() => {
+                        currentActiveRow.remove();
+                        const countElem = document.getElementById('total-links-count');
+                        const curCount = parseInt(countElem.innerText) || 14;
+                        if(curCount > 0) countElem.innerText = curCount - 1;
+                    }, 200);
+                }
+                closeLinkDetails();
+                alert('Dynamic link "' + code + '" removed successfully!');
+            }
+        }
+    </script>
+</body>
+</html>

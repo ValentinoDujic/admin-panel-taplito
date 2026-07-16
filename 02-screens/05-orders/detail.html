@@ -1,0 +1,318 @@
+<!DOCTYPE html>
+<html lang="hr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Order Details f0Mxvc25fW - Taplito Admin V2.0</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Outfit:wght@500;600;700;800;900&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="../../tokens.css">
+    <link rel="stylesheet" href="../../global.css">
+    <style>
+        .meta-grid {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 24px;
+        }
+        @media (max-width: 900px) {
+            .meta-grid {
+                grid-template-columns: repeat(2, 1fr);
+            }
+        }
+        .meta-item {
+            display: flex;
+            flex-direction: column;
+            gap: 6px;
+        }
+        .meta-label {
+            font-size: 13px;
+            color: var(--color-cacao-muted);
+            font-weight: 500;
+        }
+        .meta-value {
+            font-family: var(--font-heading);
+            font-size: 15px;
+            font-weight: 700;
+            color: var(--color-cacao);
+        }
+        .card-header-sub {
+            font-size: 13px;
+            color: var(--color-cacao-muted);
+            margin-top: 2px;
+            margin-bottom: 18px;
+        }
+        .badge-state {
+            padding: 4px 12px;
+            font-size: 12px;
+            font-weight: 600;
+            border-radius: var(--radius-sm);
+            background: var(--color-paper-subtle);
+            border: 1px solid var(--color-border);
+            color: var(--color-cacao);
+            display: inline-block;
+        }
+        .total-box {
+            display: flex;
+            justify-content: flex-end;
+            align-items: center;
+            gap: 24px;
+            padding: 16px 20px;
+            background: var(--color-paper-subtle);
+            border-top: 1px solid var(--color-border);
+            font-family: var(--font-heading);
+            font-size: 16px;
+            font-weight: 800;
+        }
+        .total-price {
+            color: #10B981; /* Green matching screenshot exact */
+            font-size: 18px;
+        }
+    </style>
+</head>
+<body>
+    <div class="app-container">
+        <!-- Sidebar - Exact Barok Standard Native Navigation -->
+        <aside class="sidebar">
+            <div class="sidebar-brand-top">
+                <a href="../../index.html" class="brand-lockup">
+                    <div class="brand-badge">T</div>
+                    <div class="brand-wordmark">TAPLITO</div>
+                </a>
+            </div>
+
+            <a href="../07-settings/index.html" class="tenant-switcher">
+                <div class="tenant-box-left">
+                    <div class="tenant-icon">B</div>
+                    <div>
+                        <div class="tenant-name">Barok Standard</div>
+                        <div style="font-size: 11px; color: var(--color-cacao-muted);">Tenant UI · Split</div>
+                    </div>
+                </div>
+                <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M7 15l5 5 5-5"/><path d="M7 9l5-5 5 5"/></svg>
+            </a>
+
+            <div class="nav-section">
+                <div class="nav-section-header">Platform</div>
+                <a href="../07-settings/index.html" class="nav-item">
+                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor"><circle cx="12" cy="12" r="3"/><path d="M19.4 15a1.65 1.65 0 0 0 .33 1.82l.06.06a2 2 0 0 1 0 2.83 2 2 0 0 1-2.83 0l-.06-.06a1.65 1.65 0 0 0-1.82-.33 1.65 1.65 0 0 0-1 1.51V21a2 2 0 0 1-2 2 2 2 0 0 1-2-2v-.09A1.65 1.65 0 0 0 9 19.4a1.65 1.65 0 0 0-1.82.33l-.06.06a2 2 0 0 1-2.83 0 2 2 0 0 1 0-2.83l-.06-.06a1.65 1.65 0 0 0 .33-1.82 1.65 1.65 0 0 0-1.51-1H3a2 2 0 0 1-2-2 2 2 0 0 1 2-2h.09A1.65 1.65 0 0 0 4.6 9a1.65 1.65 0 0 0-.33-1.82l-.06-.06a2 2 0 0 1 0-2.83 2 2 0 0 1 2.83 0l.06.06a1.65 1.65 0 0 0 1.82.33H9a1.65 1.65 0 0 0 1-1.51V3a2 2 0 0 1 2-2 2 2 0 0 1 2 2v.09a1.65 1.65 0 0 0 1 1.51 1.65 1.65 0 0 0 1.82-.33l.06-.06a2 2 0 0 1 2.83 0 2 2 0 0 1 0 2.83l-.06-.06a1.65 1.65 0 0 0-.33 1.82V9a1.65 1.65 0 0 0 1.51 1H21a2 2 0 0 1 2 2 2 2 0 0 1-2 2h-.09a1.65 1.65 0 0 0-1.51 1z"/></svg>
+                    Settings
+                </a>
+            </div>
+
+            <div class="nav-section">
+                <div class="nav-section-header">Manage <span>v</span></div>
+                <a href="../02-products/index.html" class="nav-item">
+                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor"><rect x="3" y="3" width="7" height="7" rx="1"/><rect x="14" y="3" width="7" height="7" rx="1"/><rect x="14" y="14" width="7" height="7" rx="1"/><rect x="3" y="14" width="7" height="7" rx="1"/></svg>
+                    Products
+                </a>
+                <a href="../04-service-points/index.html" class="nav-item">
+                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor"><circle cx="12" cy="12" r="10"/><path d="M12 8v4l3 3"/></svg>
+                    Service Points
+                </a>
+                <a href="../03-menus/index.html" class="nav-item">
+                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor"><path d="M4 6h16M4 12h16M4 18h16"/></svg>
+                    Menus
+                </a>
+                <a href="../08-dynamic-links/index.html" class="nav-item">
+                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor"><path d="M10 13a5 5 0 0 0 7.54.54l3-3a5 5 0 0 0-7.07-7.07l-1.72 1.71"/><path d="M14 11a5 5 0 0 0-7.54-.54l-3 3a5 5 0 0 0 7.07 7.07l1.71-1.71"/></svg>
+                    Dynamic Links
+                </a>
+                <a href="../09-accounts/index.html" class="nav-item">
+                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor"><path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M23 21v-2a4 4 0 0 0-3-3.87"/><path d="M16 3.13a4 4 0 0 1 0 7.75"/></svg>
+                    Accounts
+                </a>
+            </div>
+
+            <div class="nav-section">
+                <div class="nav-section-header">Integrations <span>v</span></div>
+                <a href="../06-integrations/index.html" class="nav-item">
+                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor"><path d="M12 2v20M17 5H9.5a3.5 3.5 0 0 0 0 7h5a3.5 3.5 0 0 1 0 7H6"/></svg>
+                    POS
+                </a>
+                <a href="../10-payment-providers/index.html" class="nav-item">
+                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor"><rect x="1" y="4" width="22" height="16" rx="2" ry="2"/><line x1="1" y1="10" x2="23" y2="10"/></svg>
+                    Payment Providers
+                </a>
+                <a href="../11-api-keys/index.html" class="nav-item">
+                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor"><path d="M21 2l-2 2m-7.61 7.61a5.5 5.5 0 1 1-7.778 7.778 5.5 5.5 0 0 1 7.777-7.777zm0 0L15.5 7.5m0 0l3 3L22 7l-3-3m-3.5 3.5L19 4"/></svg>
+                    API Keys
+                </a>
+            </div>
+
+            <div class="nav-section">
+                <div class="nav-section-header">Analytics <span>v</span></div>
+                <a href="index.html" class="nav-item active">
+                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><polyline points="14 2 14 8 20 8"/><line x1="16" y1="13" x2="8" y2="13"/><line x1="16" y1="17" x2="8" y2="17"/></svg>
+                    Orders
+                </a>
+                <a href="../13-performance/index.html" class="nav-item">
+                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor"><path d="M18 20V10M12 20V4M6 20v-6"/></svg>
+                    Performance Insights
+                </a>
+                <a href="../12-tips/index.html" class="nav-item">
+                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor"><line x1="12" y1="1" x2="12" y2="23"/><path d="M17 5H9.5a3.5 3.5 0 0 0 0 7h5a3.5 3.5 0 0 1 0 7H6"/></svg>
+                    Tips
+                </a>
+            </div>
+        </aside>
+
+        <!-- Main Content Area -->
+        <div class="main-wrapper">
+            <header class="top-header">
+                <div class="header-title-box">
+                    <div class="breadcrumb">
+                        <a href="../../index.html">Barok</a> <span>›</span> <a href="index.html">Analytics</a> <span>›</span> <a href="index.html">Orders</a> <span>›</span> <span style="color: var(--color-cacao);">f0Mxvc25fW</span>
+                    </div>
+                    <span class="header-subtitle" style="font-size: 14px;">Detailed breakdown of order items, timeline events, and POS sync state.</span>
+                </div>
+                <div class="header-actions">
+                    <a href="index.html" class="btn btn-secondary" style="display: inline-flex; align-items: center; gap: 6px;">
+                        ← Back to Orders
+                    </a>
+                    <button class="btn btn-secondary" onclick="alert('Printing order receipt on POS printer...')">
+                        🖨️ Print Receipt
+                    </button>
+                    <!-- Action button in 10% Premium Orange per Brand Book -->
+                    <button class="btn btn-primary" onclick="confirm('Initiate partial or full refund for order #f0Mxvc25fW?') && alert('Refund request processed with payment gateway!')">
+                        Refund Order
+                    </button>
+                </div>
+            </header>
+
+            <main class="content-area">
+                <!-- CARD 1: Order Summary Metadata exact to input_file_0.png -->
+                <div class="card" style="padding: 24px; margin-bottom: 24px;">
+                    <div class="meta-grid">
+                        <!-- Row 1 Left -->
+                        <div class="meta-item">
+                            <span class="meta-label">Order ID</span>
+                            <span class="meta-value" style="font-size: 16px;">f0Mxvc25fW</span>
+                        </div>
+                        <!-- Row 1 Right / Middle -->
+                        <div class="meta-item">
+                            <span class="meta-label">Status</span>
+                            <div><span class="badge badge-success" style="padding: 5px 14px; font-size: 13px;">Accepted</span></div>
+                        </div>
+                        <div class="meta-item" style="display: none; /* spacing placeholder */"></div>
+
+                        <!-- Row 2 -->
+                        <div class="meta-item" style="margin-top: 8px;">
+                            <span class="meta-label">Payment Status</span>
+                            <div><span class="badge badge-success" style="padding: 5px 14px; font-size: 13px;">Paid</span></div>
+                        </div>
+                        <div class="meta-item" style="margin-top: 8px;">
+                            <span class="meta-label">Service Point</span>
+                            <span class="meta-value" style="font-size: 15px;">sp_mho0zyue_hvti3i</span>
+                        </div>
+                        <div class="meta-item" style="display: none;"></div>
+
+                        <!-- Row 3 -->
+                        <div class="meta-item" style="margin-top: 8px;">
+                            <span class="meta-label">Created</span>
+                            <span class="meta-value" style="font-weight: 600; font-size: 14px; color: var(--color-cacao-muted);">7/15/2026, 9:12:29 PM</span>
+                        </div>
+                        <div class="meta-item" style="margin-top: 8px;">
+                            <span class="meta-label">Last Updated</span>
+                            <span class="meta-value" style="font-weight: 600; font-size: 14px; color: var(--color-cacao-muted);">7/15/2026, 9:15:43 PM</span>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- CARD 2: Order Items exact to input_file_0.png -->
+                <div class="card" style="padding: 0; overflow: hidden; margin-bottom: 24px;">
+                    <div style="padding: 20px 24px;">
+                        <h3 style="margin: 0; font-size: 18px; font-weight: 800; color: var(--color-cacao);">Order Items</h3>
+                        <div class="card-header-sub">Products and quantities in this order</div>
+                    </div>
+                    <div class="table-wrapper" style="margin: 0;">
+                        <table class="admin-table">
+                            <thead>
+                                <tr>
+                                    <th style="width: 180px;">Product ID</th>
+                                    <th>Product Name</th>
+                                    <th style="width: 120px;">Quantity</th>
+                                    <th style="width: 120px;">Price</th>
+                                    <th style="width: 120px; text-align: right;">Total</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr>
+                                    <td><span style="font-family: var(--font-heading); font-weight: 600; color: var(--color-cacao-muted);">5GMTp5zZvB</span></td>
+                                    <td><span style="font-family: var(--font-heading); font-weight: 700; color: var(--color-cacao); font-size: 15px;">HIDRA 0.50L</span></td>
+                                    <td><span style="font-weight: 700;">3</span></td>
+                                    <td><span>$2.60</span></td>
+                                    <td style="text-align: right;"><span style="font-weight: 700;">$7.80</span></td>
+                                </tr>
+                                <tr>
+                                    <td><span style="font-family: var(--font-heading); font-weight: 600; color: var(--color-cacao-muted);">3KSCPT0MTT</span></td>
+                                    <td><span style="font-family: var(--font-heading); font-weight: 700; color: var(--color-cacao); font-size: 15px;">LIMUNADA 0.20L</span></td>
+                                    <td><span style="font-weight: 700;">1</span></td>
+                                    <td><span>$2.40</span></td>
+                                    <td style="text-align: right;"><span style="font-weight: 700;">$2.40</span></td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                    <!-- Total Bar exact to screenshot -->
+                    <div class="total-box">
+                        <span>Total</span>
+                        <span class="total-price">$10.20</span>
+                    </div>
+                </div>
+
+                <!-- CARD 3: Order Events Timeline exact to input_file_0.png -->
+                <div class="card" style="padding: 0; overflow: hidden; margin-bottom: 36px;">
+                    <div style="padding: 20px 24px;">
+                        <h3 style="margin: 0; font-size: 18px; font-weight: 800; color: var(--color-cacao);">Order Events</h3>
+                        <div class="card-header-sub">Timeline of events for this order</div>
+                    </div>
+                    <div class="table-wrapper" style="margin: 0;">
+                        <table class="admin-table">
+                            <thead>
+                                <tr>
+                                    <th style="width: 320px;">Event ID</th>
+                                    <th style="width: 200px;">Timestamp</th>
+                                    <th style="width: 130px;">State</th>
+                                    <th style="width: 130px;">Status</th>
+                                    <th>Payment Status</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr>
+                                    <td><span style="font-family: var(--font-heading); font-size: 13px; color: var(--color-cacao-muted);">ba7fc8ef-b973-4824-9ebc-683a95b2e47d</span></td>
+                                    <td><span style="font-size: 13px; color: var(--color-cacao);">7/15/2026, 9:15:43 PM</span></td>
+                                    <td><span class="badge-state">Received</span></td>
+                                    <td><span style="font-weight: 600;">Accepted</span></td>
+                                    <td><span style="font-weight: 600; color: var(--color-success);">Paid</span></td>
+                                </tr>
+                                <tr>
+                                    <td><span style="font-family: var(--font-heading); font-size: 13px; color: var(--color-cacao-muted);">528155b8-a11f-423f-98c5-8a4dd889998f</span></td>
+                                    <td><span style="font-size: 13px; color: var(--color-cacao);">7/15/2026, 9:15:40 PM</span></td>
+                                    <td><span class="badge-state">Received</span></td>
+                                    <td><span style="font-weight: 600;">Seen</span></td>
+                                    <td><span style="font-weight: 600; color: var(--color-cacao);">Authorized</span></td>
+                                </tr>
+                                <tr>
+                                    <td><span style="font-family: var(--font-heading); font-size: 13px; color: var(--color-cacao-muted);">454787d7-2dc7-4a53-b646-25ed35310ceb</span></td>
+                                    <td><span style="font-size: 13px; color: var(--color-cacao);">7/15/2026, 9:14:46 PM</span></td>
+                                    <td><span class="badge-state">Received</span></td>
+                                    <td><span style="font-weight: 600;">Created</span></td>
+                                    <td><span style="font-weight: 600; color: var(--color-cacao);">Authorized</span></td>
+                                </tr>
+                                <tr>
+                                    <td><span style="font-family: var(--font-heading); font-size: 13px; color: var(--color-cacao-muted);">c5283b63-7573-46a9-b035-67ccb2e34449</span></td>
+                                    <td><span style="font-size: 13px; color: var(--color-cacao);">7/15/2026, 9:12:29 PM</span></td>
+                                    <td><span class="badge-state">Received</span></td>
+                                    <td><span style="font-weight: 600;">Created</span></td>
+                                    <td><span style="font-weight: 600; color: var(--color-warning);">Pending</span></td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            </main>
+        </div>
+    </div>
+</body>
+</html>

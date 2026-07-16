@@ -1,0 +1,586 @@
+<!DOCTYPE html>
+<html lang="hr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Products - Taplito Admin V2.0</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Outfit:wght@500;600;700;800;900&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="../../tokens.css">
+    <link rel="stylesheet" href="../../global.css">
+    <style>
+        /* Stock Photo Selector Grid */
+        .stock-grid {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 12px;
+            margin-top: 14px;
+        }
+        .stock-item {
+            border: 2px solid var(--color-border);
+            border-radius: var(--radius-sm);
+            overflow: hidden;
+            cursor: pointer;
+            position: relative;
+            background: var(--color-paper-subtle);
+            transition: var(--transition-fast);
+            text-align: center;
+            padding: 12px 8px;
+        }
+        .stock-item:hover {
+            border-color: var(--color-orange);
+            transform: translateY(-2px);
+            box-shadow: 0 4px 12px rgba(0,0,0,0.06);
+        }
+        .stock-item.selected {
+            border-color: var(--color-orange);
+            background: var(--color-paper);
+            box-shadow: 0 0 0 2px var(--color-orange);
+        }
+        .stock-item-icon {
+            font-size: 32px;
+            margin-bottom: 6px;
+        }
+        .stock-item-label {
+            font-family: var(--font-heading);
+            font-size: 12px;
+            font-weight: 700;
+            color: var(--color-cacao);
+        }
+        .stock-item-badge {
+            position: absolute;
+            top: 6px;
+            right: 6px;
+            width: 20px;
+            height: 20px;
+            border-radius: 50%;
+            background: var(--color-orange);
+            color: #FFFFFF;
+            font-size: 11px;
+            display: none;
+            align-items: center;
+            justify-content: center;
+            font-weight: 800;
+        }
+        .stock-item.selected .stock-item-badge {
+            display: flex;
+        }
+        .photo-tab-btn {
+            padding: 8px 16px;
+            font-size: 13px;
+            font-weight: 600;
+            border-radius: var(--radius-sm);
+            border: 1px solid var(--color-border);
+            background: var(--color-paper-subtle);
+            color: var(--color-cacao);
+            cursor: pointer;
+            transition: var(--transition-fast);
+        }
+        .photo-tab-btn.active {
+            background: var(--color-cacao);
+            color: #FFFFFF;
+            border-color: var(--color-cacao);
+        }
+    </style>
+</head>
+<body>
+    <div class="app-container">
+        <!-- Sidebar - Exact Barok Standard Native Navigation -->
+        <aside class="sidebar">
+            <div class="sidebar-brand-top">
+                <a href="../../index.html" class="brand-lockup">
+                    <div class="brand-badge">T</div>
+                    <div class="brand-wordmark">TAPLITO</div>
+                </a>
+            </div>
+
+            <a href="../07-settings/index.html" class="tenant-switcher">
+                <div class="tenant-box-left">
+                    <div class="tenant-icon">B</div>
+                    <div>
+                        <div class="tenant-name">Barok Standard</div>
+                        <div style="font-size: 11px; color: var(--color-cacao-muted);">Tenant UI · Split</div>
+                    </div>
+                </div>
+                <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M7 15l5 5 5-5"/><path d="M7 9l5-5 5 5"/></svg>
+            </a>
+
+            <div class="nav-section">
+                <div class="nav-section-header">Platform</div>
+                <a href="../07-settings/index.html" class="nav-item">
+                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor"><circle cx="12" cy="12" r="3"/><path d="M19.4 15a1.65 1.65 0 0 0 .33 1.82l.06.06a2 2 0 0 1 0 2.83 2 2 0 0 1-2.83 0l-.06-.06a1.65 1.65 0 0 0-1.82-.33 1.65 1.65 0 0 0-1 1.51V21a2 2 0 0 1-2 2 2 2 0 0 1-2-2v-.09A1.65 1.65 0 0 0 9 19.4a1.65 1.65 0 0 0-1.82.33l-.06.06a2 2 0 0 1-2.83 0 2 2 0 0 1 0-2.83l.06.06a1.65 1.65 0 0 0 .33-1.82 1.65 1.65 0 0 0-1.51-1H3a2 2 0 0 1-2-2 2 2 0 0 1 2-2h.09A1.65 1.65 0 0 0 4.6 9a1.65 1.65 0 0 0-.33-1.82l-.06-.06a2 2 0 0 1 0-2.83 2 2 0 0 1 2.83 0l.06.06a1.65 1.65 0 0 0 1.82.33H9a1.65 1.65 0 0 0 1-1.51V3a2 2 0 0 1 2-2 2 2 0 0 1 2 2v.09a1.65 1.65 0 0 0 1 1.51 1.65 1.65 0 0 0 1.82-.33l.06-.06a2 2 0 0 1 2.83 0 2 2 0 0 1 0 2.83l-.06-.06a1.65 1.65 0 0 0-.33 1.82V9a1.65 1.65 0 0 0 1.51 1H21a2 2 0 0 1 2 2 2 2 0 0 1-2 2h-.09a1.65 1.65 0 0 0-1.51 1z"/></svg>
+                    Settings
+                </a>
+            </div>
+
+            <div class="nav-section">
+                <div class="nav-section-header">Manage <span>v</span></div>
+                <a href="../02-products/index.html" class="nav-item active">
+                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor"><rect x="3" y="3" width="7" height="7" rx="1"/><rect x="14" y="3" width="7" height="7" rx="1"/><rect x="14" y="14" width="7" height="7" rx="1"/><rect x="3" y="14" width="7" height="7" rx="1"/></svg>
+                    Products
+                </a>
+                <a href="../04-service-points/index.html" class="nav-item">
+                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor"><circle cx="12" cy="12" r="10"/><path d="M12 8v4l3 3"/></svg>
+                    Service Points
+                </a>
+                <a href="../03-menus/index.html" class="nav-item">
+                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor"><path d="M4 6h16M4 12h16M4 18h16"/></svg>
+                    Menus
+                </a>
+                <a href="../08-dynamic-links/index.html" class="nav-item">
+                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor"><path d="M10 13a5 5 0 0 0 7.54.54l3-3a5 5 0 0 0-7.07-7.07l-1.72 1.71"/><path d="M14 11a5 5 0 0 0-7.54-.54l-3 3a5 5 0 0 0 7.07 7.07l1.71-1.71"/></svg>
+                    Dynamic Links
+                </a>
+                <a href="../09-accounts/index.html" class="nav-item">
+                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor"><path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M23 21v-2a4 4 0 0 0-3-3.87"/><path d="M16 3.13a4 4 0 0 1 0 7.75"/></svg>
+                    Accounts
+                </a>
+            </div>
+
+            <div class="nav-section">
+                <div class="nav-section-header">Integrations <span>v</span></div>
+                <a href="../06-integrations/index.html" class="nav-item">
+                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor"><path d="M12 2v20M17 5H9.5a3.5 3.5 0 0 0 0 7h5a3.5 3.5 0 0 1 0 7H6"/></svg>
+                    POS
+                </a>
+                <a href="../10-payment-providers/index.html" class="nav-item">
+                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor"><rect x="1" y="4" width="22" height="16" rx="2" ry="2"/><line x1="1" y1="10" x2="23" y2="10"/></svg>
+                    Payment Providers
+                </a>
+                <a href="../11-api-keys/index.html" class="nav-item">
+                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor"><path d="M21 2l-2 2m-7.61 7.61a5.5 5.5 0 1 1-7.778 7.778 5.5 5.5 0 0 1 7.777-7.777zm0 0L15.5 7.5m0 0l3 3L22 7l-3-3m-3.5 3.5L19 4"/></svg>
+                    API Keys
+                </a>
+            </div>
+
+            <div class="nav-section">
+                <div class="nav-section-header">Analytics <span>v</span></div>
+                <a href="../05-orders/index.html" class="nav-item">
+                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><polyline points="14 2 14 8 20 8"/><line x1="16" y1="13" x2="8" y2="13"/><line x1="16" y1="17" x2="8" y2="17"/></svg>
+                    Orders
+                </a>
+                <a href="../12-tips/index.html" class="nav-item">
+                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor"><line x1="12" y1="1" x2="12" y2="23"/><path d="M17 5H9.5a3.5 3.5 0 0 0 0 7h5a3.5 3.5 0 0 1 0 7H6"/></svg>
+                    Tips
+                </a>
+            </div>
+        </aside>
+
+        <!-- Main Content Area -->
+        <div class="main-wrapper">
+            <header class="top-header">
+                <div class="header-title-box">
+                    <div class="breadcrumb">
+                        <a href="../../index.html">Barok</a> <span>›</span> <a href="../02-products/index.html">Manage</a> <span>›</span> <span style="color: var(--color-cacao);">Products</span>
+                    </div>
+                    <span class="header-subtitle" style="font-size: 14px;">View, create, and manage your restaurant's products and POS sync items.</span>
+                </div>
+                <div class="header-actions">
+                    <button class="btn btn-secondary" onclick="alert('Dohvaćanje artikala iz Remaris POS blagajne (Loading external products)...')">
+                        Import from POS
+                    </button>
+                    <!-- Jedina primarna akcija na ekranu u 10% Premium Orange -->
+                    <button class="btn btn-primary" onclick="openProductModal('create', 'Novi proizvod', '0.00 €', '', '☕')">
+                        + Add Product
+                    </button>
+                </div>
+            </header>
+
+            <main class="content-area">
+                <!-- Search & Filters -->
+                <div class="card" style="margin-bottom: 24px; padding: 16px 20px;">
+                    <div style="display: flex; align-items: center; justify-content: space-between; flex-wrap: wrap; gap: 16px;">
+                        <div style="flex: 1; min-width: 280px; position: relative;">
+                            <input type="text" class="form-control" placeholder="Search products by name or description..." style="padding-left: 38px;">
+                            <svg style="position: absolute; left: 12px; top: 11px; width: 18px; height: 18px; color: var(--color-cacao-muted);" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="11" cy="11" r="8"/><line x1="21" y1="21" x2="16.65" y2="16.65"/></svg>
+                        </div>
+                        <div style="display: flex; gap: 8px; flex-wrap: wrap;">
+                            <span class="badge badge-orange" style="cursor: pointer; padding: 7px 16px; font-size: 13px;">All (42)</span>
+                            <span class="badge badge-neutral" style="cursor: pointer; padding: 7px 16px; font-size: 13px;">Coffee & Drinks (12)</span>
+                            <span class="badge badge-neutral" style="cursor: pointer; padding: 7px 16px; font-size: 13px;">Main Courses (18)</span>
+                            <span class="badge badge-neutral" style="cursor: pointer; padding: 7px 16px; font-size: 13px;">Desserts (7)</span>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Products Table -->
+                <div class="card" style="padding: 0; overflow: hidden;">
+                    <div class="table-wrapper">
+                        <table class="admin-table">
+                            <thead>
+                                <tr>
+                                    <th style="width: 60px;">Photo</th>
+                                    <th style="width: 320px;">≡ Name & Description ↑</th>
+                                    <th>Category / Tags</th>
+                                    <th>Price (Outfit)</th>
+                                    <th>Status (Disabled/Active)</th>
+                                    <th>POS Sync</th>
+                                    <th style="text-align: right;">Actions</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr>
+                                    <td>
+                                        <div style="width: 44px; height: 44px; border-radius: var(--radius-sm); background: var(--color-paper-subtle); display: flex; align-items: center; justify-content: center; font-size: 18px;">☕</div>
+                                    </td>
+                                    <td>
+                                        <div style="font-family: var(--font-heading); font-weight: 700; color: var(--color-cacao); font-size: 16px;">Espresso Arabica 100%</div>
+                                        <div style="font-size: 12px; color: var(--color-cacao-muted); margin-top: 2px;">Presigned upload active · Code: #KAV-001</div>
+                                    </td>
+                                    <td><span class="badge badge-neutral">Coffee & Drinks</span></td>
+                                    <td><span class="price-display">2.20 €</span></td>
+                                    <td>
+                                        <label class="switch"><input type="checkbox" checked><span class="slider"></span></label>
+                                    </td>
+                                    <td><span class="badge badge-success">POS Linked</span></td>
+                                    <td style="text-align: right;">
+                                        <button class="btn btn-secondary" style="padding: 6px 14px;" onclick="openProductModal('edit', 'Espresso Arabica 100%', '2.20 €', 'Prirodna 100% Arabica kava iz Kolumbije.', '☕')">Edit</button>
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td>
+                                        <div style="width: 44px; height: 44px; border-radius: var(--radius-sm); background: var(--color-paper-subtle); display: flex; align-items: center; justify-content: center; font-size: 18px;">🥤</div>
+                                    </td>
+                                    <td>
+                                        <div style="font-family: var(--font-heading); font-weight: 700; color: var(--color-cacao); font-size: 16px;">Cappuccino s bademovim mlijekom</div>
+                                        <div style="font-size: 12px; color: var(--color-cacao-muted); margin-top: 2px;">Code: #KAV-004 · Alergeni: Orašasti plodovi</div>
+                                    </td>
+                                    <td><span class="badge badge-neutral">Coffee & Drinks</span></td>
+                                    <td><span class="price-display">3.40 €</span></td>
+                                    <td>
+                                        <label class="switch"><input type="checkbox" checked><span class="slider"></span></label>
+                                    </td>
+                                    <td><span class="badge badge-success">POS Linked</span></td>
+                                    <td style="text-align: right;">
+                                        <button class="btn btn-secondary" style="padding: 6px 14px;" onclick="openProductModal('edit', 'Cappuccino s bademovim mlijekom', '3.40 €', 'Kremasti cappuccino s biljnim bademovim mlijekom.', '🥤')">Edit</button>
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td>
+                                        <div style="width: 44px; height: 44px; border-radius: var(--radius-sm); background: var(--color-paper-subtle); display: flex; align-items: center; justify-content: center; font-size: 18px;">🥘</div>
+                                    </td>
+                                    <td>
+                                        <div style="font-family: var(--font-heading); font-weight: 700; color: var(--color-cacao); font-size: 16px;">Crni rižot od jadranske sipe</div>
+                                        <div style="font-size: 12px; color: var(--color-cacao-muted); margin-top: 2px;">Code: #JEL-012 · Alergeni: Riba, mekušci</div>
+                                    </td>
+                                    <td><span class="badge badge-neutral">Main Courses</span></td>
+                                    <td><span class="price-display">18.50 €</span></td>
+                                    <td>
+                                        <label class="switch"><input type="checkbox" checked><span class="slider"></span></label>
+                                    </td>
+                                    <td><span class="badge badge-success">POS Linked</span></td>
+                                    <td style="text-align: right;">
+                                        <button class="btn btn-secondary" style="padding: 6px 14px;" onclick="openProductModal('edit', 'Crni rižot od jadranske sipe', '18.50 €', 'Pripremljen po tradicionalnoj dalmatinskoj recepturi sa svježom sipom.', '🥘')">Edit</button>
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td>
+                                        <div style="width: 44px; height: 44px; border-radius: var(--radius-sm); background: var(--color-paper-subtle); display: flex; align-items: center; justify-content: center; font-size: 18px;">🍰</div>
+                                    </td>
+                                    <td>
+                                        <div style="font-family: var(--font-heading); font-weight: 700; color: var(--color-cacao); font-size: 16px;">Domaći kolač od maslinovog ulja i limuna</div>
+                                        <div style="font-size: 12px; color: var(--color-cacao-muted); margin-top: 2px;">Code: #DES-001 · Alergeni: Jaja, pšenica</div>
+                                    </td>
+                                    <td><span class="badge badge-neutral">Desserts</span></td>
+                                    <td><span class="price-display">5.50 €</span></td>
+                                    <td>
+                                        <label class="switch"><input type="checkbox" checked><span class="slider"></span></label>
+                                    </td>
+                                    <td><span class="badge badge-success">POS Linked</span></td>
+                                    <td style="text-align: right;">
+                                        <button class="btn btn-secondary" style="padding: 6px 14px;" onclick="openProductModal('edit', 'Domaći kolač od maslinovog ulja i limuna', '5.50 €', 'Sočni biskvit s ekstradjevičanskim maslinovim uljem.', '🍰')">Edit</button>
+                                    </td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            </main>
+        </div>
+    </div>
+
+    <!-- Modal za dodavanje/uređivanje proizvoda sa Stock Photo i Presigned Upload opcijom -->
+    <div id="modal-product" class="modal-overlay">
+        <div class="modal-box" style="max-width: 780px;">
+            <div class="modal-header">
+                <h3 id="modal-title" style="margin: 0; font-size: 18px;">Product Details & Photo Source</h3>
+                <button class="btn btn-secondary" style="padding: 4px 10px; border: none; font-size: 16px;" onclick="closeProductModal()">✕</button>
+            </div>
+            <div class="modal-body">
+                <div style="display: grid; grid-template-columns: 3fr 1fr; gap: 16px;">
+                    <div class="form-group">
+                        <label class="form-label">Product Name *</label>
+                        <input type="text" id="prod-name" class="form-control" value="Crni rižot od jadranske sipe">
+                    </div>
+                    <div class="form-group">
+                        <label class="form-label">Price (€ - in cents)</label>
+                        <input type="text" id="prod-price" class="form-control" value="18.50 €" style="font-family: var(--font-heading); font-weight: 800; font-size: 16px;">
+                    </div>
+                </div>
+                <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 16px;">
+                    <div class="form-group">
+                        <label class="form-label">Tags / Allergens</label>
+                        <input type="text" class="form-control" value="Riba, mekušci, gluten bez">
+                    </div>
+                    <div class="form-group">
+                        <label class="form-label">Product Description</label>
+                        <input type="text" id="prod-desc" class="form-control" value="Pripremljen po tradicionalnoj dalmatinskoj recepturi sa svježom jadranskom sipom.">
+                    </div>
+                </div>
+
+                <!-- PHOTO SELECTION SECTION WITH TABS -->
+                <div class="form-group" style="margin-top: 18px; border-top: 1px solid var(--color-border); padding-top: 16px;">
+                    <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 12px; flex-wrap: wrap; gap: 10px;">
+                        <label class="form-label" style="margin: 0; font-size: 14px; font-weight: 700; color: var(--color-cacao);">Photo Gallery Source (200+ Curated Items)</label>
+                        <div style="display: flex; gap: 6px;">
+                            <button type="button" id="tab-btn-stock" class="photo-tab-btn active" onclick="switchPhotoTab('stock')">🖼️ Stock Gallery (214)</button>
+                            <button type="button" id="tab-btn-upload" class="photo-tab-btn" onclick="switchPhotoTab('upload')">📁 Presigned Custom Upload</button>
+                        </div>
+                    </div>
+
+                    <!-- TAB 1: Stock Photos Search & Library Grid (200+ images) -->
+                    <div id="tab-content-stock">
+                        <!-- Search Bar & Stats -->
+                        <div style="display: flex; gap: 12px; align-items: center; margin-bottom: 12px;">
+                            <div style="flex: 1; position: relative;">
+                                <input type="text" id="stock-search-input" class="form-control" placeholder="🔍 Search 214+ product photos (e.g., espresso, pizza, spritz, wine, cake, burger...)" style="padding-left: 36px;" oninput="filterStockPhotos()">
+                                <span style="position: absolute; left: 12px; top: 11px; font-size: 14px; color: var(--color-cacao-muted);">🔍</span>
+                            </div>
+                            <span id="photo-count-badge" class="badge badge-neutral" style="white-space: nowrap; font-weight: 700; padding: 8px 14px;">Showing 214 photos</span>
+                        </div>
+
+                        <!-- Category Filter Menu -->
+                        <div class="photo-category-menu" style="display: flex; gap: 6px; overflow-x: auto; padding-bottom: 8px; margin-bottom: 12px;">
+                            <button type="button" class="photo-cat-pill active" onclick="selectPhotoCategory('all', this)">✨ All Photos (214)</button>
+                            <button type="button" class="photo-cat-pill" onclick="selectPhotoCategory('coffee', this)">☕ Coffee & Hot (42)</button>
+                            <button type="button" class="photo-cat-pill" onclick="selectPhotoCategory('cocktails', this)">🍹 Cocktails & Bar (48)</button>
+                            <button type="button" class="photo-cat-pill" onclick="selectPhotoCategory('wines', this)">🍷 Wines & Beers (36)</button>
+                            <button type="button" class="photo-cat-pill" onclick="selectPhotoCategory('mains', this)">🍕 Pizza & Mains (54)</button>
+                            <button type="button" class="photo-cat-pill" onclick="selectPhotoCategory('desserts', this)">🍰 Cakes & Desserts (34)</button>
+                        </div>
+
+                        <!-- Grid -->
+                        <div id="stock-gallery-grid" class="stock-grid" style="grid-template-columns: repeat(4, 1fr); max-height: 310px; overflow-y: auto; padding-right: 6px; gap: 10px;">
+                            <!-- Dynamically populated via JavaScript -->
+                        </div>
+
+                        <div id="stock-selected-info" style="margin-top: 12px; font-size: 13px; color: #10B981; font-weight: 700; background: var(--color-paper-subtle); padding: 8px 12px; border-radius: var(--radius-sm); border: 1px solid var(--color-border);">
+                            ✓ Selected photo: Espresso 100% Arabica (☕) · Ready for instant CDN sync
+                        </div>
+                    </div>
+
+                    <!-- TAB 2: Presigned Custom Upload Area -->
+                    <div id="tab-content-upload" style="display: none;">
+                        <div style="border: 2px dashed var(--color-border-strong); padding: 40px 24px; text-align: center; border-radius: var(--radius-md); background: var(--color-paper);">
+                            <div style="font-size: 34px; margin-bottom: 8px;">☁️</div>
+                            <div style="font-weight: 700; color: var(--color-cacao); font-size: 15px;">Drag & drop high-resolution photo or Click to upload presigned file</div>
+                            <div style="font-size: 12px; color: var(--color-cacao-muted); margin-top: 4px;">Direct presigned AWS/DigitalOcean CDN upload (/products/photos/upload) · PNG, JPG, WebP up to 10MB</div>
+                            <button type="button" class="btn btn-secondary" style="margin-top: 16px; padding: 8px 18px; font-weight: 600;" onclick="alert('Odaberite datoteku sa svog računala...')">Browse Files</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" onclick="closeProductModal()">Cancel</button>
+                <button type="button" class="btn btn-primary" onclick="saveProduct()">Save Product Photo & Details</button>
+            </div>
+        </div>
+    </div>
+
+    <style>
+        .photo-cat-pill {
+            padding: 6px 14px;
+            border-radius: 20px;
+            border: 1px solid var(--color-border);
+            background: var(--color-elevated);
+            color: var(--color-cacao-muted);
+            font-size: 12px;
+            font-weight: 600;
+            cursor: pointer;
+            white-space: nowrap;
+            transition: all 0.15s ease;
+        }
+        .photo-cat-pill:hover {
+            border-color: var(--color-orange);
+            color: var(--color-cacao);
+        }
+        .photo-cat-pill.active {
+            background: var(--color-cacao);
+            color: #FFFFFF;
+            border-color: var(--color-cacao);
+        }
+    </style>
+
+    <script>
+        // 200+ Stock photo dataset simulation with full searchable metadata
+        const stockPhotosData = [
+            // Coffee & Hot
+            { cat: 'coffee', icon: '☕', name: 'Espresso 100% Arabica', tags: 'espresso kava coffee crna kavica kratka' },
+            { cat: 'coffee', icon: '☕', name: 'Double Espresso (Doppio)', tags: 'dupli espresso doppio coffee jaka' },
+            { cat: 'coffee', icon: '🥤', name: 'Cappuccino Creamy Latte', tags: 'cappuccino mlijeko pjena latte kava' },
+            { cat: 'coffee', icon: '🥤', name: 'Latte Macchiato Glass', tags: 'latte macchiato kava pjena toplo' },
+            { cat: 'coffee', icon: '☕', name: 'Americano Black Coffee', tags: 'americano duga kava crna' },
+            { cat: 'coffee', icon: '🥤', name: 'Flat White Artisan', tags: 'flat white kava mlijeko australska' },
+            { cat: 'coffee', icon: '🧊', name: 'Iced Coffee & Vanilla Cream', tags: 'iced kava ledena vanilija ljeto' },
+            { cat: 'coffee', icon: '🍵', name: 'Matcha Green Tea Latte', tags: 'matcha zeleni caj latte japanski čaj' },
+            { cat: 'coffee', icon: '🫖', name: 'Organic Earl Grey Tea', tags: 'caj čaj earl grey crni limun čajnik' },
+            { cat: 'coffee', icon: '🫖', name: 'Fresh Mint & Honey Infusion', tags: 'caj čaj menta med svježe' },
+            { cat: 'coffee', icon: '🍫', name: 'Thick Italian Hot Chocolate', tags: 'topla cokolada čokolada slatko zima' },
+            { cat: 'coffee', icon: '☕', name: 'Decaf Espresso Black', tags: 'decaf bez kofeina kava' },
+            
+            // Cocktails & Bar
+            { cat: 'cocktails', icon: '🍹', name: 'Aperol Spritz & Orange Slice', tags: 'aperol spritz koktel kokteli ljeto naranča' },
+            { cat: 'cocktails', icon: '🥂', name: 'Hugo Spritz Elderflower & Mint', tags: 'hugo spritz bazga menta koktel pjenušac' },
+            { cat: 'cocktails', icon: '🍸', name: 'Classic Mojito Fresh Lime', tags: 'mojito rum limeta menta koktel' },
+            { cat: 'cocktails', icon: '🥃', name: 'Negroni Campari & Gin', tags: 'negroni gin campari vermut koktel' },
+            { cat: 'cocktails', icon: '🥃', name: 'Old Fashioned Bourbon Whiskey', tags: 'old fashioned viski bourbon koktel' },
+            { cat: 'cocktails', icon: '🍸', name: 'Gin & Tonic Botanical', tags: 'gin tonic gin-tonic limun krastavac' },
+            { cat: 'cocktails', icon: '🍸', name: 'Margarita Salted Rim', tags: 'margarita tekila limeta koktel' },
+            { cat: 'cocktails', icon: '🍸', name: 'Espresso Martini Signature', tags: 'espresso martini kava koktel vodka' },
+            { cat: 'cocktails', icon: '🍹', name: 'Piña Colada Coconut Cream', tags: 'pina colada ananas kokos rum koktel' },
+            { cat: 'cocktails', icon: '🥃', name: 'Whiskey Sour Lemon Foam', tags: 'whiskey sour viski limun pjena' },
+
+            // Wines & Beers
+            { cat: 'wines', icon: '🍷', name: 'Malvazija Istarska Premium', tags: 'bijelo vino malvazija istra čaša wine' },
+            { cat: 'wines', icon: '🍷', name: 'Plavac Mali Dalmacija Barrique', tags: 'crno vino plavac mali dalmacija pelješac' },
+            { cat: 'wines', icon: '🥂', name: 'Prosecco DOCG Sparkling Glass', tags: 'prosecco pjenušac šampanjac bubbles' },
+            { cat: 'wines', icon: '🍷', name: 'Rosé Provence Chilled Glass', tags: 'rose vino roze ljetno osvježenje' },
+            { cat: 'wines', icon: '🍺', name: 'Craft IPA Hazy Hop Blast', tags: 'pivo craft ipa ale hmelj piva beer' },
+            { cat: 'wines', icon: '🍺', name: 'Draft Lager Premium Half-Liter', tags: 'točeno pivo lager piva pola litre čaša' },
+            { cat: 'wines', icon: '🍺', name: 'Wheat Beer Weissbier', tags: 'pšenično pivo weissbier piva' },
+            { cat: 'wines', icon: '🍺', name: 'Dark Stout Irish Ale', tags: 'tamno pivo stout crno pivo' },
+
+            // Pizza & Mains
+            { cat: 'mains', icon: '🍕', name: 'Artisan Pizza Margherita Buffalo', tags: 'pizza margherita mozzarela rajčica bosiljak jelo' },
+            { cat: 'mains', icon: '🍕', name: 'Pizza Capricciosa Prosciutto & Fungi', tags: 'pizza capricciosa šunka gljive' },
+            { cat: 'mains', icon: '🍕', name: 'Pizza Diavola Spicy Salami', tags: 'pizza diavola ljuta salama kulen peperoni' },
+            { cat: 'mains', icon: '🍕', name: 'Pizza Truffle & Wild Mushrooms', tags: 'pizza tartuf gljive bijela' },
+            { cat: 'mains', icon: '🍔', name: 'Gourmet Angus Beef Burger & Fries', tags: 'burger pljeskavica meso pomfrit hamburger' },
+            { cat: 'mains', icon: '🍔', name: 'Crispy Chicken Brioche Burger', tags: 'piletina burger chicken sendvič' },
+            { cat: 'mains', icon: '🥘', name: 'Crni rižot od jadranske sipe', tags: 'rižot sipa crni morski plodovi riba dalmacija jelo' },
+            { cat: 'mains', icon: '🐟', name: 'Grilled Adriatic Sea Bass Fillet', tags: 'brancin riba žar blitva krumpir morsko' },
+            { cat: 'mains', icon: '🥩', name: 'Ribeye Steak Dry Aged 300g', tags: 'steak odrezak meso žar' },
+            { cat: 'mains', icon: '🦑', name: 'Crispy Fried Calamari & Tartar', tags: 'lignje pržene tartar plodovi mora' },
+
+            // Cakes & Desserts
+            { cat: 'desserts', icon: '🍰', name: 'Olive Oil Lemon Dalmatian Cake', tags: 'kolač torta limun maslinovo ulje slastica' },
+            { cat: 'desserts', icon: '🍰', name: 'Italian Tiramisu Mascarpone', tags: 'tiramisu kava mascarpone talijanski' },
+            { cat: 'desserts', icon: '🍫', name: 'Warm Chocolate Lava Cake & Gelato', tags: 'cokolada lava tortica sladoled vruće' },
+            { cat: 'desserts', icon: '🍰', name: 'Baked New York Cheesecake Berry', tags: 'cheesecake torta sir šumsko voće' },
+            { cat: 'desserts', icon: '🥐', name: 'Freshly Baked Butter Croissant', tags: 'croissant kroasan pecivo maslac jutro' },
+            { cat: 'desserts', icon: '🍨', name: 'Artisan Pistachio & Vanilla Gelato', tags: 'sladoled gelato pistacija vanilija kuglica' },
+            { cat: 'desserts', icon: '🥧', name: 'Traditional Apple Strudel Warm', tags: 'štrudla jabuka cimet kolač' },
+            { cat: 'desserts', icon: '🍯', name: 'Dalmatian Rozata Caramel Custard', tags: 'rozata rožata karamela puding Dubrovnik' }
+        ];
+
+        // Generate additional items dynamically so database has exactly 214 high-res items s rich variety
+        const extraIcons = ['🍕', '☕', '🍹', '🍔', '🍰', '🍷', '🥗', '🥘', '🍺', '🍸'];
+        const extraCats = ['mains', 'coffee', 'cocktails', 'mains', 'desserts', 'wines', 'mains', 'mains', 'wines', 'cocktails'];
+        for(let i = stockPhotosData.length + 1; i <= 214; i++) {
+            const idx = i % extraIcons.length;
+            stockPhotosData.push({
+                cat: extraCats[idx],
+                icon: extraIcons[idx],
+                name: `Curated Photo #${i} (${extraCats[idx].toUpperCase()})`,
+                tags: `${extraCats[idx]} photo item ${i} kurirano jelo pice`
+            });
+        }
+
+        let currentCategory = 'all';
+
+        function renderStockGallery() {
+            const query = (document.getElementById('stock-search-input').value || '').toLowerCase().trim();
+            const grid = document.getElementById('stock-gallery-grid');
+            
+            const filtered = stockPhotosData.filter(item => {
+                const matchCat = (currentCategory === 'all' || item.cat === currentCategory);
+                const matchQuery = !query || item.name.toLowerCase().includes(query) || item.tags.toLowerCase().includes(query);
+                return matchCat && matchQuery;
+            });
+
+            document.getElementById('photo-count-badge').innerText = `Showing ${filtered.length} of 214 photos`;
+
+            if (filtered.length === 0) {
+                grid.innerHTML = `<div style="grid-column: span 4; text-align: center; padding: 40px; color: var(--color-cacao-muted);">
+                    <div style="font-size: 28px; margin-bottom: 8px;">🔍</div>
+                    <div style="font-weight: 700;">No photos found matching '${query}'</div>
+                    <div style="font-size: 12px; margin-top: 4px;">Try searching for terms like 'espresso', 'pizza', 'wine', 'burger' or choose 'All Photos'</div>
+                </div>`;
+                return;
+            }
+
+            grid.innerHTML = filtered.map((item, index) => `
+                <div class="stock-item ${index === 0 && !query ? 'selected' : ''}" onclick="selectStockPhoto(this, '${item.icon}', '${item.name.replace(/'/g, "")}')">
+                    <div class="stock-item-badge">✓</div>
+                    <div class="stock-item-icon" style="font-size: 32px;">${item.icon}</div>
+                    <div class="stock-item-label" style="font-weight: 700; font-size: 12px; line-height: 1.3;">${item.name}</div>
+                </div>
+            `).join('');
+        }
+
+        function filterStockPhotos() {
+            renderStockGallery();
+        }
+
+        function selectPhotoCategory(cat, btn) {
+            currentCategory = cat;
+            document.querySelectorAll('.photo-cat-pill').forEach(p => p.classList.remove('active'));
+            btn.classList.add('active');
+            renderStockGallery();
+        }
+
+        function openProductModal(mode, name, price, desc, icon) {
+            if(mode === 'edit') {
+                document.getElementById('modal-title').innerText = 'Edit Product & Photo Source';
+                document.getElementById('prod-name').value = name || 'Crni rižot od jadranske sipe';
+                document.getElementById('prod-price').value = price || '18.50 €';
+                document.getElementById('prod-desc').value = desc || 'Pripremljen po tradicionalnoj dalmatinskoj recepturi.';
+            } else {
+                document.getElementById('modal-title').innerText = 'Create New Product';
+                document.getElementById('prod-name').value = '';
+                document.getElementById('prod-price').value = '0.00 €';
+                document.getElementById('prod-desc').value = '';
+            }
+            document.getElementById('modal-product').classList.add('open');
+            renderStockGallery();
+        }
+
+        function closeProductModal() {
+            document.getElementById('modal-product').classList.remove('open');
+        }
+
+        function switchPhotoTab(tab) {
+            if(tab === 'stock') {
+                document.getElementById('tab-btn-stock').classList.add('active');
+                document.getElementById('tab-btn-upload').classList.remove('active');
+                document.getElementById('tab-content-stock').style.display = 'block';
+                document.getElementById('tab-content-upload').style.display = 'none';
+            } else {
+                document.getElementById('tab-btn-stock').classList.remove('active');
+                document.getElementById('tab-btn-upload').classList.add('active');
+                document.getElementById('tab-content-stock').style.display = 'none';
+                document.getElementById('tab-content-upload').style.display = 'block';
+            }
+        }
+
+        function selectStockPhoto(elem, icon, label) {
+            document.querySelectorAll('.stock-item').forEach(item => item.classList.remove('selected'));
+            elem.classList.add('selected');
+            document.getElementById('stock-selected-info').innerText = `✓ Selected photo: ${label} (${icon}) · Ready for instant CDN sync`;
+        }
+
+        function saveProduct() {
+            closeProductModal();
+            alert('Product details and selected photo successfully updated and synced with POS!');
+        }
+
+        window.addEventListener('DOMContentLoaded', () => {
+            renderStockGallery();
+            if (window.location.search.includes('modal=open')) {
+                openProductModal('edit', 'Espresso 100% Arabica', '2.50 €', 'Vrhunska 100% arabica kava s bogatom kremom.', '☕');
+            }
+        });
+    </script>
+</body>
+</html>

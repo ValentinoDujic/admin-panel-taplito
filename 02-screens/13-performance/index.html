@@ -1,0 +1,417 @@
+<!DOCTYPE html>
+<html lang="hr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Performance Insights - Taplito Admin V2.0</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Outfit:wght@500;600;700;800;900&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="../../tokens.css">
+    <link rel="stylesheet" href="../../global.css">
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <style>
+        .kpi-grid {
+            display: grid;
+            grid-template-columns: repeat(4, 1fr);
+            gap: 20px;
+            margin-bottom: 28px;
+        }
+        @media (max-width: 1200px) {
+            .kpi-grid { grid-template-columns: repeat(2, 1fr); }
+        }
+        @media (max-width: 600px) {
+            .kpi-grid { grid-template-columns: 1fr; }
+        }
+        .kpi-card {
+            background: var(--color-elevated);
+            border: 1px solid var(--color-border);
+            border-radius: var(--radius-lg);
+            padding: 20px;
+            box-shadow: var(--shadow-sm);
+        }
+        .kpi-title {
+            font-size: 13px;
+            font-weight: 600;
+            color: var(--color-cacao-muted);
+            margin-bottom: 8px;
+        }
+        .kpi-val {
+            font-family: var(--font-heading);
+            font-size: 26px;
+            font-weight: 800;
+            color: var(--color-cacao);
+        }
+        .kpi-diff {
+            font-size: 12px;
+            font-weight: 700;
+            margin-top: 6px;
+            display: inline-flex;
+            align-items: center;
+            gap: 4px;
+        }
+        .diff-up { color: var(--color-success); }
+        .charts-row {
+            display: grid;
+            grid-template-columns: 2fr 1fr;
+            gap: 24px;
+            margin-bottom: 32px;
+        }
+        @media (max-width: 1024px) {
+            .charts-row { grid-template-columns: 1fr; }
+        }
+        .chart-box {
+            background: var(--color-elevated);
+            border: 1px solid var(--color-border);
+            border-radius: var(--radius-lg);
+            padding: 24px;
+            box-shadow: var(--shadow-sm);
+        }
+        .chart-head {
+            display: flex;
+            justify-content: space-between;
+            align-items: flex-start;
+            margin-bottom: 18px;
+        }
+        .chart-title {
+            font-family: var(--font-heading);
+            font-size: 18px;
+            font-weight: 800;
+            color: var(--color-cacao);
+            margin: 0;
+        }
+        .chart-desc {
+            font-size: 12px;
+            color: var(--color-cacao-muted);
+            margin-top: 2px;
+        }
+    </style>
+</head>
+<body>
+    <div class="app-container">
+        <!-- Sidebar - Exact Barok Standard Native Navigation -->
+        <aside class="sidebar">
+            <div class="sidebar-brand-top">
+                <a href="../../index.html" class="brand-lockup">
+                    <div class="brand-badge">T</div>
+                    <div class="brand-wordmark">TAPLITO</div>
+                </a>
+            </div>
+
+            <a href="../07-settings/index.html" class="tenant-switcher">
+                <div class="tenant-box-left">
+                    <div class="tenant-icon">B</div>
+                    <div>
+                        <div class="tenant-name">Barok Standard</div>
+                        <div style="font-size: 11px; color: var(--color-cacao-muted);">Tenant UI · Split</div>
+                    </div>
+                </div>
+                <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M7 15l5 5 5-5"/><path d="M7 9l5-5 5 5"/></svg>
+            </a>
+
+            <div class="nav-section">
+                <div class="nav-section-header">Platform</div>
+                <a href="../07-settings/index.html" class="nav-item">
+                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor"><circle cx="12" cy="12" r="3"/><path d="M19.4 15a1.65 1.65 0 0 0 .33 1.82l.06.06a2 2 0 0 1 0 2.83 2 2 0 0 1-2.83 0l-.06-.06a1.65 1.65 0 0 0-1.82-.33 1.65 1.65 0 0 0-1 1.51V21a2 2 0 0 1-2 2 2 2 0 0 1-2-2v-.09A1.65 1.65 0 0 0 9 19.4a1.65 1.65 0 0 0-1.82.33l-.06.06a2 2 0 0 1-2.83 0 2 2 0 0 1 0-2.83l-.06-.06a1.65 1.65 0 0 0 .33-1.82 1.65 1.65 0 0 0-1.51-1H3a2 2 0 0 1-2-2 2 2 0 0 1 2-2h.09A1.65 1.65 0 0 0 4.6 9a1.65 1.65 0 0 0-.33-1.82l-.06-.06a2 2 0 0 1 0-2.83 2 2 0 0 1 2.83 0l.06.06a1.65 1.65 0 0 0 1.82.33H9a1.65 1.65 0 0 0 1-1.51V3a2 2 0 0 1 2-2 2 2 0 0 1 2 2v.09a1.65 1.65 0 0 0 1 1.51 1.65 1.65 0 0 0 1.82-.33l.06-.06a2 2 0 0 1 2.83 0 2 2 0 0 1 0 2.83l-.06-.06a1.65 1.65 0 0 0-.33 1.82V9a1.65 1.65 0 0 0 1.51 1H21a2 2 0 0 1 2 2 2 2 0 0 1-2 2h-.09a1.65 1.65 0 0 0-1.51 1z"/></svg>
+                    Settings
+                </a>
+            </div>
+
+            <div class="nav-section">
+                <div class="nav-section-header">Manage <span>v</span></div>
+                <a href="../02-products/index.html" class="nav-item">
+                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor"><rect x="3" y="3" width="7" height="7" rx="1"/><rect x="14" y="3" width="7" height="7" rx="1"/><rect x="14" y="14" width="7" height="7" rx="1"/><rect x="3" y="14" width="7" height="7" rx="1"/></svg>
+                    Products
+                </a>
+                <a href="../04-service-points/index.html" class="nav-item">
+                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor"><circle cx="12" cy="12" r="10"/><path d="M12 8v4l3 3"/></svg>
+                    Service Points
+                </a>
+                <a href="../03-menus/index.html" class="nav-item">
+                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor"><path d="M4 6h16M4 12h16M4 18h16"/></svg>
+                    Menus
+                </a>
+                <a href="../08-dynamic-links/index.html" class="nav-item">
+                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor"><path d="M10 13a5 5 0 0 0 7.54.54l3-3a5 5 0 0 0-7.07-7.07l-1.72 1.71"/><path d="M14 11a5 5 0 0 0-7.54-.54l-3 3a5 5 0 0 0 7.07 7.07l1.71-1.71"/></svg>
+                    Dynamic Links
+                </a>
+                <a href="../09-accounts/index.html" class="nav-item">
+                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor"><path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M23 21v-2a4 4 0 0 0-3-3.87"/><path d="M16 3.13a4 4 0 0 1 0 7.75"/></svg>
+                    Accounts
+                </a>
+            </div>
+
+            <div class="nav-section">
+                <div class="nav-section-header">Integrations <span>v</span></div>
+                <a href="../06-integrations/index.html" class="nav-item">
+                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor"><path d="M12 2v20M17 5H9.5a3.5 3.5 0 0 0 0 7h5a3.5 3.5 0 0 1 0 7H6"/></svg>
+                    POS
+                </a>
+                <a href="../10-payment-providers/index.html" class="nav-item">
+                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor"><rect x="1" y="4" width="22" height="16" rx="2" ry="2"/><line x1="1" y1="10" x2="23" y2="10"/></svg>
+                    Payment Providers
+                </a>
+                <a href="../11-api-keys/index.html" class="nav-item">
+                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor"><path d="M21 2l-2 2m-7.61 7.61a5.5 5.5 0 1 1-7.778 7.778 5.5 5.5 0 0 1 7.777-7.777zm0 0L15.5 7.5m0 0l3 3L22 7l-3-3m-3.5 3.5L19 4"/></svg>
+                    API Keys
+                </a>
+            </div>
+
+            <div class="nav-section">
+                <div class="nav-section-header">Analytics <span>v</span></div>
+                <a href="../05-orders/index.html" class="nav-item">
+                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><polyline points="14 2 14 8 20 8"/><line x1="16" y1="13" x2="8" y2="13"/><line x1="16" y1="17" x2="8" y2="17"/></svg>
+                    Orders
+                </a>
+                <a href="index.html" class="nav-item active">
+                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor"><path d="M18 20V10M12 20V4M6 20v-6"/></svg>
+                    Performance Insights
+                </a>
+                <a href="../12-tips/index.html" class="nav-item">
+                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor"><line x1="12" y1="1" x2="12" y2="23"/><path d="M17 5H9.5a3.5 3.5 0 0 0 0 7h5a3.5 3.5 0 0 1 0 7H6"/></svg>
+                    Tips
+                </a>
+            </div>
+        </aside>
+
+        <!-- Main Content Area -->
+        <div class="main-wrapper">
+            <header class="top-header">
+                <div class="header-title-box">
+                    <div class="breadcrumb">
+                        <a href="../../index.html">Barok</a> <span>›</span> <a href="../05-orders/index.html">Analytics</a> <span>›</span> <span style="color: var(--color-cacao);">Performance Insights</span>
+                    </div>
+                    <span class="header-subtitle" style="font-size: 14px;">Deep operational intelligence: peak hours traffic, best-selling items, and table turnover stats.</span>
+                </div>
+                <div class="header-actions">
+                    <button class="btn btn-secondary" onclick="alert('Generiranje PDF/CSV izvještaja o učinkovitosti (Download Report)...')">
+                        Export Report (.CSV)
+                    </button>
+                </div>
+            </header>
+
+            <main class="content-area">
+                <div style="margin-bottom: 24px;">
+                    <h2 style="font-size: 26px; font-weight: 800; color: var(--color-cacao); margin: 0;">Performance Insights</h2>
+                    <p style="font-size: 13px; color: var(--color-cacao-muted); margin: 4px 0 0 0;">Operational metrics across products, service points, and hourly traffic</p>
+                </div>
+
+                <!-- 4 KPI CARDS -->
+                <div class="kpi-grid">
+                    <div class="kpi-card">
+                        <div class="kpi-title">Average Order Value (AOV)</div>
+                        <div class="kpi-val">$18.40</div>
+                        <div class="kpi-diff diff-up">↗ +12.4% vs previous week</div>
+                    </div>
+                    <div class="kpi-card">
+                        <div class="kpi-title">Avg. Table Turnover Time</div>
+                        <div class="kpi-val">42 min</div>
+                        <div class="kpi-diff diff-up">✓ Optimal table seating efficiency</div>
+                    </div>
+                    <div class="kpi-card">
+                        <div class="kpi-title">Top Selling Category</div>
+                        <div class="kpi-val" style="font-size: 22px;">Coffee & Drinks</div>
+                        <div class="kpi-diff" style="color: var(--color-cacao-muted);">48% of total order volume</div>
+                    </div>
+                    <div class="kpi-card">
+                        <div class="kpi-title">Digital QR Engagement</div>
+                        <div class="kpi-val">3,420</div>
+                        <div class="kpi-diff diff-up">↗ 84% conversion from scan to order</div>
+                    </div>
+                </div>
+
+                <!-- CHARTS ROW: Peak Hours + Payment Split -->
+                <div class="charts-row">
+                    <!-- Chart 1: Peak Hours Traffic -->
+                    <div class="chart-box">
+                        <div class="chart-head">
+                            <div>
+                                <h3 class="chart-title">Peak Hours Traffic</h3>
+                                <div class="chart-desc">Order volume and demand breakdown by hour of the day</div>
+                            </div>
+                            <span class="badge badge-neutral">Peak: 10:00 AM & 8:00 PM</span>
+                        </div>
+                        <div style="height: 250px; position: relative;">
+                            <canvas id="chartPeakHours"></canvas>
+                        </div>
+                    </div>
+
+                    <!-- Chart 2: Payment Methods -->
+                    <div class="chart-box">
+                        <div class="chart-head">
+                            <div>
+                                <h3 class="chart-title">Payment Methods</h3>
+                                <div class="chart-desc">Transaction distribution</div>
+                            </div>
+                        </div>
+                        <div style="height: 250px; position: relative; display: flex; align-items: center; justify-content: center;">
+                            <canvas id="chartPayment"></canvas>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- TOP SELLING PRODUCTS TABLE -->
+                <div class="card" style="padding: 0; overflow: hidden; margin-bottom: 32px;">
+                    <div style="padding: 20px 24px;">
+                        <h3 style="margin: 0; font-size: 18px; font-weight: 800; color: var(--color-cacao);">Top Selling Products</h3>
+                        <div style="font-size: 13px; color: var(--color-cacao-muted); margin-top: 2px;">Items generating the highest volume and revenue for Barok</div>
+                    </div>
+                    <div class="table-wrapper" style="margin: 0;">
+                        <table class="admin-table">
+                            <thead>
+                                <tr>
+                                    <th style="width: 60px;">Rank</th>
+                                    <th>Product Name</th>
+                                    <th>Category</th>
+                                    <th>Units Sold</th>
+                                    <th>Revenue Generated</th>
+                                    <th style="text-align: right;">Growth Trend</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr>
+                                    <td><span class="badge badge-orange" style="font-weight: 800;">#1</span></td>
+                                    <td><span style="font-family: var(--font-heading); font-weight: 700; color: var(--color-cacao); font-size: 15px;">Espresso Arabica 100%</span></td>
+                                    <td><span class="badge badge-neutral">Coffee & Drinks</span></td>
+                                    <td><span style="font-weight: 700;">842</span></td>
+                                    <td><span style="font-family: var(--font-heading); font-weight: 800; color: var(--color-cacao);">$1,852.40</span></td>
+                                    <td style="text-align: right;"><span class="diff-up" style="font-weight: 700;">↗ +18.2%</span></td>
+                                </tr>
+                                <tr>
+                                    <td><span class="badge badge-neutral" style="font-weight: 800;">#2</span></td>
+                                    <td><span style="font-family: var(--font-heading); font-weight: 700; color: var(--color-cacao); font-size: 15px;">Crni rižot od jadranske sipe</span></td>
+                                    <td><span class="badge badge-neutral">Main Courses</span></td>
+                                    <td><span style="font-weight: 700;">215</span></td>
+                                    <td><span style="font-family: var(--font-heading); font-weight: 800; color: var(--color-cacao);">$3,977.50</span></td>
+                                    <td style="text-align: right;"><span class="diff-up" style="font-weight: 700;">↗ +14.5%</span></td>
+                                </tr>
+                                <tr>
+                                    <td><span class="badge badge-neutral" style="font-weight: 800;">#3</span></td>
+                                    <td><span style="font-family: var(--font-heading); font-weight: 700; color: var(--color-cacao); font-size: 15px;">Cappuccino s bademovim mlijekom</span></td>
+                                    <td><span class="badge badge-neutral">Coffee & Drinks</span></td>
+                                    <td><span style="font-weight: 700;">610</span></td>
+                                    <td><span style="font-family: var(--font-heading); font-weight: 800; color: var(--color-cacao);">$2,074.00</span></td>
+                                    <td style="text-align: right;"><span class="diff-up" style="font-weight: 700;">↗ +9.1%</span></td>
+                                </tr>
+                                <tr>
+                                    <td><span class="badge badge-neutral" style="font-weight: 800;">#4</span></td>
+                                    <td><span style="font-family: var(--font-heading); font-weight: 700; color: var(--color-cacao); font-size: 15px;">Domaći kolač od maslinovog ulja i limuna</span></td>
+                                    <td><span class="badge badge-neutral">Desserts</span></td>
+                                    <td><span style="font-weight: 700;">194</span></td>
+                                    <td><span style="font-family: var(--font-heading); font-weight: 800; color: var(--color-cacao);">$1,067.00</span></td>
+                                    <td style="text-align: right;"><span style="color: var(--color-cacao-muted); font-weight: 600;">→ 0.0%</span></td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+
+                <!-- SERVICE POINTS TURNOVER TABLE -->
+                <div class="card" style="padding: 0; overflow: hidden;">
+                    <div style="padding: 20px 24px;">
+                        <h3 style="margin: 0; font-size: 18px; font-weight: 800; color: var(--color-cacao);">Service Point Turnover</h3>
+                        <div style="font-size: 13px; color: var(--color-cacao-muted); margin-top: 2px;">Performance by seating zone and table location</div>
+                    </div>
+                    <div class="table-wrapper" style="margin: 0;">
+                        <table class="admin-table">
+                            <thead>
+                                <tr>
+                                    <th>Service Point</th>
+                                    <th>Type / Zone</th>
+                                    <th>Total Orders</th>
+                                    <th>Avg. Turnaround</th>
+                                    <th>Total Revenue</th>
+                                    <th style="text-align: right;">Status</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr>
+                                    <td><span style="font-family: var(--font-heading); font-weight: 700; color: var(--color-cacao);">Stol 3 (Terasa)</span></td>
+                                    <td><span class="badge badge-orange">Sunbed · Outdoor</span></td>
+                                    <td><span style="font-weight: 700;">142 orders</span></td>
+                                    <td><span>48 min</span></td>
+                                    <td><span style="font-family: var(--font-heading); font-weight: 800; color: #10B981;">$3,420.00</span></td>
+                                    <td style="text-align: right;"><span class="badge badge-success">High Turnover</span></td>
+                                </tr>
+                                <tr>
+                                    <td><span style="font-family: var(--font-heading); font-weight: 700; color: var(--color-cacao);">Stol 1</span></td>
+                                    <td><span class="badge badge-neutral">Table · Indoor</span></td>
+                                    <td><span style="font-weight: 700;">98 orders</span></td>
+                                    <td><span>38 min</span></td>
+                                    <td><span style="font-family: var(--font-heading); font-weight: 800; color: var(--color-cacao);">$1,850.50</span></td>
+                                    <td style="text-align: right;"><span class="badge badge-success">Optimal</span></td>
+                                </tr>
+                                <tr>
+                                    <td><span style="font-family: var(--font-heading); font-weight: 700; color: var(--color-cacao);">Stol 2</span></td>
+                                    <td><span class="badge badge-neutral">Table · Indoor</span></td>
+                                    <td><span style="font-weight: 700;">85 orders</span></td>
+                                    <td><span>40 min</span></td>
+                                    <td><span style="font-family: var(--font-heading); font-weight: 800; color: var(--color-cacao);">$1,610.00</span></td>
+                                    <td style="text-align: right;"><span class="badge badge-success">Optimal</span></td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            </main>
+        </div>
+    </div>
+
+    <script>
+        window.addEventListener('DOMContentLoaded', () => {
+            // Peak Hours Traffic Chart
+            const ctxPeak = document.getElementById('chartPeakHours').getContext('2d');
+            new Chart(ctxPeak, {
+                type: 'bar',
+                data: {
+                    labels: ['8 AM', '10 AM', '12 PM', '2 PM', '4 PM', '6 PM', '8 PM', '10 PM'],
+                    datasets: [{
+                        label: 'Orders Volume',
+                        data: [15, 68, 45, 30, 22, 55, 84, 40],
+                        backgroundColor: '#F97316', // Taplito Orange
+                        borderRadius: 6,
+                        barThickness: 28
+                    }]
+                },
+                options: {
+                    responsive: true,
+                    maintainAspectRatio: false,
+                    plugins: { legend: { display: false } },
+                    scales: {
+                        y: { beginAtZero: true }
+                    }
+                }
+            });
+
+            // Payment Split Chart
+            const ctxPay = document.getElementById('chartPayment').getContext('2d');
+            new Chart(ctxPay, {
+                type: 'doughnut',
+                data: {
+                    labels: ['Card / Stripe', 'Apple / Google Pay', 'Cash POS'],
+                    datasets: [{
+                        data: [62, 24, 14],
+                        backgroundColor: ['#2563EB', '#10B981', '#F59E0B'],
+                        borderWidth: 0
+                    }]
+                },
+                options: {
+                    responsive: true,
+                    maintainAspectRatio: false,
+                    plugins: {
+                        legend: {
+                            position: 'bottom',
+                            labels: {
+                                usePointStyle: true,
+                                boxWidth: 8,
+                                font: { family: 'Inter', size: 12, weight: '600' }
+                            }
+                        }
+                    },
+                    cutout: '68%'
+                }
+            });
+        });
+    </script>
+</body>
+</html>

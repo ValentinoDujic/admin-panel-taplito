@@ -1,0 +1,524 @@
+<!DOCTYPE html>
+<html lang="hr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Orders & Analytics - Taplito Admin V2.0</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Outfit:wght@500;600;700;800;900&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="../../tokens.css">
+    <link rel="stylesheet" href="../../global.css">
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <style>
+        .analytics-header {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            flex-wrap: wrap;
+            gap: 16px;
+            margin-bottom: 20px;
+        }
+        .date-picker-box {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            flex-wrap: wrap;
+        }
+        .date-input-group {
+            display: flex;
+            flex-direction: column;
+            gap: 4px;
+        }
+        .date-input-group label {
+            font-size: 11px;
+            font-weight: 700;
+            color: var(--color-cacao-muted);
+            text-transform: uppercase;
+        }
+        .date-input-wrap {
+            display: flex;
+            align-items: center;
+            background: var(--color-elevated);
+            border: 1px solid var(--color-border);
+            border-radius: var(--radius-sm);
+            padding: 6px 12px;
+            gap: 8px;
+        }
+        .date-input-wrap input {
+            border: none;
+            outline: none;
+            background: transparent;
+            font-family: var(--font-body);
+            font-size: 13px;
+            font-weight: 600;
+            color: var(--color-cacao);
+            cursor: pointer;
+        }
+        .period-presets {
+            display: flex;
+            gap: 6px;
+            align-self: flex-end;
+        }
+        .period-btn {
+            padding: 7px 14px;
+            font-size: 12px;
+            font-weight: 600;
+            border-radius: var(--radius-sm);
+            border: 1px solid var(--color-border);
+            background: var(--color-paper-subtle);
+            color: var(--color-cacao);
+            cursor: pointer;
+            transition: var(--transition-fast);
+        }
+        .period-btn:hover, .period-btn.active {
+            background: var(--color-cacao);
+            color: #FFFFFF;
+            border-color: var(--color-cacao);
+        }
+        .charts-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 24px;
+            margin-bottom: 36px;
+        }
+        @media (max-width: 1024px) {
+            .charts-grid {
+                grid-template-columns: 1fr;
+            }
+        }
+        .chart-card {
+            background: var(--color-elevated);
+            border: 1px solid var(--color-border);
+            border-radius: var(--radius-lg);
+            padding: 24px;
+            box-shadow: var(--shadow-sm);
+        }
+        .chart-card-title {
+            font-family: var(--font-heading);
+            font-size: 18px;
+            font-weight: 800;
+            color: var(--color-cacao);
+            margin: 0;
+        }
+        .chart-card-sub {
+            font-size: 12px;
+            color: var(--color-cacao-muted);
+            margin-top: 2px;
+            margin-bottom: 16px;
+        }
+        .orders-section-top {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            margin-bottom: 16px;
+        }
+        .refresh-btn {
+            background: var(--color-cacao);
+            color: #FFFFFF;
+            border: none;
+            padding: 10px 18px;
+            border-radius: var(--radius-sm);
+            font-family: var(--font-heading);
+            font-weight: 700;
+            font-size: 13px;
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            transition: var(--transition-fast);
+        }
+        .refresh-btn:hover {
+            background: var(--color-orange);
+        }
+    </style>
+</head>
+<body>
+    <div class="app-container">
+        <!-- Sidebar - Exact Barok Standard Native Navigation -->
+        <aside class="sidebar">
+            <div class="sidebar-brand-top">
+                <a href="../../index.html" class="brand-lockup">
+                    <div class="brand-badge">T</div>
+                    <div class="brand-wordmark">TAPLITO</div>
+                </a>
+            </div>
+
+            <a href="../07-settings/index.html" class="tenant-switcher">
+                <div class="tenant-box-left">
+                    <div class="tenant-icon">B</div>
+                    <div>
+                        <div class="tenant-name">Barok Standard</div>
+                        <div style="font-size: 11px; color: var(--color-cacao-muted);">Tenant UI · Split</div>
+                    </div>
+                </div>
+                <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M7 15l5 5 5-5"/><path d="M7 9l5-5 5 5"/></svg>
+            </a>
+
+            <div class="nav-section">
+                <div class="nav-section-header">Platform</div>
+                <a href="../07-settings/index.html" class="nav-item">
+                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor"><circle cx="12" cy="12" r="3"/><path d="M19.4 15a1.65 1.65 0 0 0 .33 1.82l.06.06a2 2 0 0 1 0 2.83 2 2 0 0 1-2.83 0l-.06-.06a1.65 1.65 0 0 0-1.82-.33 1.65 1.65 0 0 0-1 1.51V21a2 2 0 0 1-2 2 2 2 0 0 1-2-2v-.09A1.65 1.65 0 0 0 9 19.4a1.65 1.65 0 0 0-1.82.33l-.06.06a2 2 0 0 1-2.83 0 2 2 0 0 1 0-2.83l.06-.06a1.65 1.65 0 0 0 .33-1.82 1.65 1.65 0 0 0-1.51-1H3a2 2 0 0 1-2-2 2 2 0 0 1 2-2h.09A1.65 1.65 0 0 0 4.6 9a1.65 1.65 0 0 0-.33-1.82l-.06-.06a2 2 0 0 1 0-2.83 2 2 0 0 1 2.83 0l.06.06a1.65 1.65 0 0 0 1.82.33H9a1.65 1.65 0 0 0 1-1.51V3a2 2 0 0 1 2-2 2 2 0 0 1 2 2v.09a1.65 1.65 0 0 0 1 1.51 1.65 1.65 0 0 0 1.82-.33l.06-.06a2 2 0 0 1 2.83 0 2 2 0 0 1 0 2.83l-.06-.06a1.65 1.65 0 0 0-.33 1.82V9a1.65 1.65 0 0 0 1.51 1H21a2 2 0 0 1 2 2 2 2 0 0 1-2 2h-.09a1.65 1.65 0 0 0-1.51 1z"/></svg>
+                    Settings
+                </a>
+            </div>
+
+            <div class="nav-section">
+                <div class="nav-section-header">Manage <span>v</span></div>
+                <a href="../02-products/index.html" class="nav-item">
+                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor"><rect x="3" y="3" width="7" height="7" rx="1"/><rect x="14" y="3" width="7" height="7" rx="1"/><rect x="14" y="14" width="7" height="7" rx="1"/><rect x="3" y="14" width="7" height="7" rx="1"/></svg>
+                    Products
+                </a>
+                <a href="../04-service-points/index.html" class="nav-item">
+                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor"><circle cx="12" cy="12" r="10"/><path d="M12 8v4l3 3"/></svg>
+                    Service Points
+                </a>
+                <a href="../03-menus/index.html" class="nav-item">
+                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor"><path d="M4 6h16M4 12h16M4 18h16"/></svg>
+                    Menus
+                </a>
+                <a href="../08-dynamic-links/index.html" class="nav-item">
+                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor"><path d="M10 13a5 5 0 0 0 7.54.54l3-3a5 5 0 0 0-7.07-7.07l-1.72 1.71"/><path d="M14 11a5 5 0 0 0-7.54-.54l-3 3a5 5 0 0 0 7.07 7.07l1.71-1.71"/></svg>
+                    Dynamic Links
+                </a>
+                <a href="../09-accounts/index.html" class="nav-item">
+                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor"><path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M23 21v-2a4 4 0 0 0-3-3.87"/><path d="M16 3.13a4 4 0 0 1 0 7.75"/></svg>
+                    Accounts
+                </a>
+            </div>
+
+            <div class="nav-section">
+                <div class="nav-section-header">Integrations <span>v</span></div>
+                <a href="../06-integrations/index.html" class="nav-item">
+                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor"><path d="M12 2v20M17 5H9.5a3.5 3.5 0 0 0 0 7h5a3.5 3.5 0 0 1 0 7H6"/></svg>
+                    POS
+                </a>
+                <a href="../10-payment-providers/index.html" class="nav-item">
+                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor"><rect x="1" y="4" width="22" height="16" rx="2" ry="2"/><line x1="1" y1="10" x2="23" y2="10"/></svg>
+                    Payment Providers
+                </a>
+                <a href="../11-api-keys/index.html" class="nav-item">
+                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor"><path d="M21 2l-2 2m-7.61 7.61a5.5 5.5 0 1 1-7.778 7.778 5.5 5.5 0 0 1 7.777-7.777zm0 0L15.5 7.5m0 0l3 3L22 7l-3-3m-3.5 3.5L19 4"/></svg>
+                    API Keys
+                </a>
+            </div>
+
+            <div class="nav-section">
+                <div class="nav-section-header">Analytics <span>v</span></div>
+                <a href="../05-orders/index.html" class="nav-item active">
+                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><polyline points="14 2 14 8 20 8"/><line x1="16" y1="13" x2="8" y2="13"/><line x1="16" y1="17" x2="8" y2="17"/></svg>
+                    Orders
+                </a>
+                <a href="../13-performance/index.html" class="nav-item">
+                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor"><path d="M18 20V10M12 20V4M6 20v-6"/></svg>
+                    Performance Insights
+                </a>
+                <a href="../12-tips/index.html" class="nav-item">
+                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor"><line x1="12" y1="1" x2="12" y2="23"/><path d="M17 5H9.5a3.5 3.5 0 0 0 0 7h5a3.5 3.5 0 0 1 0 7H6"/></svg>
+                    Tips
+                </a>
+            </div>
+        </aside>
+
+        <!-- Main Content Area -->
+        <div class="main-wrapper">
+            <header class="top-header">
+                <div class="header-title-box">
+                    <div class="breadcrumb">
+                        <a href="../../index.html">Barok</a> <span>›</span> <a href="../05-orders/index.html">Analytics</a> <span>›</span> <span style="color: var(--color-cacao);">Orders</span>
+                    </div>
+                    <span class="header-subtitle" style="font-size: 14px;">View and analyze all orders and financial performance for your store.</span>
+                </div>
+                <div class="header-actions">
+                    <button class="btn btn-secondary" onclick="alert('Izvoz analitike i popisa narudžbi (.CSV)...')">
+                        Export Report (.CSV)
+                    </button>
+                </div>
+            </header>
+
+            <main class="content-area">
+                <!-- ANALYTICS HEADER & INTERACTIVE TIME PERIOD SELECTOR (input_file_3.png) -->
+                <div class="analytics-header">
+                    <div>
+                        <h2 style="font-size: 26px; font-weight: 800; color: var(--color-cacao); margin: 0;">Analytics</h2>
+                        <p style="font-size: 13px; color: var(--color-cacao-muted); margin: 4px 0 0 0;">Interactive performance charts with time period filtering</p>
+                    </div>
+
+                    <div class="date-picker-box">
+                        <div class="date-input-group">
+                            <label>Start date</label>
+                            <div class="date-input-wrap">
+                                <span>🗓️</span>
+                                <input type="date" id="start-date" value="2026-07-09" onchange="updateChartsRange()">
+                            </div>
+                        </div>
+                        <div class="date-input-group">
+                            <label>End date</label>
+                            <div class="date-input-wrap">
+                                <span>🗓️</span>
+                                <input type="date" id="end-date" value="2026-07-16" onchange="updateChartsRange()">
+                            </div>
+                        </div>
+                        <div class="period-presets">
+                            <button class="period-btn active" id="btn-7d" onclick="selectPreset('7d', this)">7 Days</button>
+                            <button class="period-btn" id="btn-14d" onclick="selectPreset('14d', this)">14 Days</button>
+                            <button class="period-btn" id="btn-30d" onclick="selectPreset('30d', this)">30 Days</button>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- SIDE BY SIDE INTERACTIVE CHARTS (input_file_3.png) -->
+                <div class="charts-grid">
+                    <!-- Chart 1: Revenue -->
+                    <div class="chart-card">
+                        <h3 class="chart-card-title">Revenue</h3>
+                        <div class="chart-card-sub">Net revenue per day (€)</div>
+                        <div style="height: 240px; position: relative;">
+                            <canvas id="chartRevenue"></canvas>
+                        </div>
+                    </div>
+
+                    <!-- Chart 2: Paid vs Refund -->
+                    <div class="chart-card">
+                        <h3 class="chart-card-title">Paid/Refund</h3>
+                        <div class="chart-card-sub">Paid vs refunded orders per day</div>
+                        <div style="height: 240px; position: relative;">
+                            <canvas id="chartOrders"></canvas>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- ORDERS SECTION HEADER exact to screenshot -->
+                <div class="orders-section-top">
+                    <div>
+                        <h3 style="font-size: 22px; font-weight: 800; color: var(--color-cacao); margin: 0;">Orders</h3>
+                        <div style="font-size: 13px; color: var(--color-cacao-muted); margin-top: 2px;">Manage and view all orders for Barok</div>
+                    </div>
+                    <button class="refresh-btn" onclick="refreshOrdersData()">
+                        <span>🔄</span> Refresh
+                    </button>
+                </div>
+
+                <!-- Search & Filters -->
+                <div class="card" style="margin-bottom: 16px; padding: 14px 20px;">
+                    <div style="display: flex; align-items: center; justify-content: space-between; flex-wrap: wrap; gap: 16px;">
+                        <div style="flex: 1; min-width: 260px; position: relative;">
+                            <input type="text" class="form-control" placeholder="Search by Order ID..." style="padding-left: 38px;">
+                            <svg style="position: absolute; left: 12px; top: 11px; width: 18px; height: 18px; color: var(--color-cacao-muted);" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="11" cy="11" r="8"/><line x1="21" y1="21" x2="16.65" y2="16.65"/></svg>
+                        </div>
+                        <div style="display: flex; align-items: center; gap: 12px;">
+                            <select class="form-control" style="width: 80px; padding: 8px 12px;">
+                                <option>10</option>
+                                <option>25</option>
+                                <option>50</option>
+                            </select>
+                        </div>
+                    </div>
+                </div>
+
+                <div style="text-align: center; font-size: 12px; color: var(--color-cacao-muted); margin-bottom: 12px; font-weight: 500;">
+                    Click on any order row to view detailed breakdown, timeline, and items
+                </div>
+
+                <!-- Orders Table matching screenshot -->
+                <div class="card" style="padding: 0; overflow: hidden;">
+                    <div class="table-wrapper">
+                        <table class="admin-table">
+                            <thead>
+                                <tr>
+                                    <th>Order ID</th>
+                                    <th>Status</th>
+                                    <th>Payment</th>
+                                    <th>Service Point</th>
+                                    <th>Created ↓</th>
+                                    <th style="text-align: right;">Actions</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr style="cursor: pointer;" onclick="window.location.href='detail.html'">
+                                    <td><span style="font-family: var(--font-heading); font-weight: 700; color: var(--color-cacao);">f0Mxvc25fW</span></td>
+                                    <td><span class="badge badge-success" style="padding: 5px 12px;">Accepted</span></td>
+                                    <td><span class="badge badge-success" style="padding: 5px 12px;">Paid</span></td>
+                                    <td><span style="font-weight: 600;">sp_mho0zyuc_hvti3i</span></td>
+                                    <td><span style="font-size: 13px; color: var(--color-cacao-muted);">2026/07/15 21:12:29</span></td>
+                                    <td style="text-align: right;" onclick="event.stopPropagation();">
+                                        <button class="btn btn-secondary" style="padding: 5px 12px;" onclick="alert('Print receipt on POS')">Print</button>
+                                        <button class="btn btn-danger" style="padding: 5px 12px;" onclick="confirm('Refund this order?') && alert('Order refunded!')">Refund</button>
+                                    </td>
+                                </tr>
+                                <tr style="cursor: pointer;" onclick="window.location.href='detail.html'">
+                                    <td><span style="font-family: var(--font-heading); font-weight: 700; color: var(--color-cacao);">a9Kzpd18mQ</span></td>
+                                    <td><span class="badge badge-success" style="padding: 5px 12px;">Accepted</span></td>
+                                    <td><span class="badge badge-success" style="padding: 5px 12px;">Paid</span></td>
+                                    <td><span style="font-weight: 600;">sp_mho10dyd_8vfp27</span></td>
+                                    <td><span style="font-size: 13px; color: var(--color-cacao-muted);">2026/07/15 19:44:10</span></td>
+                                    <td style="text-align: right;" onclick="event.stopPropagation();">
+                                        <button class="btn btn-secondary" style="padding: 5px 12px;">Print</button>
+                                        <button class="btn btn-danger" style="padding: 5px 12px;">Refund</button>
+                                    </td>
+                                </tr>
+                                <tr style="cursor: pointer;" onclick="window.location.href='detail.html'">
+                                    <td><span style="font-family: var(--font-heading); font-weight: 700; color: var(--color-cacao);">k3Lmnx99pZ</span></td>
+                                    <td><span class="badge badge-error" style="padding: 5px 12px;">Cancelled</span></td>
+                                    <td><span class="badge badge-error" style="padding: 5px 12px;">Refunded</span></td>
+                                    <td><span style="font-weight: 600;">sp_mho0yvg2_tkv7wq</span></td>
+                                    <td><span style="font-size: 13px; color: var(--color-cacao-muted);">2026/07/14 16:20:05</span></td>
+                                    <td style="text-align: right;" onclick="event.stopPropagation();">
+                                        <span style="font-size: 12px; color: var(--color-cacao-muted);">Stornirano</span>
+                                    </td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            </main>
+        </div>
+    </div>
+
+    <script>
+        // Chart.js Configuration exact to input_file_3.png
+        let chartRevInstance = null;
+        let chartOrdInstance = null;
+
+        const labelsPreset7d = ['07-09', '07-10', '07-11', '07-12', '07-13', '07-14', '07-15', '07-16'];
+        const dataRev7d = [4.5, 4.3, 0, 2.4, 1.4, 0, 11.8, 0];
+        const dataPaid7d = [1, 1.5, 2, 0, 1, 1, 0, 2];
+        const dataRef7d = [0, 0, 0, 0, 0, 0, 0, 0];
+
+        const labelsPreset14d = ['07-03', '07-05', '07-07', '07-09', '07-11', '07-13', '07-15', '07-16'];
+        const dataRev14d = [6.2, 8.5, 3.1, 4.5, 0, 1.4, 11.8, 5.0];
+        const dataPaid14d = [2, 3, 1, 1, 0, 1, 2, 1];
+        const dataRef14d = [0, 1, 0, 0, 0, 0, 0, 0];
+
+        const labelsPreset30d = ['Week 1', 'Week 2', 'Week 3', 'Week 4'];
+        const dataRev30d = [42.5, 38.0, 55.4, 61.2];
+        const dataPaid30d = [18, 15, 22, 26];
+        const dataRef30d = [1, 0, 2, 1];
+
+        function renderCharts(labels, revData, paidData, refData) {
+            const ctxRev = document.getElementById('chartRevenue').getContext('2d');
+            const ctxOrd = document.getElementById('chartOrders').getContext('2d');
+
+            if(chartRevInstance) chartRevInstance.destroy();
+            if(chartOrdInstance) chartOrdInstance.destroy();
+
+            chartRevInstance = new Chart(ctxRev, {
+                type: 'line',
+                data: {
+                    labels: labels,
+                    datasets: [{
+                        label: 'Revenue (€)',
+                        data: revData,
+                        borderColor: '#2563EB', // blue matching screenshot
+                        backgroundColor: 'rgba(37, 99, 235, 0.08)',
+                        borderWidth: 2,
+                        pointBackgroundColor: '#FFFFFF',
+                        pointBorderColor: '#2563EB',
+                        pointBorderWidth: 2,
+                        pointRadius: 4,
+                        tension: 0.1,
+                        fill: true
+                    }]
+                },
+                options: {
+                    responsive: true,
+                    maintainAspectRatio: false,
+                    plugins: { legend: { display: false } },
+                    scales: {
+                        y: {
+                            beginAtZero: true,
+                            ticks: { callback: val => '€ ' + val }
+                        }
+                    }
+                }
+            });
+
+            chartOrdInstance = new Chart(ctxOrd, {
+                type: 'line',
+                data: {
+                    labels: labels,
+                    datasets: [
+                        {
+                            label: 'Paid',
+                            data: paidData,
+                            borderColor: '#10B981', // green matching screenshot
+                            backgroundColor: 'transparent',
+                            borderWidth: 2,
+                            pointBackgroundColor: '#FFFFFF',
+                            pointBorderColor: '#10B981',
+                            pointBorderWidth: 2,
+                            pointRadius: 4,
+                            tension: 0.1
+                        },
+                        {
+                            label: 'Refunded',
+                            data: refData,
+                            borderColor: '#EF4444', // red matching screenshot
+                            backgroundColor: 'transparent',
+                            borderWidth: 2,
+                            pointBackgroundColor: '#FFFFFF',
+                            pointBorderColor: '#EF4444',
+                            pointBorderWidth: 2,
+                            pointRadius: 4,
+                            tension: 0.1
+                        }
+                    ]
+                },
+                options: {
+                    responsive: true,
+                    maintainAspectRatio: false,
+                    plugins: {
+                        legend: {
+                            position: 'bottom',
+                            labels: {
+                                usePointStyle: true,
+                                boxWidth: 8,
+                                font: { family: 'Inter', size: 12, weight: '600' }
+                            }
+                        }
+                    },
+                    scales: {
+                        y: { beginAtZero: true }
+                    }
+                }
+            });
+        }
+
+        function selectPreset(preset, elem) {
+            document.querySelectorAll('.period-btn').forEach(btn => btn.classList.remove('active'));
+            elem.classList.add('active');
+
+            if(preset === '7d') {
+                document.getElementById('start-date').value = '2026-07-09';
+                document.getElementById('end-date').value = '2026-07-16';
+                renderCharts(labelsPreset7d, dataRev7d, dataPaid7d, dataRef7d);
+            } else if(preset === '14d') {
+                document.getElementById('start-date').value = '2026-07-03';
+                document.getElementById('end-date').value = '2026-07-16';
+                renderCharts(labelsPreset14d, dataRev14d, dataPaid14d, dataRef14d);
+            } else if(preset === '30d') {
+                document.getElementById('start-date').value = '2026-06-16';
+                document.getElementById('end-date').value = '2026-07-16';
+                renderCharts(labelsPreset30d, dataRev30d, dataPaid30d, dataRef30d);
+            }
+        }
+
+        function updateChartsRange() {
+            document.querySelectorAll('.period-btn').forEach(btn => btn.classList.remove('active'));
+            // Simulate dynamic data when dates change manually
+            const customRev = dataRev7d.map(val => Number((val * (0.8 + Math.random() * 0.5)).toFixed(1)));
+            renderCharts(labelsPreset7d, customRev, dataPaid7d, dataRef7d);
+        }
+
+        function refreshOrdersData() {
+            updateChartsRange();
+            alert('Analytics and orders data refreshed instantly!');
+        }
+
+        // Initial render on load
+        window.addEventListener('DOMContentLoaded', () => {
+            renderCharts(labelsPreset7d, dataRev7d, dataPaid7d, dataRef7d);
+        });
+    </script>
+</body>
+</html>
