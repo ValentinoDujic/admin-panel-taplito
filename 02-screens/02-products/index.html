@@ -336,41 +336,43 @@
                 <!-- PHOTO SELECTION SECTION WITH TABS -->
                 <div class="form-group" style="margin-top: 18px; border-top: 1px solid var(--color-border); padding-top: 16px;">
                     <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 12px; flex-wrap: wrap; gap: 10px;">
-                        <label class="form-label" style="margin: 0; font-size: 14px; font-weight: 700; color: var(--color-cacao);">Photo Gallery Source (200+ Curated Items)</label>
+                        <label class="form-label" style="margin: 0; font-size: 14px; font-weight: 700; color: var(--color-cacao);">Photo Gallery Source (179 Curated Items from X:\Taplito\images)</label>
                         <div style="display: flex; gap: 6px;">
-                            <button type="button" id="tab-btn-stock" class="photo-tab-btn active" onclick="switchPhotoTab('stock')">🖼️ Stock Gallery (214)</button>
+                            <button type="button" id="tab-btn-stock" class="photo-tab-btn active" onclick="switchPhotoTab('stock')">🖼️ Stock Gallery (179)</button>
                             <button type="button" id="tab-btn-upload" class="photo-tab-btn" onclick="switchPhotoTab('upload')">📁 Presigned Custom Upload</button>
                         </div>
                     </div>
 
-                    <!-- TAB 1: Stock Photos Search & Library Grid (200+ images) -->
+                    <!-- TAB 1: Stock Photos Search & Library Grid (179 real images) -->
                     <div id="tab-content-stock">
                         <!-- Search Bar & Stats -->
                         <div style="display: flex; gap: 12px; align-items: center; margin-bottom: 12px;">
                             <div style="flex: 1; position: relative;">
-                                <input type="text" id="stock-search-input" class="form-control" placeholder="🔍 Search 214+ product photos (e.g., espresso, pizza, spritz, wine, cake, burger...)" style="padding-left: 36px;" oninput="filterStockPhotos()">
+                                <input type="text" id="stock-search-input" class="form-control" placeholder="🔍 Search 179+ product photos (e.g., espresso, cevapi, pasticada, pizza, wine, cake...)" style="padding-left: 36px;" oninput="filterStockPhotos()">
                                 <span style="position: absolute; left: 12px; top: 11px; font-size: 14px; color: var(--color-cacao-muted);">🔍</span>
                             </div>
-                            <span id="photo-count-badge" class="badge badge-neutral" style="white-space: nowrap; font-weight: 700; padding: 8px 14px;">Showing 214 photos</span>
+                            <span id="photo-count-badge" class="badge badge-neutral" style="white-space: nowrap; font-weight: 700; padding: 8px 14px;">Showing 179 photos</span>
                         </div>
 
                         <!-- Category Filter Menu -->
                         <div class="photo-category-menu" style="display: flex; gap: 6px; overflow-x: auto; padding-bottom: 8px; margin-bottom: 12px;">
-                            <button type="button" class="photo-cat-pill active" onclick="selectPhotoCategory('all', this)">✨ All Photos (214)</button>
-                            <button type="button" class="photo-cat-pill" onclick="selectPhotoCategory('coffee', this)">☕ Coffee & Hot (42)</button>
-                            <button type="button" class="photo-cat-pill" onclick="selectPhotoCategory('cocktails', this)">🍹 Cocktails & Bar (48)</button>
-                            <button type="button" class="photo-cat-pill" onclick="selectPhotoCategory('wines', this)">🍷 Wines & Beers (36)</button>
-                            <button type="button" class="photo-cat-pill" onclick="selectPhotoCategory('mains', this)">🍕 Pizza & Mains (54)</button>
-                            <button type="button" class="photo-cat-pill" onclick="selectPhotoCategory('desserts', this)">🍰 Cakes & Desserts (34)</button>
+                            <button type="button" class="photo-cat-pill active" onclick="selectPhotoCategory('all', this)">✨ All Photos (179)</button>
+                            <button type="button" class="photo-cat-pill" onclick="selectPhotoCategory('coffee', this)">☕ Coffee & Hot (8)</button>
+                            <button type="button" class="photo-cat-pill" onclick="selectPhotoCategory('drinks', this)">🥤 Cold Drinks & Beer (21)</button>
+                            <button type="button" class="photo-cat-pill" onclick="selectPhotoCategory('mains', this)">🍕 Pizza & Mains (85)</button>
+                            <button type="button" class="photo-cat-pill" onclick="selectPhotoCategory('salads', this)">🥗 Salads & Starters (25)</button>
+                            <button type="button" class="photo-cat-pill" onclick="selectPhotoCategory('desserts', this)">🍰 Cakes & Desserts (16)</button>
                         </div>
 
                         <!-- Grid -->
-                        <div id="stock-gallery-grid" class="stock-grid" style="grid-template-columns: repeat(4, 1fr); max-height: 310px; overflow-y: auto; padding-right: 6px; gap: 10px;">
+                        <div id="stock-gallery-grid" class="stock-grid" style="grid-template-columns: repeat(4, 1fr); max-height: 330px; overflow-y: auto; padding-right: 6px; gap: 12px;">
                             <!-- Dynamically populated via JavaScript -->
                         </div>
 
-                        <div id="stock-selected-info" style="margin-top: 12px; font-size: 13px; color: #10B981; font-weight: 700; background: var(--color-paper-subtle); padding: 8px 12px; border-radius: var(--radius-sm); border: 1px solid var(--color-border);">
-                            ✓ Selected photo: Espresso 100% Arabica (☕) · Ready for instant CDN sync
+                        <div id="stock-selected-info" style="margin-top: 12px; font-size: 13px; color: #10B981; font-weight: 700; background: var(--color-paper-subtle); padding: 8px 12px; border-radius: var(--radius-sm); border: 1px solid var(--color-border); display: flex; align-items: center; gap: 8px;">
+                            <span>✓ Selected photo: </span>
+                            <strong id="selected-photo-name">Espresso 100% Arabica</strong>
+                            <span style="color: var(--color-cacao-muted); font-size: 11px;">· Ready for instant CDN sync</span>
                         </div>
                     </div>
 
@@ -414,84 +416,206 @@
             color: #FFFFFF;
             border-color: var(--color-cacao);
         }
+        .stock-item-img {
+            width: 100%;
+            height: 76px;
+            object-fit: cover;
+            border-radius: 6px;
+            margin-bottom: 6px;
+            border: 1px solid var(--color-border);
+            transition: transform 0.2s ease;
+        }
+        .stock-item:hover .stock-item-img {
+            transform: scale(1.03);
+        }
     </style>
 
     <script>
-        // 200+ Stock photo dataset simulation with full searchable metadata
-        const stockPhotosData = [
-            // Coffee & Hot
-            { cat: 'coffee', icon: '☕', name: 'Espresso 100% Arabica', tags: 'espresso kava coffee crna kavica kratka' },
-            { cat: 'coffee', icon: '☕', name: 'Double Espresso (Doppio)', tags: 'dupli espresso doppio coffee jaka' },
-            { cat: 'coffee', icon: '🥤', name: 'Cappuccino Creamy Latte', tags: 'cappuccino mlijeko pjena latte kava' },
-            { cat: 'coffee', icon: '🥤', name: 'Latte Macchiato Glass', tags: 'latte macchiato kava pjena toplo' },
-            { cat: 'coffee', icon: '☕', name: 'Americano Black Coffee', tags: 'americano duga kava crna' },
-            { cat: 'coffee', icon: '🥤', name: 'Flat White Artisan', tags: 'flat white kava mlijeko australska' },
-            { cat: 'coffee', icon: '🧊', name: 'Iced Coffee & Vanilla Cream', tags: 'iced kava ledena vanilija ljeto' },
-            { cat: 'coffee', icon: '🍵', name: 'Matcha Green Tea Latte', tags: 'matcha zeleni caj latte japanski čaj' },
-            { cat: 'coffee', icon: '🫖', name: 'Organic Earl Grey Tea', tags: 'caj čaj earl grey crni limun čajnik' },
-            { cat: 'coffee', icon: '🫖', name: 'Fresh Mint & Honey Infusion', tags: 'caj čaj menta med svježe' },
-            { cat: 'coffee', icon: '🍫', name: 'Thick Italian Hot Chocolate', tags: 'topla cokolada čokolada slatko zima' },
-            { cat: 'coffee', icon: '☕', name: 'Decaf Espresso Black', tags: 'decaf bez kofeina kava' },
-            
-            // Cocktails & Bar
-            { cat: 'cocktails', icon: '🍹', name: 'Aperol Spritz & Orange Slice', tags: 'aperol spritz koktel kokteli ljeto naranča' },
-            { cat: 'cocktails', icon: '🥂', name: 'Hugo Spritz Elderflower & Mint', tags: 'hugo spritz bazga menta koktel pjenušac' },
-            { cat: 'cocktails', icon: '🍸', name: 'Classic Mojito Fresh Lime', tags: 'mojito rum limeta menta koktel' },
-            { cat: 'cocktails', icon: '🥃', name: 'Negroni Campari & Gin', tags: 'negroni gin campari vermut koktel' },
-            { cat: 'cocktails', icon: '🥃', name: 'Old Fashioned Bourbon Whiskey', tags: 'old fashioned viski bourbon koktel' },
-            { cat: 'cocktails', icon: '🍸', name: 'Gin & Tonic Botanical', tags: 'gin tonic gin-tonic limun krastavac' },
-            { cat: 'cocktails', icon: '🍸', name: 'Margarita Salted Rim', tags: 'margarita tekila limeta koktel' },
-            { cat: 'cocktails', icon: '🍸', name: 'Espresso Martini Signature', tags: 'espresso martini kava koktel vodka' },
-            { cat: 'cocktails', icon: '🍹', name: 'Piña Colada Coconut Cream', tags: 'pina colada ananas kokos rum koktel' },
-            { cat: 'cocktails', icon: '🥃', name: 'Whiskey Sour Lemon Foam', tags: 'whiskey sour viski limun pjena' },
-
-            // Wines & Beers
-            { cat: 'wines', icon: '🍷', name: 'Malvazija Istarska Premium', tags: 'bijelo vino malvazija istra čaša wine' },
-            { cat: 'wines', icon: '🍷', name: 'Plavac Mali Dalmacija Barrique', tags: 'crno vino plavac mali dalmacija pelješac' },
-            { cat: 'wines', icon: '🥂', name: 'Prosecco DOCG Sparkling Glass', tags: 'prosecco pjenušac šampanjac bubbles' },
-            { cat: 'wines', icon: '🍷', name: 'Rosé Provence Chilled Glass', tags: 'rose vino roze ljetno osvježenje' },
-            { cat: 'wines', icon: '🍺', name: 'Craft IPA Hazy Hop Blast', tags: 'pivo craft ipa ale hmelj piva beer' },
-            { cat: 'wines', icon: '🍺', name: 'Draft Lager Premium Half-Liter', tags: 'točeno pivo lager piva pola litre čaša' },
-            { cat: 'wines', icon: '🍺', name: 'Wheat Beer Weissbier', tags: 'pšenično pivo weissbier piva' },
-            { cat: 'wines', icon: '🍺', name: 'Dark Stout Irish Ale', tags: 'tamno pivo stout crno pivo' },
-
-            // Pizza & Mains
-            { cat: 'mains', icon: '🍕', name: 'Artisan Pizza Margherita Buffalo', tags: 'pizza margherita mozzarela rajčica bosiljak jelo' },
-            { cat: 'mains', icon: '🍕', name: 'Pizza Capricciosa Prosciutto & Fungi', tags: 'pizza capricciosa šunka gljive' },
-            { cat: 'mains', icon: '🍕', name: 'Pizza Diavola Spicy Salami', tags: 'pizza diavola ljuta salama kulen peperoni' },
-            { cat: 'mains', icon: '🍕', name: 'Pizza Truffle & Wild Mushrooms', tags: 'pizza tartuf gljive bijela' },
-            { cat: 'mains', icon: '🍔', name: 'Gourmet Angus Beef Burger & Fries', tags: 'burger pljeskavica meso pomfrit hamburger' },
-            { cat: 'mains', icon: '🍔', name: 'Crispy Chicken Brioche Burger', tags: 'piletina burger chicken sendvič' },
-            { cat: 'mains', icon: '🥘', name: 'Crni rižot od jadranske sipe', tags: 'rižot sipa crni morski plodovi riba dalmacija jelo' },
-            { cat: 'mains', icon: '🐟', name: 'Grilled Adriatic Sea Bass Fillet', tags: 'brancin riba žar blitva krumpir morsko' },
-            { cat: 'mains', icon: '🥩', name: 'Ribeye Steak Dry Aged 300g', tags: 'steak odrezak meso žar' },
-            { cat: 'mains', icon: '🦑', name: 'Crispy Fried Calamari & Tartar', tags: 'lignje pržene tartar plodovi mora' },
-
-            // Cakes & Desserts
-            { cat: 'desserts', icon: '🍰', name: 'Olive Oil Lemon Dalmatian Cake', tags: 'kolač torta limun maslinovo ulje slastica' },
-            { cat: 'desserts', icon: '🍰', name: 'Italian Tiramisu Mascarpone', tags: 'tiramisu kava mascarpone talijanski' },
-            { cat: 'desserts', icon: '🍫', name: 'Warm Chocolate Lava Cake & Gelato', tags: 'cokolada lava tortica sladoled vruće' },
-            { cat: 'desserts', icon: '🍰', name: 'Baked New York Cheesecake Berry', tags: 'cheesecake torta sir šumsko voće' },
-            { cat: 'desserts', icon: '🥐', name: 'Freshly Baked Butter Croissant', tags: 'croissant kroasan pecivo maslac jutro' },
-            { cat: 'desserts', icon: '🍨', name: 'Artisan Pistachio & Vanilla Gelato', tags: 'sladoled gelato pistacija vanilija kuglica' },
-            { cat: 'desserts', icon: '🥧', name: 'Traditional Apple Strudel Warm', tags: 'štrudla jabuka cimet kolač' },
-            { cat: 'desserts', icon: '🍯', name: 'Dalmatian Rozata Caramel Custard', tags: 'rozata rožata karamela puding Dubrovnik' }
+        // All 179 JPEG images available in X:\Taplito\images
+        const imageFiles = [
+            "1. Crni_rižoto_1.jpeg", "1. Crni_rižoto_2.jpeg",
+            "2. Brudet_1.jpeg", "2. Brudet_2.jpeg",
+            "3. Buzara_od_dagnji_1.jpeg", "3. Buzara_od_dagnji_2.jpeg",
+            "4 .Lignje_na_žaru_1.jpeg", "4 .Lignje_na_žaru_2.jpeg",
+            "5. Lignje_pržene_1.jpeg", "5. Lignje_pržene_2.jpeg",
+            "6. Škampi_na_buzaru_1.jpeg", "6. Škampi_na_buzaru_2.jpeg",
+            "7. Orada_na_žaru_1.jpeg", "7. Orada_na_žaru_2.jpeg",
+            "8. Brancin_na_žaru_1.jpeg", "8. Brancin_na_žaru_2.jpeg",
+            "9. Sardele_na_žaru_1.jpeg", "9. Sardele_na_žaru_2.jpeg",
+            "10. Hobotnica_salata_1.jpeg", "10. Hobotnica_salata_2.jpeg",
+            "11. Peka_s_janjetinom_1.jpeg", "11. Peka_s_janjetinom_2.jpeg",
+            "12. Peka_s_teletinom_1.jpeg", "12. Peka_s_teletinom_2.jpeg",
+            "13. Peka_s_hobotnicom_1.jpeg", "13. Peka_s_hobotnicom_2.jpeg",
+            "14. Ćevapi_1.jpeg", "14. Ćevapi_2.jpeg",
+            "15. Pljeskavica_1.jpeg", "15. Pljeskavica_2.jpeg",
+            "16. Miješano_meso_1.jpeg", "16. Miješano_meso_2.jpeg",
+            "17. Ražnjići_1.jpeg", "17. Ražnjići_2.jpeg",
+            "18. Pileći_file_na_žaru_1.jpeg", "18. Pileći_file_na_žaru_2.jpeg",
+            "19. Pileći_bečki_1.jpeg", "19. Pileći_bečki_2.jpeg",
+            "20. Svinjski_vrat_na_žaru_1.jpeg", "20. Svinjski_vrat_na_žaru_2.jpeg",
+            "21. Teleći_odrezak_1.jpeg", "21. Teleći_odrezak_2.jpeg",
+            "22. Zagrebački_odrezak_1.jpeg", "22. Zagrebački_odrezak_2.jpeg",
+            "23. Pašticada_s_njokima_1.jpeg", "23. Pašticada_s_njokima_2.jpeg",
+            "24. Janjetina_s_ražnja_1.jpeg", "24. Janjetina_s_ražnja_2.jpeg",
+            "25. Sarma_1.jpeg", "25. Sarma_2.jpeg",
+            "26. Punjene_paprike_1.jpeg", "26. Punjene_paprike_2.jpeg",
+            "27. Grah_s_kobasicom_1.jpeg", "27. Grah_s_kobasicom_2.jpeg",
+            "28. Čobanac_1.jpeg", "28. Čobanac_2.jpeg",
+            "29. Fiš_paprikaš_1.jpeg", "29. Fiš_paprikaš_2.jpeg",
+            "30. Fuži_s_tartufima_1.jpeg", "30. Fuži_s_tartufima_2.jpeg",
+            "31. Pljukanci_s_boškarinom_1.jpeg", "31. Pljukanci_s_boškarinom_2.jpeg",
+            "32. Njoki_u_gorgonzoli_1.jpeg", "32. Njoki_u_gorgonzoli_2.jpeg",
+            "33. Njoki_s_pašticadom_1.jpeg", "33. Njoki_s_pašticadom_2.jpeg",
+            "34. Spaghetti_Bolognese_1.jpeg", "34. Spaghetti_Bolognese_2.jpeg",
+            "35. Penne_Arrabbiata_1.jpeg", "35. Penne_Arrabbiata_2.jpeg",
+            "36. Carbonara_1.jpeg", "36. Carbonara_2.jpeg",
+            "37. Lasagne_1.jpeg", "37. Lasagne_2.jpeg",
+            "38. Rižoto_s_piletinom_1.jpeg", "38. Rižoto_s_piletinom_2.jpeg",
+            "39. Rižoto_s_gljivama_1.jpeg", "39. Rižoto_s_gljivama_2.jpeg",
+            "40. Maneštra_1.jpeg", "40. Maneštra_2.jpeg",
+            "41. Jota_1.jpeg", "41. Jota_2.jpeg",
+            "42. Štrukli_1.jpeg", "42. Štrukli_2.jpeg",
+            "43. Soparnik_1.jpeg", "43. Soparnik_2.jpeg",
+            "44. Burek_s_mesom_1.jpeg", "44. Burek_s_mesom_2.jpeg",
+            "45. Burek_sa_sirom_1.jpeg", "45. Burek_sa_sirom_2.jpeg",
+            "46. Lepinja_1.jpeg", "46. Lepinja_2.jpeg",
+            "47. Pomfrit_1.jpeg", "47. Pomfrit_2.jpeg",
+            "48. Pečeni_krumpir_1.jpeg", "48. Pečeni_krumpir_2.jpeg",
+            "49. Blitva_s_krumpirom_1.jpeg", "49. Blitva_s_krumpirom_2.jpeg",
+            "50. Šopska_salata_1.jpeg", "50. Šopska_salata_2.jpeg",
+            "51. Miješana_salata_1.jpeg", "51. Miješana_salata_2.jpeg",
+            "52. Kupus_salata_1.jpeg", "52. Kupus_salata_2.jpeg",
+            "53. Rajčica_salata_1.jpeg", "53. Rajčica_salata_2.jpeg",
+            "54. Rikola_s_grana_1.jpeg", "54. Rikola_s_grana_2.jpeg",
+            "55. Cezar_salata_1.jpeg", "55. Cezar_salata_2.jpeg",
+            "56. Tuna_salata_1.jpeg", "56. Tuna_salata_2.jpeg",
+            "57. Grčka_salata_1.jpeg", "57. Grčka_salata_2.jpeg",
+            "58. Pršut_i_sir_1.jpeg", "58. Pršut_i_sir_2.jpeg",
+            "59. Paški_sir_1.jpeg", "59. Paški_sir_2.jpeg",
+            "60. Kulen_1.jpeg", "60. Kulen_2.jpeg",
+            "61. Sirna_plata_1.jpeg", "61. Sirna_plata_2.jpeg",
+            "62. Bruschette_1.jpeg", "62. Bruschette_2.jpeg",
+            "63. Palačinke_1.jpeg", "63. Palačinke_2.jpeg",
+            "64. Fritule_1.jpeg", "64. Fritule_2.jpeg",
+            "65. Krafne_1.jpeg", "65. Krafne_2.jpeg",
+            "66. Kremšnita_1.jpeg", "66. Kremšnita_2.jpeg",
+            "67. Rožata_1.jpeg", "67. Rožata_2.jpeg",
+            "68. Savijača_od_jabuka_1.jpeg", "68. Savijača_od_jabuka_2.jpeg",
+            "69. Čokoladna_torta_1.jpeg", "69. Čokoladna_torta_2.jpeg",
+            "70. Cheesecake_1.jpeg", "70. Cheesecake_2.jpeg",
+            "71. Sladoled_1.jpeg", "71. Sladoled_2.jpeg",
+            "72. Espresso_1.jpeg", "72. Espresso_2.jpeg",
+            "73. Kava_s_mlijekom_1.jpeg", "73. Kava_s_mlijekom_2.jpeg",
+            "74. Macchiato_1.jpeg", "74. Macchiato_2.jpeg",
+            "75. Cappuccino_1.jpeg", "75. Cappuccino_2_.jpeg",
+            "76. Bijela_kava_1.jpeg", "76. Bijela_kava_2.jpeg",
+            "77. Nescafé_1.jpeg", "77. Nescafé_2.jpeg",
+            "78. Ledena_kava_1.jpeg", "78. Ledena_kava_2.jpeg",
+            "79. Americano_1.jpeg", "79. Americano_2.jpeg",
+            "80. Prirodna voda Jana.jpeg",
+            "81. Mineralna voda Jamnica.jpeg",
+            "82. Coca-Cola.jpeg",
+            "83. Coca-Cola Zero.jpeg",
+            "84. Fanta.jpeg",
+            "85. Sprite.jpeg",
+            "86. Cedevita.jpeg",
+            "87. Pipi.jpeg",
+            "88. Cockta.jpeg",
+            "89. Prirodni sok od naranče.jpeg",
+            "90. Sok od jabuke.jpeg",
+            "91. Ožujsko pivo.jpeg",
+            "92. Karlovačko pivo.jpeg",
+            "93. Pan pivo.jpeg",
+            "94. Gemišt.jpeg",
+            "95. Bevanda.jpeg",
+            "96. Malvazija.jpeg",
+            "97. Graševina.jpeg",
+            "98. Plavac mali.jpeg",
+            "99. Rakija.jpeg",
+            "100. Pelinkovac.jpeg"
         ];
 
-        // Generate additional items dynamically so database has exactly 214 high-res items s rich variety
-        const extraIcons = ['🍕', '☕', '🍹', '🍔', '🍰', '🍷', '🥗', '🥘', '🍺', '🍸'];
-        const extraCats = ['mains', 'coffee', 'cocktails', 'mains', 'desserts', 'wines', 'mains', 'mains', 'wines', 'cocktails'];
-        for(let i = stockPhotosData.length + 1; i <= 214; i++) {
-            const idx = i % extraIcons.length;
-            stockPhotosData.push({
-                cat: extraCats[idx],
-                icon: extraIcons[idx],
-                name: `Curated Photo #${i} (${extraCats[idx].toUpperCase()})`,
-                tags: `${extraCats[idx]} photo item ${i} kurirano jelo pice`
-            });
-        }
+        // Map to structured stock objects with categories
+        const stockPhotosData = imageFiles.map(filename => {
+            const cleanName = filename
+                .replace(/^[0-9\.\s]+/, '')
+                .replace(/_[12]\.jpeg$/i, '')
+                .replace(/\.jpeg$/i, '')
+                .replace(/_/g, ' ');
+            
+            // Assign category based on filename prefix / number
+            const num = parseInt(filename.match(/^(\d+)/)?.[1] || '0', 10);
+            let cat = 'mains';
+            if (num >= 72 && num <= 79) cat = 'coffee';
+            else if (num >= 80 && num <= 100) cat = 'drinks';
+            else if (num >= 50 && num <= 62) cat = 'salads';
+            else if (num >= 63 && num <= 71) cat = 'desserts';
+            else cat = 'mains';
+
+            return {
+                cat: cat,
+                filename: filename,
+                name: cleanName,
+                url: `../../images/${filename}`,
+                tags: `${cleanName.toLowerCase()} ${filename.toLowerCase()} hrana pice jelo`
+            };
+        });
 
         let currentCategory = 'all';
+        let selectedPhotoObj = stockPhotosData[0];
+        let currentTargetRow = null;
+
+        // String normalization for auto-matching
+        function normalizeString(str) {
+            if (!str) return '';
+            return str
+                .toLowerCase()
+                .replace(/^[0-9\.\s]+/, '')
+                .replace(/_[12]\.jpeg$/i, '')
+                .replace(/\.jpeg$/i, '')
+                .replace(/_/g, ' ')
+                .replace(/č|ć/g, 'c')
+                .replace(/ž/g, 'z')
+                .replace(/š/g, 's')
+                .replace(/đ/g, 'd')
+                .replace(/[^a-z0-9\s]/g, '')
+                .trim();
+        }
+
+        // Auto Matcher
+        function autoMatchImage(itemName) {
+            const cleanItemName = normalizeString(itemName);
+            if (!cleanItemName) return stockPhotosData[0];
+
+            let bestMatch = stockPhotosData[0];
+            let bestScore = 0;
+
+            const itemWords = cleanItemName.split(/\s+/);
+
+            stockPhotosData.forEach(photo => {
+                const cleanPhoto = normalizeString(photo.name);
+                let score = 0;
+
+                if (cleanPhoto === cleanItemName) {
+                    score += 100;
+                } else if (cleanPhoto.includes(cleanItemName) || cleanItemName.includes(cleanPhoto)) {
+                    score += 65;
+                }
+
+                itemWords.forEach(w => {
+                    if (w.length > 2 && cleanPhoto.includes(w)) {
+                        score += 25;
+                    }
+                });
+
+                if (score > bestScore) {
+                    bestScore = score;
+                    bestMatch = photo;
+                }
+            });
+
+            return bestMatch;
+        }
 
         function renderStockGallery() {
             const query = (document.getElementById('stock-search-input').value || '').toLowerCase().trim();
@@ -499,28 +623,31 @@
             
             const filtered = stockPhotosData.filter(item => {
                 const matchCat = (currentCategory === 'all' || item.cat === currentCategory);
-                const matchQuery = !query || item.name.toLowerCase().includes(query) || item.tags.toLowerCase().includes(query);
+                const matchQuery = !query || item.name.toLowerCase().includes(query) || item.tags.includes(query);
                 return matchCat && matchQuery;
             });
 
-            document.getElementById('photo-count-badge').innerText = `Showing ${filtered.length} of 214 photos`;
+            document.getElementById('photo-count-badge').innerText = `Showing ${filtered.length} of 179 photos`;
 
             if (filtered.length === 0) {
                 grid.innerHTML = `<div style="grid-column: span 4; text-align: center; padding: 40px; color: var(--color-cacao-muted);">
                     <div style="font-size: 28px; margin-bottom: 8px;">🔍</div>
                     <div style="font-weight: 700;">No photos found matching '${query}'</div>
-                    <div style="font-size: 12px; margin-top: 4px;">Try searching for terms like 'espresso', 'pizza', 'wine', 'burger' or choose 'All Photos'</div>
+                    <div style="font-size: 12px; margin-top: 4px;">Try searching for 'espresso', 'pizza', 'cevapi', 'pasticada', 'wine' or choose 'All Photos'</div>
                 </div>`;
                 return;
             }
 
-            grid.innerHTML = filtered.map((item, index) => `
-                <div class="stock-item ${index === 0 && !query ? 'selected' : ''}" onclick="selectStockPhoto(this, '${item.icon}', '${item.name.replace(/'/g, "")}')">
-                    <div class="stock-item-badge">✓</div>
-                    <div class="stock-item-icon" style="font-size: 32px;">${item.icon}</div>
-                    <div class="stock-item-label" style="font-weight: 700; font-size: 12px; line-height: 1.3;">${item.name}</div>
-                </div>
-            `).join('');
+            grid.innerHTML = filtered.map((item) => {
+                const isSelected = selectedPhotoObj && selectedPhotoObj.filename === item.filename;
+                return `
+                    <div class="stock-item ${isSelected ? 'selected' : ''}" onclick="selectStockPhoto(this, '${item.url}', '${item.name.replace(/'/g, "\\'")}', '${item.filename}')">
+                        <div class="stock-item-badge">✓</div>
+                        <img src="${item.url}" alt="${item.name}" onerror="this.src='../../images/72. Espresso_1.jpeg'" class="stock-item-img">
+                        <div class="stock-item-label" style="font-weight: 700; font-size: 11px; line-height: 1.3; color: var(--color-cacao); text-align: center; overflow: hidden; text-overflow: ellipsis; display: -webkit-box; -webkit-line-clamp: 2; -webkit-box-orient: vertical;">${item.name}</div>
+                    </div>
+                `;
+            }).join('');
         }
 
         function filterStockPhotos() {
@@ -534,7 +661,8 @@
             renderStockGallery();
         }
 
-        function openProductModal(mode, name, price, desc, icon) {
+        function openProductModal(mode, name, price, desc, icon, rowElem) {
+            currentTargetRow = rowElem || null;
             if(mode === 'edit') {
                 document.getElementById('modal-title').innerText = 'Edit Product & Photo Source';
                 document.getElementById('prod-name').value = name || 'Crni rižot od jadranske sipe';
@@ -546,6 +674,12 @@
                 document.getElementById('prod-price').value = '0.00 €';
                 document.getElementById('prod-desc').value = '';
             }
+
+            // Auto match best image based on name
+            const initialName = document.getElementById('prod-name').value;
+            selectedPhotoObj = autoMatchImage(initialName);
+            document.getElementById('selected-photo-name').innerText = `${selectedPhotoObj.name} (${selectedPhotoObj.filename})`;
+
             document.getElementById('modal-product').classList.add('open');
             renderStockGallery();
         }
@@ -568,21 +702,28 @@
             }
         }
 
-        function selectStockPhoto(elem, icon, label) {
+        function selectStockPhoto(elem, url, label, filename) {
             document.querySelectorAll('.stock-item').forEach(item => item.classList.remove('selected'));
             elem.classList.add('selected');
-            document.getElementById('stock-selected-info').innerText = `✓ Selected photo: ${label} (${icon}) · Ready for instant CDN sync`;
+            selectedPhotoObj = stockPhotosData.find(p => p.filename === filename) || { url, name: label, filename };
+            document.getElementById('selected-photo-name').innerText = `${label} (${filename})`;
         }
 
         function saveProduct() {
+            if (currentTargetRow && selectedPhotoObj) {
+                const imgContainer = currentTargetRow.querySelector('td:first-child div');
+                if (imgContainer) {
+                    imgContainer.innerHTML = `<img src="${selectedPhotoObj.url}" alt="${selectedPhotoObj.name}" style="width: 100%; height: 100%; object-fit: cover; border-radius: var(--radius-sm);">`;
+                }
+            }
             closeProductModal();
-            alert('Product details and selected photo successfully updated and synced with POS!');
+            alert(`Spremljene promjene za proizvod! Slika "${selectedPhotoObj.name}" sinhronizirana je na Vercel CDN.`);
         }
 
         window.addEventListener('DOMContentLoaded', () => {
             renderStockGallery();
             if (window.location.search.includes('modal=open')) {
-                openProductModal('edit', 'Espresso 100% Arabica', '2.50 €', 'Vrhunska 100% arabica kava s bogatom kremom.', '☕');
+                openProductModal('edit', 'Espresso 100% Arabica', '2.50 €', 'Vrhunska 100% arabica kava s bogatom kremom.');
             }
         });
     </script>
