@@ -10,7 +10,7 @@
     <link rel="stylesheet" href="../../tokens.css">
     <link rel="stylesheet" href="../../global.css">
     <style>
-        /* TAPLITO WARM PAPER BRAND MODAL & CONTROLS */
+        /* TAPLITO WARM PAPER BRAND MODAL & INTERACTIVE CONTROLS */
         .modal-overlay {
             position: fixed;
             top: 0; left: 0; right: 0; bottom: 0;
@@ -81,13 +81,19 @@
             flex-shrink: 0;
         }
 
-        /* Stock Photo Library Grid - Crisp 110px Tall Photos */
+        /* Stock Photo Library Grid - Robust 145px Tall Cards with Hover Zoom */
         .stock-grid {
             display: grid;
             grid-template-columns: repeat(3, 1fr);
+            grid-auto-rows: minmax(145px, max-content);
+            align-content: start;
             gap: 14px;
             width: 100%;
             box-sizing: border-box;
+        }
+        .stock-grid.list-view-mode {
+            grid-template-columns: 1fr;
+            grid-auto-rows: minmax(170px, max-content);
         }
         @media (max-width: 600px) {
             .stock-grid {
@@ -101,18 +107,25 @@
             overflow: hidden;
             cursor: pointer;
             position: relative;
-            background: var(--color-paper-subtle, #EFECE4);
-            transition: var(--transition-normal, all 0.2s ease);
+            background: #FFFFFF;
+            transition: all 0.2s cubic-bezier(0.16, 1, 0.3, 1);
             text-align: center;
             display: flex;
             flex-direction: column;
             align-items: center;
             box-sizing: border-box;
+            height: 145px;
+        }
+        .stock-grid.list-view-mode .stock-item {
+            flex-direction: row;
+            height: 160px;
+            text-align: left;
         }
         .stock-item:hover {
             border-color: var(--color-orange, #F97316);
-            transform: translateY(-2px);
-            box-shadow: 0 6px 16px rgba(45, 38, 35, 0.12);
+            transform: translateY(-3px) scale(1.02);
+            box-shadow: 0 10px 24px rgba(45, 38, 35, 0.16);
+            z-index: 10;
         }
         .stock-item.selected {
             border-color: var(--color-orange, #F97316);
@@ -130,26 +143,50 @@
 
         .stock-item-img {
             width: 100%;
-            height: 110px;
-            min-height: 110px;
-            max-height: 110px;
+            height: 105px;
+            min-height: 105px;
+            max-height: 105px;
             object-fit: cover;
             display: block;
             flex-shrink: 0;
-            background: #E6E1D6;
+            background: var(--color-paper-subtle, #EFECE4);
             border-bottom: 1px solid var(--color-border, #E6E1D6);
+            transition: transform 0.2s ease;
         }
+        .stock-grid.list-view-mode .stock-item-img {
+            width: 180px;
+            height: 100%;
+            min-height: 100%;
+            max-height: 100%;
+            border-bottom: none;
+            border-right: 1px solid var(--color-border, #E6E1D6);
+        }
+        .stock-item:hover .stock-item-img {
+            transform: scale(1.06);
+        }
+
         .stock-item-label {
             font-family: var(--font-heading);
             font-size: 12px;
             font-weight: 700;
             color: var(--color-cacao, #2D2623);
-            line-height: 1.3;
+            line-height: 1.2;
             padding: 8px 6px;
             word-break: break-word;
             width: 100%;
             box-sizing: border-box;
+            flex: 1;
+            display: flex;
+            align-items: center;
+            justify-content: center;
         }
+        .stock-grid.list-view-mode .stock-item-label {
+            justify-content: flex-start;
+            padding: 14px;
+            flex-direction: column;
+            align-items: flex-start;
+        }
+
         .stock-item-badge {
             position: absolute;
             top: 8px;
@@ -286,7 +323,7 @@
                     Dinamičke poveznice
                 </a>
                 <a href="../09-accounts/index.html" class="nav-item">
-                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor"><path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M23 21v-2a4 4 0 0 1 0 7.75"/></svg>
+                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor"><path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M23 21v-2a4 4 0 0 1 0-3.87"/><path d="M16 3.13a4 4 0 0 1 0 7.75"/></svg>
                     Korisnički računi
                 </a>
             </div>
@@ -367,7 +404,7 @@
         </div>
     </div>
 
-    <!-- MODAL ZA UREĐIVANJE PROIZVODA & SLIKE (TAPLITO WARM PAPER BRAND THEME + LARGE 110PX PHOTOS) -->
+    <!-- MODAL ZA UREĐIVANJE PROIZVODA & SLIKE (WARM PAPER BRAND THEME + FLEXIBLE 145PX CARDS + LIST SWITCHER) -->
     <div id="modal-product" class="modal-overlay">
         <div class="modal-box-responsive">
             <!-- Header (Fixed Top) -->
@@ -425,13 +462,18 @@
                     </div>
                 </div>
 
-                <!-- DESNI STUPAC: Mreža fotografija s velikim jasnim prikazom slika -->
+                <!-- DESNI STUPAC: Mreža fotografija s preklopnikom načina prikaza -->
                 <div style="display: flex; flex-direction: column; gap: 12px; border-left: 1px solid var(--color-border, #E6E1D6); padding-left: 20px; overflow: hidden;">
                     <div style="display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap; gap: 8px;">
-                        <label class="form-label" style="margin: 0; font-size: 14px; font-weight: 800; color: var(--color-cacao, #2D2623); font-family: var(--font-heading);">Izvor fotografije (100+ Slika)</label>
-                        <div style="display: flex; gap: 6px;">
-                            <button type="button" id="tab-btn-stock" class="photo-tab-btn active" onclick="switchPhotoTab('stock')">🖼️ Slike (100+)</button>
-                            <button type="button" id="tab-btn-upload" class="photo-tab-btn" onclick="switchPhotoTab('upload')">📁 Upload</button>
+                        <label class="form-label" style="margin: 0; font-size: 14px; font-weight: 800; color: var(--color-cacao, #2D2623); font-family: var(--font-heading);">Lokalna biblioteka (100+ Slika)</label>
+                        <div style="display: flex; gap: 6px; align-items: center;">
+                            <!-- View Layout Switcher (Grid vs Detailed List) -->
+                            <div style="display: flex; gap: 2px; background: var(--color-paper-subtle, #EFECE4); padding: 2px; border-radius: var(--radius-full, 9999px); border: 1px solid var(--color-border, #E6E1D6); margin-right: 6px;">
+                                <button type="button" id="view-mode-grid" class="photo-tab-btn active" style="padding: 4px 10px; font-size: 11px;" onclick="switchGalleryLayout('grid')" title="Mreža (3x3)">🖼️ Mreža</button>
+                                <button type="button" id="view-mode-list" class="photo-tab-btn" style="padding: 4px 10px; font-size: 11px;" onclick="switchGalleryLayout('list')" title="Proširena lista">📜 Lista</button>
+                            </div>
+                            <button type="button" id="tab-btn-stock" class="photo-tab-btn active" onclick="switchPhotoTab('stock')">Biblioteka</button>
+                            <button type="button" id="tab-btn-upload" class="photo-tab-btn" onclick="switchPhotoTab('upload')">Upload</button>
                         </div>
                     </div>
 
@@ -447,8 +489,8 @@
                             </button>
                         </div>
 
-                        <!-- CATEGORY PILLS (CLEAN WRAPPER) -->
-                        <div class="photo-category-menu" style="display: flex; gap: 6px; overflow-x: auto; padding-bottom: 6px; scrollbar-width: none; -ms-overflow-style: none;">
+                        <!-- CATEGORY PILLS (CLEAN SCROLLABLE WRAPPER) -->
+                        <div class="photo-category-menu" style="display: flex; gap: 6px; overflow-x: auto; padding-bottom: 6px; scrollbar-width: thin;">
                             <button type="button" class="photo-cat-pill active" onclick="selectPhotoCategory('all', this)">✨ Sve (100+)</button>
                             <button type="button" class="photo-cat-pill" onclick="selectPhotoCategory('desserts', this)">🍰 Deserti</button>
                             <button type="button" class="photo-cat-pill" onclick="selectPhotoCategory('coffee', this)">☕ Kave</button>
@@ -458,8 +500,8 @@
                             <button type="button" class="photo-cat-pill" onclick="selectPhotoCategory('drinks', this)">🥤 Pića & Alkohol</button>
                         </div>
 
-                        <!-- PHOTO GRID (3 columns, 110px Tall Photos) -->
-                        <div id="stock-gallery-grid" class="stock-grid" style="max-height: 350px; overflow-y: auto; overflow-x: hidden; padding-right: 4px;">
+                        <!-- PHOTO GRID (Scrollable with explicit row heights and Hover Zoom) -->
+                        <div id="stock-gallery-grid" class="stock-grid" style="max-height: 360px; overflow-y: auto; overflow-x: hidden; padding-right: 4px;">
                             <!-- Dynamically populated via JavaScript -->
                         </div>
                     </div>
@@ -615,6 +657,7 @@
         let currentEditingId = null;
         let activeCategoryFilter = 'all';
         let filterOnlyMatchesMode = false;
+        let currentGalleryLayoutMode = 'grid'; // 'grid' or 'list'
 
         function getImgUrl(filename) {
             return '../../images/' + encodeURI(filename);
@@ -749,6 +792,23 @@
             }
         }
 
+        function switchGalleryLayout(mode) {
+            currentGalleryLayoutMode = mode;
+            const grid = document.getElementById('stock-gallery-grid');
+            const btnGrid = document.getElementById('view-mode-grid');
+            const btnList = document.getElementById('view-mode-list');
+
+            if (mode === 'list') {
+                grid.classList.add('list-view-mode');
+                btnList.classList.add('active');
+                btnGrid.classList.remove('active');
+            } else {
+                grid.classList.remove('list-view-mode');
+                btnGrid.classList.add('active');
+                btnList.classList.remove('active');
+            }
+        }
+
         function renderStockGallery() {
             const query = (document.getElementById('stock-search-input').value || '').toLowerCase().trim();
             const grid = document.getElementById('stock-gallery-grid');
@@ -771,7 +831,10 @@
                 <div class="stock-item ${item.file === selectedImageFile ? 'selected' : ''}" data-filename="${item.file}" onclick="selectStockPhoto('${item.file}', '${item.name.replace(/'/g, "")}')">
                     <div class="stock-item-badge">✓</div>
                     <img src="${getImgUrl(item.file)}" class="stock-item-img" alt="${item.name}" onerror="this.src='https://via.placeholder.com/110?text=Slika'">
-                    <div class="stock-item-label">${item.file.replace(/^\d+\.\s*/, '')}</div>
+                    <div class="stock-item-label">
+                        <strong>${item.name}</strong>
+                        <div style="font-size: 11px; opacity: 0.75; font-weight: 500; margin-top: 2px;">${item.file.replace(/^\d+\.\s*/, '')}</div>
+                    </div>
                 </div>
             `).join('');
         }
