@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Products - Taplito Admin V2.0</title>
+    <title>Proizvodi & Jelovnik - Taplito Admin V2.0</title>
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Outfit:wght@500;600;700;800;900&display=swap" rel="stylesheet">
@@ -13,7 +13,7 @@
         /* Stock Photo Selector Grid */
         .stock-grid {
             display: grid;
-            grid-template-columns: repeat(3, 1fr);
+            grid-template-columns: repeat(4, 1fr);
             gap: 12px;
             margin-top: 14px;
         }
@@ -26,42 +26,52 @@
             background: var(--color-paper-subtle);
             transition: var(--transition-fast);
             text-align: center;
-            padding: 12px 8px;
+            padding: 8px;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
         }
         .stock-item:hover {
             border-color: var(--color-orange);
             transform: translateY(-2px);
-            box-shadow: 0 4px 12px rgba(0,0,0,0.06);
+            box-shadow: 0 4px 12px rgba(0,0,0,0.12);
         }
         .stock-item.selected {
             border-color: var(--color-orange);
             background: var(--color-paper);
             box-shadow: 0 0 0 2px var(--color-orange);
         }
-        .stock-item-icon {
-            font-size: 32px;
+        .stock-item-img {
+            width: 100%;
+            height: 80px;
+            object-fit: cover;
+            border-radius: 6px;
             margin-bottom: 6px;
+            background: #1e293b;
         }
         .stock-item-label {
             font-family: var(--font-heading);
-            font-size: 12px;
+            font-size: 11px;
             font-weight: 700;
             color: var(--color-cacao);
+            line-height: 1.2;
+            word-break: break-word;
         }
         .stock-item-badge {
             position: absolute;
             top: 6px;
             right: 6px;
-            width: 20px;
-            height: 20px;
+            width: 22px;
+            height: 22px;
             border-radius: 50%;
             background: var(--color-orange);
             color: #FFFFFF;
-            font-size: 11px;
+            font-size: 12px;
             display: none;
             align-items: center;
             justify-content: center;
             font-weight: 800;
+            box-shadow: 0 2px 6px rgba(0,0,0,0.3);
         }
         .stock-item.selected .stock-item-badge {
             display: flex;
@@ -82,317 +92,6 @@
             color: #FFFFFF;
             border-color: var(--color-cacao);
         }
-    </style>
-</head>
-<body>
-    <div class="app-container">
-        <!-- Sidebar - Exact Barok Standard Native Navigation -->
-        <aside class="sidebar">
-            <div class="sidebar-brand-top">
-                <a href="../../index.html" class="brand-lockup">
-                    <div class="brand-badge">T</div>
-                    <div class="brand-wordmark">TAPLITO</div>
-                </a>
-            </div>
-
-            <a href="../07-settings/index.html" class="tenant-switcher">
-                <div class="tenant-box-left">
-                    <div class="tenant-icon">B</div>
-                    <div>
-                        <div class="tenant-name">Barok Standard</div>
-                        <div style="font-size: 11px; color: var(--color-cacao-muted);">Tenant UI · Split</div>
-                    </div>
-                </div>
-                <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M7 15l5 5 5-5"/><path d="M7 9l5-5 5 5"/></svg>
-            </a>
-
-            <div class="nav-section">
-                <div class="nav-section-header">Platform</div>
-                <a href="../07-settings/index.html" class="nav-item">
-                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor"><circle cx="12" cy="12" r="3"/><path d="M19.4 15a1.65 1.65 0 0 0 .33 1.82l.06.06a2 2 0 0 1 0 2.83 2 2 0 0 1-2.83 0l-.06-.06a1.65 1.65 0 0 0-1.82-.33 1.65 1.65 0 0 0-1 1.51V21a2 2 0 0 1-2 2 2 2 0 0 1-2-2v-.09A1.65 1.65 0 0 0 9 19.4a1.65 1.65 0 0 0-1.82.33l-.06.06a2 2 0 0 1-2.83 0 2 2 0 0 1 0-2.83l.06.06a1.65 1.65 0 0 0 .33-1.82 1.65 1.65 0 0 0-1.51-1H3a2 2 0 0 1-2-2 2 2 0 0 1 2-2h.09A1.65 1.65 0 0 0 4.6 9a1.65 1.65 0 0 0-.33-1.82l-.06-.06a2 2 0 0 1 0-2.83 2 2 0 0 1 2.83 0l.06.06a1.65 1.65 0 0 0 1.82.33H9a1.65 1.65 0 0 0 1-1.51V3a2 2 0 0 1 2-2 2 2 0 0 1 2 2v.09a1.65 1.65 0 0 0 1 1.51 1.65 1.65 0 0 0 1.82-.33l.06-.06a2 2 0 0 1 2.83 0 2 2 0 0 1 0 2.83l-.06-.06a1.65 1.65 0 0 0-.33 1.82V9a1.65 1.65 0 0 0 1.51 1H21a2 2 0 0 1 2 2 2 2 0 0 1-2 2h-.09a1.65 1.65 0 0 0-1.51 1z"/></svg>
-                    Settings
-                </a>
-            </div>
-
-            <div class="nav-section">
-                <div class="nav-section-header">Manage <span>v</span></div>
-                <a href="../02-products/index.html" class="nav-item active">
-                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor"><rect x="3" y="3" width="7" height="7" rx="1"/><rect x="14" y="3" width="7" height="7" rx="1"/><rect x="14" y="14" width="7" height="7" rx="1"/><rect x="3" y="14" width="7" height="7" rx="1"/></svg>
-                    Products
-                </a>
-                <a href="../04-service-points/index.html" class="nav-item">
-                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor"><circle cx="12" cy="12" r="10"/><path d="M12 8v4l3 3"/></svg>
-                    Service Points
-                </a>
-                <a href="../03-menus/index.html" class="nav-item">
-                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor"><path d="M4 6h16M4 12h16M4 18h16"/></svg>
-                    Menus
-                </a>
-                <a href="../08-dynamic-links/index.html" class="nav-item">
-                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor"><path d="M10 13a5 5 0 0 0 7.54.54l3-3a5 5 0 0 0-7.07-7.07l-1.72 1.71"/><path d="M14 11a5 5 0 0 0-7.54-.54l-3 3a5 5 0 0 0 7.07 7.07l1.71-1.71"/></svg>
-                    Dynamic Links
-                </a>
-                <a href="../09-accounts/index.html" class="nav-item">
-                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor"><path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M23 21v-2a4 4 0 0 0-3-3.87"/><path d="M16 3.13a4 4 0 0 1 0 7.75"/></svg>
-                    Accounts
-                </a>
-            </div>
-
-            <div class="nav-section">
-                <div class="nav-section-header">Integrations <span>v</span></div>
-                <a href="../06-integrations/index.html" class="nav-item">
-                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor"><path d="M12 2v20M17 5H9.5a3.5 3.5 0 0 0 0 7h5a3.5 3.5 0 0 1 0 7H6"/></svg>
-                    POS
-                </a>
-                <a href="../10-payment-providers/index.html" class="nav-item">
-                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor"><rect x="1" y="4" width="22" height="16" rx="2" ry="2"/><line x1="1" y1="10" x2="23" y2="10"/></svg>
-                    Payment Providers
-                </a>
-                <a href="../11-api-keys/index.html" class="nav-item">
-                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor"><path d="M21 2l-2 2m-7.61 7.61a5.5 5.5 0 1 1-7.778 7.778 5.5 5.5 0 0 1 7.777-7.777zm0 0L15.5 7.5m0 0l3 3L22 7l-3-3m-3.5 3.5L19 4"/></svg>
-                    API Keys
-                </a>
-            </div>
-
-            <div class="nav-section">
-                <div class="nav-section-header">Analytics <span>v</span></div>
-                <a href="../05-orders/index.html" class="nav-item">
-                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><polyline points="14 2 14 8 20 8"/><line x1="16" y1="13" x2="8" y2="13"/><line x1="16" y1="17" x2="8" y2="17"/></svg>
-                    Orders
-                </a>
-                <a href="../13-performance/index.html" class="nav-item">
-                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor"><path d="M18 20V10M12 20V4M6 20v-6"/></svg>
-                    Performance Insights
-                </a>
-                <a href="../12-tips/index.html" class="nav-item">
-                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor"><line x1="12" y1="1" x2="12" y2="23"/><path d="M17 5H9.5a3.5 3.5 0 0 0 0 7h5a3.5 3.5 0 0 1 0 7H6"/></svg>
-                    Tips
-                </a>
-            </div>
-        </aside>
-
-        <!-- Main Content Area -->
-        <div class="main-wrapper">
-            <header class="top-header">
-                <div class="header-title-box">
-                    <div class="breadcrumb">
-                        <a href="../../index.html">Barok</a> <span>›</span> <a href="../02-products/index.html">Manage</a> <span>›</span> <span style="color: var(--color-cacao);">Products</span>
-                    </div>
-                    <span class="header-subtitle" style="font-size: 14px;">View, create, and manage your restaurant's products and POS sync items.</span>
-                </div>
-                <div class="header-actions">
-                    <button class="btn btn-secondary" onclick="alert('Dohvaćanje artikala iz Remaris POS blagajne (Loading external products)...')">
-                        Import from POS
-                    </button>
-                    <!-- Jedina primarna akcija na ekranu u 10% Premium Orange -->
-                    <button class="btn btn-primary" onclick="openProductModal('create', 'Novi proizvod', '0.00 €', '', '☕')">
-                        + Add Product
-                    </button>
-                </div>
-            </header>
-
-            <main class="content-area">
-                <!-- Search & Filters -->
-                <div class="card" style="margin-bottom: 24px; padding: 16px 20px;">
-                    <div style="display: flex; align-items: center; justify-content: space-between; flex-wrap: wrap; gap: 16px;">
-                        <div style="flex: 1; min-width: 280px; position: relative;">
-                            <input type="text" class="form-control" placeholder="Search products by name or description..." style="padding-left: 38px;">
-                            <svg style="position: absolute; left: 12px; top: 11px; width: 18px; height: 18px; color: var(--color-cacao-muted);" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="11" cy="11" r="8"/><line x1="21" y1="21" x2="16.65" y2="16.65"/></svg>
-                        </div>
-                        <div style="display: flex; gap: 8px; flex-wrap: wrap;">
-                            <span class="badge badge-orange" style="cursor: pointer; padding: 7px 16px; font-size: 13px;">All (42)</span>
-                            <span class="badge badge-neutral" style="cursor: pointer; padding: 7px 16px; font-size: 13px;">Coffee & Drinks (12)</span>
-                            <span class="badge badge-neutral" style="cursor: pointer; padding: 7px 16px; font-size: 13px;">Main Courses (18)</span>
-                            <span class="badge badge-neutral" style="cursor: pointer; padding: 7px 16px; font-size: 13px;">Desserts (7)</span>
-                        </div>
-                    </div>
-                </div>
-
-                <!-- Products Table -->
-                <div class="card" style="padding: 0; overflow: hidden;">
-                    <div class="table-wrapper">
-                        <table class="admin-table">
-                            <thead>
-                                <tr>
-                                    <th style="width: 60px;">Photo</th>
-                                    <th style="width: 320px;">≡ Name & Description ↑</th>
-                                    <th>Category / Tags</th>
-                                    <th>Price (Outfit)</th>
-                                    <th>Status (Disabled/Active)</th>
-                                    <th>POS Sync</th>
-                                    <th style="text-align: right;">Actions</th>
-                                </tr>
-                            </thead>
-                            <tbody>
-                                <tr>
-                                    <td>
-                                        <div style="width: 44px; height: 44px; border-radius: var(--radius-sm); background: var(--color-paper-subtle); display: flex; align-items: center; justify-content: center; font-size: 18px;">☕</div>
-                                    </td>
-                                    <td>
-                                        <div style="font-family: var(--font-heading); font-weight: 700; color: var(--color-cacao); font-size: 16px;">Espresso Arabica 100%</div>
-                                        <div style="font-size: 12px; color: var(--color-cacao-muted); margin-top: 2px;">Presigned upload active · Code: #KAV-001</div>
-                                    </td>
-                                    <td><span class="badge badge-neutral">Coffee & Drinks</span></td>
-                                    <td><span class="price-display">2.20 €</span></td>
-                                    <td>
-                                        <label class="switch"><input type="checkbox" checked><span class="slider"></span></label>
-                                    </td>
-                                    <td><span class="badge badge-success">POS Linked</span></td>
-                                    <td style="text-align: right;">
-                                        <button class="btn btn-secondary" style="padding: 6px 14px;" onclick="openProductModal('edit', 'Espresso Arabica 100%', '2.20 €', 'Prirodna 100% Arabica kava iz Kolumbije.', '☕')">Edit</button>
-                                    </td>
-                                </tr>
-                                <tr>
-                                    <td>
-                                        <div style="width: 44px; height: 44px; border-radius: var(--radius-sm); background: var(--color-paper-subtle); display: flex; align-items: center; justify-content: center; font-size: 18px;">🥤</div>
-                                    </td>
-                                    <td>
-                                        <div style="font-family: var(--font-heading); font-weight: 700; color: var(--color-cacao); font-size: 16px;">Cappuccino s bademovim mlijekom</div>
-                                        <div style="font-size: 12px; color: var(--color-cacao-muted); margin-top: 2px;">Code: #KAV-004 · Alergeni: Orašasti plodovi</div>
-                                    </td>
-                                    <td><span class="badge badge-neutral">Coffee & Drinks</span></td>
-                                    <td><span class="price-display">3.40 €</span></td>
-                                    <td>
-                                        <label class="switch"><input type="checkbox" checked><span class="slider"></span></label>
-                                    </td>
-                                    <td><span class="badge badge-success">POS Linked</span></td>
-                                    <td style="text-align: right;">
-                                        <button class="btn btn-secondary" style="padding: 6px 14px;" onclick="openProductModal('edit', 'Cappuccino s bademovim mlijekom', '3.40 €', 'Kremasti cappuccino s biljnim bademovim mlijekom.', '🥤')">Edit</button>
-                                    </td>
-                                </tr>
-                                <tr>
-                                    <td>
-                                        <div style="width: 44px; height: 44px; border-radius: var(--radius-sm); background: var(--color-paper-subtle); display: flex; align-items: center; justify-content: center; font-size: 18px;">🥘</div>
-                                    </td>
-                                    <td>
-                                        <div style="font-family: var(--font-heading); font-weight: 700; color: var(--color-cacao); font-size: 16px;">Crni rižot od jadranske sipe</div>
-                                        <div style="font-size: 12px; color: var(--color-cacao-muted); margin-top: 2px;">Code: #JEL-012 · Alergeni: Riba, mekušci</div>
-                                    </td>
-                                    <td><span class="badge badge-neutral">Main Courses</span></td>
-                                    <td><span class="price-display">18.50 €</span></td>
-                                    <td>
-                                        <label class="switch"><input type="checkbox" checked><span class="slider"></span></label>
-                                    </td>
-                                    <td><span class="badge badge-success">POS Linked</span></td>
-                                    <td style="text-align: right;">
-                                        <button class="btn btn-secondary" style="padding: 6px 14px;" onclick="openProductModal('edit', 'Crni rižot od jadranske sipe', '18.50 €', 'Pripremljen po tradicionalnoj dalmatinskoj recepturi sa svježom sipom.', '🥘')">Edit</button>
-                                    </td>
-                                </tr>
-                                <tr>
-                                    <td>
-                                        <div style="width: 44px; height: 44px; border-radius: var(--radius-sm); background: var(--color-paper-subtle); display: flex; align-items: center; justify-content: center; font-size: 18px;">🍰</div>
-                                    </td>
-                                    <td>
-                                        <div style="font-family: var(--font-heading); font-weight: 700; color: var(--color-cacao); font-size: 16px;">Domaći kolač od maslinovog ulja i limuna</div>
-                                        <div style="font-size: 12px; color: var(--color-cacao-muted); margin-top: 2px;">Code: #DES-001 · Alergeni: Jaja, pšenica</div>
-                                    </td>
-                                    <td><span class="badge badge-neutral">Desserts</span></td>
-                                    <td><span class="price-display">5.50 €</span></td>
-                                    <td>
-                                        <label class="switch"><input type="checkbox" checked><span class="slider"></span></label>
-                                    </td>
-                                    <td><span class="badge badge-success">POS Linked</span></td>
-                                    <td style="text-align: right;">
-                                        <button class="btn btn-secondary" style="padding: 6px 14px;" onclick="openProductModal('edit', 'Domaći kolač od maslinovog ulja i limuna', '5.50 €', 'Sočni biskvit s ekstradjevičanskim maslinovim uljem.', '🍰')">Edit</button>
-                                    </td>
-                                </tr>
-                            </tbody>
-                        </table>
-                    </div>
-                </div>
-            </main>
-        </div>
-    </div>
-
-    <!-- Modal za dodavanje/uređivanje proizvoda sa Stock Photo i Presigned Upload opcijom -->
-    <div id="modal-product" class="modal-overlay">
-        <div class="modal-box" style="max-width: 780px;">
-            <div class="modal-header">
-                <h3 id="modal-title" style="margin: 0; font-size: 18px;">Product Details & Photo Source</h3>
-                <button class="btn btn-secondary" style="padding: 4px 10px; border: none; font-size: 16px;" onclick="closeProductModal()">✕</button>
-            </div>
-            <div class="modal-body">
-                <div style="display: grid; grid-template-columns: 3fr 1fr; gap: 16px;">
-                    <div class="form-group">
-                        <label class="form-label">Product Name *</label>
-                        <input type="text" id="prod-name" class="form-control" value="Crni rižot od jadranske sipe">
-                    </div>
-                    <div class="form-group">
-                        <label class="form-label">Price (€ - in cents)</label>
-                        <input type="text" id="prod-price" class="form-control" value="18.50 €" style="font-family: var(--font-heading); font-weight: 800; font-size: 16px;">
-                    </div>
-                </div>
-                <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 16px;">
-                    <div class="form-group">
-                        <label class="form-label">Tags / Allergens</label>
-                        <input type="text" class="form-control" value="Riba, mekušci, gluten bez">
-                    </div>
-                    <div class="form-group">
-                        <label class="form-label">Product Description</label>
-                        <input type="text" id="prod-desc" class="form-control" value="Pripremljen po tradicionalnoj dalmatinskoj recepturi sa svježom jadranskom sipom.">
-                    </div>
-                </div>
-
-                <!-- PHOTO SELECTION SECTION WITH TABS -->
-                <div class="form-group" style="margin-top: 18px; border-top: 1px solid var(--color-border); padding-top: 16px;">
-                    <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 12px; flex-wrap: wrap; gap: 10px;">
-                        <label class="form-label" style="margin: 0; font-size: 14px; font-weight: 700; color: var(--color-cacao);">Photo Gallery Source (200+ Curated Items)</label>
-                        <div style="display: flex; gap: 6px;">
-                            <button type="button" id="tab-btn-stock" class="photo-tab-btn active" onclick="switchPhotoTab('stock')">🖼️ Stock Gallery (214)</button>
-                            <button type="button" id="tab-btn-upload" class="photo-tab-btn" onclick="switchPhotoTab('upload')">📁 Presigned Custom Upload</button>
-                        </div>
-                    </div>
-
-                    <!-- TAB 1: Stock Photos Search & Library Grid (200+ images) -->
-                    <div id="tab-content-stock">
-                        <!-- Search Bar & Stats -->
-                        <div style="display: flex; gap: 12px; align-items: center; margin-bottom: 12px;">
-                            <div style="flex: 1; position: relative;">
-                                <input type="text" id="stock-search-input" class="form-control" placeholder="🔍 Search 214+ product photos (e.g., espresso, pizza, spritz, wine, cake, burger...)" style="padding-left: 36px;" oninput="filterStockPhotos()">
-                                <span style="position: absolute; left: 12px; top: 11px; font-size: 14px; color: var(--color-cacao-muted);">🔍</span>
-                            </div>
-                            <span id="photo-count-badge" class="badge badge-neutral" style="white-space: nowrap; font-weight: 700; padding: 8px 14px;">Showing 214 photos</span>
-                        </div>
-
-                        <!-- Category Filter Menu -->
-                        <div class="photo-category-menu" style="display: flex; gap: 6px; overflow-x: auto; padding-bottom: 8px; margin-bottom: 12px;">
-                            <button type="button" class="photo-cat-pill active" onclick="selectPhotoCategory('all', this)">✨ All Photos (214)</button>
-                            <button type="button" class="photo-cat-pill" onclick="selectPhotoCategory('coffee', this)">☕ Coffee & Hot (42)</button>
-                            <button type="button" class="photo-cat-pill" onclick="selectPhotoCategory('cocktails', this)">🍹 Cocktails & Bar (48)</button>
-                            <button type="button" class="photo-cat-pill" onclick="selectPhotoCategory('wines', this)">🍷 Wines & Beers (36)</button>
-                            <button type="button" class="photo-cat-pill" onclick="selectPhotoCategory('mains', this)">🍕 Pizza & Mains (54)</button>
-                            <button type="button" class="photo-cat-pill" onclick="selectPhotoCategory('desserts', this)">🍰 Cakes & Desserts (34)</button>
-                        </div>
-
-                        <!-- Grid -->
-                        <div id="stock-gallery-grid" class="stock-grid" style="grid-template-columns: repeat(4, 1fr); max-height: 310px; overflow-y: auto; padding-right: 6px; gap: 10px;">
-                            <!-- Dynamically populated via JavaScript -->
-                        </div>
-
-                        <div id="stock-selected-info" style="margin-top: 12px; font-size: 13px; color: #10B981; font-weight: 700; background: var(--color-paper-subtle); padding: 8px 12px; border-radius: var(--radius-sm); border: 1px solid var(--color-border);">
-                            ✓ Selected photo: Espresso 100% Arabica (☕) · Ready for instant CDN sync
-                        </div>
-                    </div>
-
-                    <!-- TAB 2: Presigned Custom Upload Area -->
-                    <div id="tab-content-upload" style="display: none;">
-                        <div style="border: 2px dashed var(--color-border-strong); padding: 40px 24px; text-align: center; border-radius: var(--radius-md); background: var(--color-paper);">
-                            <div style="font-size: 34px; margin-bottom: 8px;">☁️</div>
-                            <div style="font-weight: 700; color: var(--color-cacao); font-size: 15px;">Drag & drop high-resolution photo or Click to upload presigned file</div>
-                            <div style="font-size: 12px; color: var(--color-cacao-muted); margin-top: 4px;">Direct presigned AWS/DigitalOcean CDN upload (/products/photos/upload) · PNG, JPG, WebP up to 10MB</div>
-                            <button type="button" class="btn btn-secondary" style="margin-top: 16px; padding: 8px 18px; font-weight: 600;" onclick="alert('Odaberite datoteku sa svog računala...')">Browse Files</button>
-                        </div>
-                    </div>
-                </div>
-            </div>
-            <div class="modal-footer">
-                <button type="button" class="btn btn-secondary" onclick="closeProductModal()">Cancel</button>
-                <button type="button" class="btn btn-primary" onclick="saveProduct()">Save Product Photo & Details</button>
-            </div>
-        </div>
-    </div>
-
-    <style>
         .photo-cat-pill {
             padding: 6px 14px;
             border-radius: 20px;
@@ -414,113 +113,525 @@
             color: #FFFFFF;
             border-color: var(--color-cacao);
         }
+        .product-thumb-table {
+            width: 52px;
+            height: 52px;
+            border-radius: 8px;
+            object-fit: cover;
+            background: var(--color-paper-subtle);
+            border: 1px solid var(--color-border);
+            display: block;
+        }
+        .auto-match-badge {
+            display: inline-flex;
+            align-items: center;
+            gap: 6px;
+            background: rgba(16, 185, 129, 0.12);
+            color: #10B981;
+            border: 1px solid rgba(16, 185, 129, 0.3);
+            padding: 4px 10px;
+            border-radius: 6px;
+            font-size: 11px;
+            font-weight: 700;
+            margin-top: 6px;
+        }
     </style>
+</head>
+<body>
+    <div class="app-container">
+        <!-- Sidebar Navigation -->
+        <aside class="sidebar">
+            <div class="sidebar-brand-top">
+                <a href="../../index.html" class="brand-lockup">
+                    <div class="brand-badge">T</div>
+                    <div class="brand-wordmark">TAPLITO</div>
+                </a>
+            </div>
+
+            <a href="../07-settings/index.html" class="tenant-switcher">
+                <div class="tenant-box-left">
+                    <div class="tenant-icon">B</div>
+                    <div>
+                        <div class="tenant-name">Barok Standard</div>
+                        <div style="font-size: 11px; color: var(--color-cacao-muted);">Lokal · Admin Panel</div>
+                    </div>
+                </div>
+                <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M7 15l5 5 5-5"/><path d="M7 9l5-5 5 5"/></svg>
+            </a>
+
+            <div class="nav-section">
+                <div class="nav-section-header">Platforma</div>
+                <a href="../07-settings/index.html" class="nav-item">
+                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor"><circle cx="12" cy="12" r="3"/><path d="M19.4 15a1.65 1.65 0 0 0 .33 1.82l.06.06a2 2 0 0 1 0 2.83 2 2 0 0 1-2.83 0l-.06-.06a1.65 1.65 0 0 0-1.82-.33 1.65 1.65 0 0 0-1 1.51V21a2 2 0 0 1-2 2 2 2 0 0 1-2-2v-.09A1.65 1.65 0 0 0 9 19.4a1.65 1.65 0 0 0-1.82.33l-.06.06a2 2 0 0 1-2.83 0 2 2 0 0 1 0-2.83l.06.06a1.65 1.65 0 0 0 .33-1.82 1.65 1.65 0 0 0-1.51-1H3a2 2 0 0 1-2-2 2 2 0 0 1 2-2h.09A1.65 1.65 0 0 0 4.6 9a1.65 1.65 0 0 0-.33-1.82l-.06-.06a2 2 0 0 1 0-2.83 2 2 0 0 1 2.83 0l.06.06a1.65 1.65 0 0 0 1.82.33H9a1.65 1.65 0 0 0 1-1.51V3a2 2 0 0 1 2-2 2 2 0 0 1 2 2v.09a1.65 1.65 0 0 0 1 1.51 1.65 1.65 0 0 0 1.82-.33l.06-.06a2 2 0 0 1 2.83 0 2 2 0 0 1 0 2.83l-.06-.06a1.65 1.65 0 0 0-.33 1.82V9a1.65 1.65 0 0 0 1.51 1H21a2 2 0 0 1 2 2 2 2 0 0 1-2 2h-.09a1.65 1.65 0 0 0-1.51 1z"/></svg>
+                    Postavke
+                </a>
+            </div>
+
+            <div class="nav-section">
+                <div class="nav-section-header">Upravljanje <span>v</span></div>
+                <a href="../02-products/index.html" class="nav-item active">
+                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor"><rect x="3" y="3" width="7" height="7" rx="1"/><rect x="14" y="3" width="7" height="7" rx="1"/><rect x="14" y="14" width="7" height="7" rx="1"/><rect x="3" y="14" width="7" height="7" rx="1"/></svg>
+                    Proizvodi (30)
+                </a>
+                <a href="../04-service-points/index.html" class="nav-item">
+                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor"><circle cx="12" cy="12" r="10"/><path d="M12 8v4l3 3"/></svg>
+                    Stolovi (QR)
+                </a>
+                <a href="../03-menus/index.html" class="nav-item">
+                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor"><path d="M4 6h16M4 12h16M4 18h16"/></svg>
+                    Jelovnici
+                </a>
+                <a href="../08-dynamic-links/index.html" class="nav-item">
+                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor"><path d="M10 13a5 5 0 0 0 7.54.54l3-3a5 5 0 0 0-7.07-7.07l-1.72 1.71"/><path d="M14 11a5 5 0 0 0-7.54-.54l-3 3a5 5 0 0 0 7.07 7.07l1.71-1.71"/></svg>
+                    Dinamičke poveznice
+                </a>
+                <a href="../09-accounts/index.html" class="nav-item">
+                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor"><path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M23 21v-2a4 4 0 0 0-3-3.87"/><path d="M16 3.13a4 4 0 0 1 0 7.75"/></svg>
+                    Korisnički računi
+                </a>
+            </div>
+
+            <div class="nav-section">
+                <div class="nav-section-header">Integracije <span>v</span></div>
+                <a href="../06-integrations/index.html" class="nav-item">
+                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor"><path d="M12 2v20M17 5H9.5a3.5 3.5 0 0 0 0 7h5a3.5 3.5 0 0 1 0 7H6"/></svg>
+                    POS Blagajna
+                </a>
+                <a href="../10-payment-providers/index.html" class="nav-item">
+                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor"><rect x="1" y="4" width="22" height="16" rx="2" ry="2"/><line x1="1" y1="10" x2="23" y2="10"/></svg>
+                    Plaćanja
+                </a>
+            </div>
+        </aside>
+
+        <!-- Main Content Area -->
+        <div class="main-wrapper">
+            <header class="top-header">
+                <div class="header-title-box">
+                    <div class="breadcrumb">
+                        <a href="../../index.html">Barok</a> <span>›</span> <a href="../02-products/index.html">Upravljanje</a> <span>›</span> <span style="color: var(--color-cacao);">Proizvodi & Slike</span>
+                    </div>
+                    <span class="header-subtitle" style="font-size: 14px;">Upravljanje kataloških 30 stavki s automatskim prepoznavanjem slika iz lokalnog foldera.</span>
+                </div>
+                <div class="header-actions">
+                    <button class="btn btn-secondary" onclick="syncWithPOS()">
+                        🔄 Uvoz iz POS blagajne
+                    </button>
+                    <button class="btn btn-primary" onclick="openProductModal('create')">
+                        + Dodaj novi proizvod
+                    </button>
+                </div>
+            </header>
+
+            <main class="content-area">
+                <!-- Search & Filters -->
+                <div class="card" style="margin-bottom: 24px; padding: 16px 20px;">
+                    <div style="display: flex; align-items: center; justify-content: space-between; flex-wrap: wrap; gap: 16px;">
+                        <div style="flex: 1; min-width: 280px; position: relative;">
+                            <input type="text" id="table-search" class="form-control" placeholder="Pretraži 30 proizvoda po nazivu, opisu ili kategoriji..." style="padding-left: 38px;" oninput="filterTableProducts()">
+                            <svg style="position: absolute; left: 12px; top: 11px; width: 18px; height: 18px; color: var(--color-cacao-muted);" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="11" cy="11" r="8"/><line x1="21" y1="21" x2="16.65" y2="16.65"/></svg>
+                        </div>
+                        <div style="display: flex; gap: 8px; flex-wrap: wrap;" id="cat-filter-badges">
+                            <span class="badge badge-orange" style="cursor: pointer; padding: 7px 16px; font-size: 13px;" onclick="filterByCategory('all', this)">Svi (30)</span>
+                            <span class="badge badge-neutral" style="cursor: pointer; padding: 7px 16px; font-size: 13px;" onclick="filterByCategory('Coffee & Drinks', this)">Kave & Napitci</span>
+                            <span class="badge badge-neutral" style="cursor: pointer; padding: 7px 16px; font-size: 13px;" onclick="filterByCategory('Morski specijaliteti', this)">Morski plodovi</span>
+                            <span class="badge badge-neutral" style="cursor: pointer; padding: 7px 16px; font-size: 13px;" onclick="filterByCategory('Jela s roštilja', this)">Roštilj & Meso</span>
+                            <span class="badge badge-neutral" style="cursor: pointer; padding: 7px 16px; font-size: 13px;" onclick="filterByCategory('Tjestenine & Rižota', this)">Tjestenine & Rižota</span>
+                            <span class="badge badge-neutral" style="cursor: pointer; padding: 7px 16px; font-size: 13px;" onclick="filterByCategory('Deserti', this)">Deserti</span>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Products Table -->
+                <div class="card" style="padding: 0; overflow: hidden;">
+                    <div class="table-wrapper">
+                        <table class="admin-table">
+                            <thead>
+                                <tr>
+                                    <th style="width: 70px;">Slika</th>
+                                    <th style="width: 320px;">Naziv & Opis stavke ↑</th>
+                                    <th>Kategorija</th>
+                                    <th>Cijena (€)</th>
+                                    <th>Status u jelovniku</th>
+                                    <th>POS Blagajna</th>
+                                    <th style="text-align: right;">Akcije</th>
+                                </tr>
+                            </thead>
+                            <tbody id="products-table-body">
+                                <!-- Populated dynamically with 30 items -->
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            </main>
+        </div>
+    </div>
+
+    <!-- Modal za dodavanje/uređivanje proizvoda sa Stock Photo i Presigned Upload opcijom -->
+    <div id="modal-product" class="modal-overlay">
+        <div class="modal-box" style="max-width: 820px;">
+            <div class="modal-header">
+                <h3 id="modal-title" style="margin: 0; font-size: 18px;">Uredi proizvod i izvor slike</h3>
+                <button class="btn btn-secondary" style="padding: 4px 10px; border: none; font-size: 16px;" onclick="closeProductModal()">✕</button>
+            </div>
+            <div class="modal-body">
+                <div style="display: grid; grid-template-columns: 3fr 1fr; gap: 16px;">
+                    <div class="form-group">
+                        <label class="form-label">Naziv proizvoda * (Automatsko prepoznavanje slike na temelju naziva)</label>
+                        <input type="text" id="prod-name" class="form-control" value="" placeholder="npr. Ćevapi u lepinji, Espresso, Malvazija..." oninput="onProductNameInput()">
+                    </div>
+                    <div class="form-group">
+                        <label class="form-label">Cijena (€)</label>
+                        <input type="text" id="prod-price" class="form-control" value="0.00 €" style="font-family: var(--font-heading); font-weight: 800; font-size: 16px;">
+                    </div>
+                </div>
+
+                <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 16px;">
+                    <div class="form-group">
+                        <label class="form-label">Kategorija & Alergeni</label>
+                        <input type="text" id="prod-tags" class="form-control" value="Glavna jela, gluten bez">
+                    </div>
+                    <div class="form-group">
+                        <label class="form-label">Opis proizvoda (prikazuje se gostu na stolu)</label>
+                        <input type="text" id="prod-desc" class="form-control" value="">
+                    </div>
+                </div>
+
+                <!-- SMART AUTO-MATCH BANNER -->
+                <div id="auto-predict-banner" style="display: none; margin-top: 14px; background: rgba(16, 185, 129, 0.1); border: 1px solid #10B981; padding: 10px 14px; border-radius: var(--radius-sm); color: #10B981; font-weight: 700; font-size: 13px; align-items: center; justify-content: space-between;">
+                    <div style="display: flex; align-items: center; gap: 10px;">
+                        <span style="font-size: 18px;">✨</span>
+                        <div>
+                            <span>Automatski prepoznata slika po nazivu: <strong id="auto-predict-filename" style="color: #ffffff;"></strong></span>
+                            <div style="font-size: 11px; opacity: 0.85; font-weight: 500;">Povezano iz foldera: X:\Autopresvlake\AIIII\images</div>
+                        </div>
+                    </div>
+                    <span class="badge badge-success" style="font-size: 11px;">98% Match</span>
+                </div>
+
+                <!-- PHOTO SELECTION SECTION WITH TABS -->
+                <div class="form-group" style="margin-top: 18px; border-top: 1px solid var(--color-border); padding-top: 16px;">
+                    <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 12px; flex-wrap: wrap; gap: 10px;">
+                        <label class="form-label" style="margin: 0; font-size: 14px; font-weight: 700; color: var(--color-cacao);">Izvor fotografije proizvoda (Lokalna biblioteka slike)</label>
+                        <div style="display: flex; gap: 6px;">
+                            <button type="button" id="tab-btn-stock" class="photo-tab-btn active" onclick="switchPhotoTab('stock')">🖼️ Slike iz foldera (100+)</button>
+                            <button type="button" id="tab-btn-upload" class="photo-tab-btn" onclick="switchPhotoTab('upload')">📁 Vlastiti upload</button>
+                        </div>
+                    </div>
+
+                    <!-- TAB 1: Stock Photos Search & Library Grid (Local images folder) -->
+                    <div id="tab-content-stock">
+                        <!-- Search Bar & Stats -->
+                        <div style="display: flex; gap: 12px; align-items: center; margin-bottom: 12px;">
+                            <div style="flex: 1; position: relative;">
+                                <input type="text" id="stock-search-input" class="form-control" placeholder="🔍 Pretraži slike po imenu (npr. ćevapi, lignje, kava, ožujsko, pašticada...)" style="padding-left: 36px;" oninput="filterStockPhotos()">
+                                <span style="position: absolute; left: 12px; top: 11px; font-size: 14px; color: var(--color-cacao-muted);">🔍</span>
+                            </div>
+                            <span id="photo-count-badge" class="badge badge-neutral" style="white-space: nowrap; font-weight: 700; padding: 8px 14px;">Prikazano 100 slika</span>
+                        </div>
+
+                        <!-- Category Filter Menu -->
+                        <div class="photo-category-menu" style="display: flex; gap: 6px; overflow-x: auto; padding-bottom: 8px; margin-bottom: 12px;">
+                            <button type="button" class="photo-cat-pill active" onclick="selectPhotoCategory('all', this)">✨ Sve slike (100+)</button>
+                            <button type="button" class="photo-cat-pill" onclick="selectPhotoCategory('coffee', this)">☕ Kave & Napitci</button>
+                            <button type="button" class="photo-cat-pill" onclick="selectPhotoCategory('mains', this)">🥩 Glavna jela & Roštilj</button>
+                            <button type="button" class="photo-cat-pill" onclick="selectPhotoCategory('seafood', this)">🐟 Morski specijaliteti</button>
+                            <button type="button" class="photo-cat-pill" onclick="selectPhotoCategory('pasta', this)">🍝 Tjestenine & Rižota</button>
+                            <button type="button" class="photo-cat-pill" onclick="selectPhotoCategory('desserts', this)">🍰 Deserti</button>
+                            <button type="button" class="photo-cat-pill" onclick="selectPhotoCategory('drinks', this)">🥤 Pića & Alkohol</button>
+                        </div>
+
+                        <!-- Grid -->
+                        <div id="stock-gallery-grid" class="stock-grid" style="max-height: 290px; overflow-y: auto; padding-right: 6px;">
+                            <!-- Dynamically populated via JavaScript -->
+                        </div>
+
+                        <div id="stock-selected-info" style="margin-top: 12px; font-size: 13px; color: #10B981; font-weight: 700; background: var(--color-paper-subtle); padding: 10px 14px; border-radius: var(--radius-sm); border: 1px solid var(--color-border); display: flex; align-items: center; justify-content: space-between;">
+                            <span id="stock-selected-text">✓ Odabrana slika: Espresso_1.jpeg · Spremno za sinkronizaciju</span>
+                            <span class="badge badge-success">Lokalna slika aktivna</span>
+                        </div>
+                    </div>
+
+                    <!-- TAB 2: Presigned Custom Upload Area -->
+                    <div id="tab-content-upload" style="display: none;">
+                        <div style="border: 2px dashed var(--color-border-strong); padding: 40px 24px; text-align: center; border-radius: var(--radius-md); background: var(--color-paper);">
+                            <div style="font-size: 34px; margin-bottom: 8px;">☁️</div>
+                            <div style="font-weight: 700; color: var(--color-cacao); font-size: 15px;">Povucite datoteku ovdje ili kliknite za vlastiti upload slike</div>
+                            <div style="font-size: 12px; color: var(--color-cacao-muted); margin-top: 4px;">Slike se automatski optimiziraju i spremaju u lokalu · PNG, JPG, WebP do 10MB</div>
+                            <button type="button" class="btn btn-secondary" style="margin-top: 16px; padding: 8px 18px; font-weight: 600;" onclick="alert('Odaberite datoteku s računala...')">Odaberi sliku s računala</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" onclick="closeProductModal()">Odustani</button>
+                <button type="button" class="btn btn-primary" onclick="saveProduct()">Spremi proizvod i sliku</button>
+            </div>
+        </div>
+    </div>
 
     <script>
-        // 200+ Stock photo dataset simulation with full searchable metadata
-        const stockPhotosData = [
-            // Coffee & Hot
-            { cat: 'coffee', icon: '☕', name: 'Espresso 100% Arabica', tags: 'espresso kava coffee crna kavica kratka' },
-            { cat: 'coffee', icon: '☕', name: 'Double Espresso (Doppio)', tags: 'dupli espresso doppio coffee jaka' },
-            { cat: 'coffee', icon: '🥤', name: 'Cappuccino Creamy Latte', tags: 'cappuccino mlijeko pjena latte kava' },
-            { cat: 'coffee', icon: '🥤', name: 'Latte Macchiato Glass', tags: 'latte macchiato kava pjena toplo' },
-            { cat: 'coffee', icon: '☕', name: 'Americano Black Coffee', tags: 'americano duga kava crna' },
-            { cat: 'coffee', icon: '🥤', name: 'Flat White Artisan', tags: 'flat white kava mlijeko australska' },
-            { cat: 'coffee', icon: '🧊', name: 'Iced Coffee & Vanilla Cream', tags: 'iced kava ledena vanilija ljeto' },
-            { cat: 'coffee', icon: '🍵', name: 'Matcha Green Tea Latte', tags: 'matcha zeleni caj latte japanski čaj' },
-            { cat: 'coffee', icon: '🫖', name: 'Organic Earl Grey Tea', tags: 'caj čaj earl grey crni limun čajnik' },
-            { cat: 'coffee', icon: '🫖', name: 'Fresh Mint & Honey Infusion', tags: 'caj čaj menta med svježe' },
-            { cat: 'coffee', icon: '🍫', name: 'Thick Italian Hot Chocolate', tags: 'topla cokolada čokolada slatko zima' },
-            { cat: 'coffee', icon: '☕', name: 'Decaf Espresso Black', tags: 'decaf bez kofeina kava' },
-            
-            // Cocktails & Bar
-            { cat: 'cocktails', icon: '🍹', name: 'Aperol Spritz & Orange Slice', tags: 'aperol spritz koktel kokteli ljeto naranča' },
-            { cat: 'cocktails', icon: '🥂', name: 'Hugo Spritz Elderflower & Mint', tags: 'hugo spritz bazga menta koktel pjenušac' },
-            { cat: 'cocktails', icon: '🍸', name: 'Classic Mojito Fresh Lime', tags: 'mojito rum limeta menta koktel' },
-            { cat: 'cocktails', icon: '🥃', name: 'Negroni Campari & Gin', tags: 'negroni gin campari vermut koktel' },
-            { cat: 'cocktails', icon: '🥃', name: 'Old Fashioned Bourbon Whiskey', tags: 'old fashioned viski bourbon koktel' },
-            { cat: 'cocktails', icon: '🍸', name: 'Gin & Tonic Botanical', tags: 'gin tonic gin-tonic limun krastavac' },
-            { cat: 'cocktails', icon: '🍸', name: 'Margarita Salted Rim', tags: 'margarita tekila limeta koktel' },
-            { cat: 'cocktails', icon: '🍸', name: 'Espresso Martini Signature', tags: 'espresso martini kava koktel vodka' },
-            { cat: 'cocktails', icon: '🍹', name: 'Piña Colada Coconut Cream', tags: 'pina colada ananas kokos rum koktel' },
-            { cat: 'cocktails', icon: '🥃', name: 'Whiskey Sour Lemon Foam', tags: 'whiskey sour viski limun pjena' },
-
-            // Wines & Beers
-            { cat: 'wines', icon: '🍷', name: 'Malvazija Istarska Premium', tags: 'bijelo vino malvazija istra čaša wine' },
-            { cat: 'wines', icon: '🍷', name: 'Plavac Mali Dalmacija Barrique', tags: 'crno vino plavac mali dalmacija pelješac' },
-            { cat: 'wines', icon: '🥂', name: 'Prosecco DOCG Sparkling Glass', tags: 'prosecco pjenušac šampanjac bubbles' },
-            { cat: 'wines', icon: '🍷', name: 'Rosé Provence Chilled Glass', tags: 'rose vino roze ljetno osvježenje' },
-            { cat: 'wines', icon: '🍺', name: 'Craft IPA Hazy Hop Blast', tags: 'pivo craft ipa ale hmelj piva beer' },
-            { cat: 'wines', icon: '🍺', name: 'Draft Lager Premium Half-Liter', tags: 'točeno pivo lager piva pola litre čaša' },
-            { cat: 'wines', icon: '🍺', name: 'Wheat Beer Weissbier', tags: 'pšenično pivo weissbier piva' },
-            { cat: 'wines', icon: '🍺', name: 'Dark Stout Irish Ale', tags: 'tamno pivo stout crno pivo' },
-
-            // Pizza & Mains
-            { cat: 'mains', icon: '🍕', name: 'Artisan Pizza Margherita Buffalo', tags: 'pizza margherita mozzarela rajčica bosiljak jelo' },
-            { cat: 'mains', icon: '🍕', name: 'Pizza Capricciosa Prosciutto & Fungi', tags: 'pizza capricciosa šunka gljive' },
-            { cat: 'mains', icon: '🍕', name: 'Pizza Diavola Spicy Salami', tags: 'pizza diavola ljuta salama kulen peperoni' },
-            { cat: 'mains', icon: '🍕', name: 'Pizza Truffle & Wild Mushrooms', tags: 'pizza tartuf gljive bijela' },
-            { cat: 'mains', icon: '🍔', name: 'Gourmet Angus Beef Burger & Fries', tags: 'burger pljeskavica meso pomfrit hamburger' },
-            { cat: 'mains', icon: '🍔', name: 'Crispy Chicken Brioche Burger', tags: 'piletina burger chicken sendvič' },
-            { cat: 'mains', icon: '🥘', name: 'Crni rižot od jadranske sipe', tags: 'rižot sipa crni morski plodovi riba dalmacija jelo' },
-            { cat: 'mains', icon: '🐟', name: 'Grilled Adriatic Sea Bass Fillet', tags: 'brancin riba žar blitva krumpir morsko' },
-            { cat: 'mains', icon: '🥩', name: 'Ribeye Steak Dry Aged 300g', tags: 'steak odrezak meso žar' },
-            { cat: 'mains', icon: '🦑', name: 'Crispy Fried Calamari & Tartar', tags: 'lignje pržene tartar plodovi mora' },
-
-            // Cakes & Desserts
-            { cat: 'desserts', icon: '🍰', name: 'Olive Oil Lemon Dalmatian Cake', tags: 'kolač torta limun maslinovo ulje slastica' },
-            { cat: 'desserts', icon: '🍰', name: 'Italian Tiramisu Mascarpone', tags: 'tiramisu kava mascarpone talijanski' },
-            { cat: 'desserts', icon: '🍫', name: 'Warm Chocolate Lava Cake & Gelato', tags: 'cokolada lava tortica sladoled vruće' },
-            { cat: 'desserts', icon: '🍰', name: 'Baked New York Cheesecake Berry', tags: 'cheesecake torta sir šumsko voće' },
-            { cat: 'desserts', icon: '🥐', name: 'Freshly Baked Butter Croissant', tags: 'croissant kroasan pecivo maslac jutro' },
-            { cat: 'desserts', icon: '🍨', name: 'Artisan Pistachio & Vanilla Gelato', tags: 'sladoled gelato pistacija vanilija kuglica' },
-            { cat: 'desserts', icon: '🥧', name: 'Traditional Apple Strudel Warm', tags: 'štrudla jabuka cimet kolač' },
-            { cat: 'desserts', icon: '🍯', name: 'Dalmatian Rozata Caramel Custard', tags: 'rozata rožata karamela puding Dubrovnik' }
+        // Full Dataset of images from X:\Autopresvlake\AIIII\images
+        const localImages = [
+            { file: '1. Crni_rižoto_1.jpeg', name: 'Crni rižoto od sipe', cat: 'pasta', tags: 'crni rizoto rižot sipa morski plodovi dalmacija' },
+            { file: '2. Brudet_1.jpeg', name: 'Dalmatinski brudet', cat: 'seafood', tags: 'brudet brudat riba morski plodovi polenta' },
+            { file: '3. Buzara_od_dagnji_1.jpeg', name: 'Buzara od dagnji', cat: 'seafood', tags: 'buzara dagnje skoljke morski plodovi' },
+            { file: '4 .Lignje_na_žaru_1.jpeg', name: 'Lignje na žaru', cat: 'seafood', tags: 'lignje zar zaru blitva krumpir' },
+            { file: '5. Lignje_pržene_1.jpeg', name: 'Pržene lignje', cat: 'seafood', tags: 'lignje przene pržene tartar pomfrit' },
+            { file: '6. Škampi_na_buzaru_1.jpeg', name: 'Škampi na buzaru', cat: 'seafood', tags: 'skampi škampi buzara crvena' },
+            { file: '7. Orada_na_žaru_1.jpeg', name: 'Orada na žaru', cat: 'seafood', tags: 'orada zar zaru riba gradela' },
+            { file: '8. Brancin_na_žaru_1.jpeg', name: 'Brancin na žaru', cat: 'seafood', tags: 'brancin zar zaru riba filet' },
+            { file: '9. Sardele_na_žaru_1.jpeg', name: 'Srdela na žaru', cat: 'seafood', tags: 'sardele srdele plava riba zar' },
+            { file: '10. Hobotnica_salata_1.jpeg', name: 'Salata od hobotnice', cat: 'seafood', tags: 'hobotnica salata maslinovo ulje krumpir' },
+            { file: '11. Peka_s_janjetinom_1.jpeg', name: 'Peka s janjetinom', cat: 'mains', tags: 'peka janjetina krumpir povrce' },
+            { file: '12. Peka_s_teletinom_1.jpeg', name: 'Peka s teletinom', cat: 'mains', tags: 'peka teletina krumpir sos' },
+            { file: '13. Peka_s_hobotnicom_1.jpeg', name: 'Peka s hobotnicom', cat: 'seafood', tags: 'peka hobotnica krumpir morsko' },
+            { file: '14. Ćevapi_1.jpeg', name: 'Ćevapi u lepinji', cat: 'mains', tags: 'cevapi ćevapi lepinja luk kajmak grill roštilj' },
+            { file: '15. Pljeskavica_1.jpeg', name: 'Pljeskavica sa sirom', cat: 'mains', tags: 'pljeskavica sir kajmak roštilj grill' },
+            { file: '16. Miješano_meso_1.jpeg', name: 'Miješano meso na žaru', cat: 'mains', tags: 'mijesano meso rostilj cevapi raznjici' },
+            { file: '17. Ražnjići_1.jpeg', name: 'Svinjski ražnjići', cat: 'mains', tags: 'raznjici ražnjići svinjetina pomfrit' },
+            { file: '18. Pileći_file_na_žaru_1.jpeg', name: 'Pileći file na žaru', cat: 'mains', tags: 'piletina pileci file zar povrce' },
+            { file: '19. Pileći_bečki_1.jpeg', name: 'Pileći bečki odrezak', cat: 'mains', tags: 'becki bečki pileci schnitzel pomfrit' },
+            { file: '20. Svinjski_vrat_na_žaru_1.jpeg', name: 'Svinjski vrat na žaru', cat: 'mains', tags: 'svinjski vrat zar rostilj ajvar' },
+            { file: '21. Teleći_odrezak_1.jpeg', name: 'Teleći odrezak', cat: 'mains', tags: 'teleci odrezak teletina umak' },
+            { file: '22. Zagrebački_odrezak_1.jpeg', name: 'Zagrebački odrezak', cat: 'mains', tags: 'zagrebacki odrezak sunka sir punjeni' },
+            { file: '23. Pašticada_s_njokima_1.jpeg', name: 'Pašticada s njokima', cat: 'mains', tags: 'pasticada pašticada njoki junetina umak' },
+            { file: '24. Janjetina_s_ražnja_1.jpeg', name: 'Janjetina s ražnja', cat: 'mains', tags: 'janjetina razanj mladi luk' },
+            { file: '25. Sarma_1.jpeg', name: 'Domaća sarma', cat: 'mains', tags: 'sarma kupus mljeveno meso pire' },
+            { file: '26. Punjene_paprike_1.jpeg', name: 'Punjene paprike', cat: 'mains', tags: 'punjene paprike meso rajcica sos' },
+            { file: '27. Grah_s_kobasicom_1.jpeg', name: 'Grah s kobasicom', cat: 'mains', tags: 'grah kobasica suho meso varivo' },
+            { file: '28. Čobanac_1.jpeg', name: 'Slavonski čobanac', cat: 'mains', tags: 'cobanac čobanac kotlic meso ljuto' },
+            { file: '29. Fiš_paprikaš_1.jpeg', name: 'Fiš paprikaš', cat: 'seafood', tags: 'fis fis-paprikas paprikaš tjestenina' },
+            { file: '30. Fuži_s_tartufima_1.jpeg', name: 'Fuži s tartufima', cat: 'pasta', tags: 'fuzi fuži tartufi vrhnje istra tjestenina' },
+            { file: '31. Pljukanci_s_boškarinom_1.jpeg', name: 'Pljukanci s boškarinom', cat: 'pasta', tags: 'pljukanci boskarin boškarin umak meso' },
+            { file: '32. Njoki_u_gorgonzoli_1.jpeg', name: 'Njoki u gorgonzoli', cat: 'pasta', tags: 'njoki gorgonzola sir vrhnje' },
+            { file: '33. Njoki_s_pašticadom_1.jpeg', name: 'Njoki s pašticadom', cat: 'pasta', tags: 'njoki pasticada pašticada umak' },
+            { file: '34. Spaghetti_Bolognese_1.jpeg', name: 'Spaghetti Bolognese', cat: 'pasta', tags: 'spaghetti bolognese spageti rajcica meso' },
+            { file: '35. Penne_Arrabbiata_1.jpeg', name: 'Penne Arrabbiata', cat: 'pasta', tags: 'penne arrabbiata ljuto feferoni' },
+            { file: '36. Carbonara_1.jpeg', name: 'Spaghetti Carbonara', cat: 'pasta', tags: 'carbonara panceta jaja sir spageti' },
+            { file: '37. Lasagne_1.jpeg', name: 'Lasagne Bolognese', cat: 'pasta', tags: 'lasagne lazanje meso sir zapečeno' },
+            { file: '38. Rižoto_s_piletinom_1.jpeg', name: 'Rižoto s piletinom', cat: 'pasta', tags: 'rizoto rižoto piletina riza' },
+            { file: '39. Rižoto_s_gljivama_1.jpeg', name: 'Rižoto s gljivama', cat: 'pasta', tags: 'rizoto gljive vrganji riza' },
+            { file: '42. Štrukli_1.jpeg', name: 'Zapečeni štrukli', cat: 'mains', tags: 'strukli štrukli sir vrhnje zagorje' },
+            { file: '43. Soparnik_1.jpeg', name: 'Poljički soparnik', cat: 'mains', tags: 'soparnik blitva cesnjak tijesto' },
+            { file: '44. Burek_s_mesom_1.jpeg', name: 'Burek s mesom', cat: 'mains', tags: 'burek meso pita motani' },
+            { file: '45. Burek_sa_sirom_1.jpeg', name: 'Burek sa sirom', cat: 'mains', tags: 'burek sir sirnica pita' },
+            { file: '47. Pomfrit_1.jpeg', name: 'Prženi pomfrit', cat: 'mains', tags: 'pomfrit krumpirice prilog' },
+            { file: '50. Šopska_salata_1.jpeg', name: 'Šopska salata', cat: 'mains', tags: 'sopska šopska salata sir rajcica krastavac' },
+            { file: '51. Miješana_salata_1.jpeg', name: 'Miješana salata', cat: 'mains', tags: 'mijesana salata kupus zelena' },
+            { file: '55. Cezar_salata_1.jpeg', name: 'Cezar salata', cat: 'mains', tags: 'cezar salata piletina krutoni' },
+            { file: '56. Tuna_salata_1.jpeg', name: 'Tuna salata', cat: 'seafood', tags: 'tuna salata kukuruz jaja' },
+            { file: '57. Grčka_salata_1.jpeg', name: 'Grčka salata', cat: 'mains', tags: 'grcka grčka salata feta masline' },
+            { file: '58. Pršut_i_sir_1.jpeg', name: 'Dalmatinski pršut i sir', cat: 'mains', tags: 'prsut pršut sir plata masline' },
+            { file: '59. Paški_sir_1.jpeg', name: 'Paški sir', cat: 'mains', tags: 'paski paški sir pag' },
+            { file: '61. Sirna_plata_1.jpeg', name: 'Sirna plata', cat: 'mains', tags: 'sirna plata sirevi orasi med' },
+            { file: '63. Palačinke_1.jpeg', name: 'Palačinke s Nutellom', cat: 'desserts', tags: 'palacinke palačinke nutella cokolada orasi' },
+            { file: '64. Fritule_1.jpeg', name: 'Fritule', cat: 'desserts', tags: 'fritule secer cokolada preljev' },
+            { file: '66. Kremšnita_1.jpeg', name: 'Kremšnita', cat: 'desserts', tags: 'kremsnita kremšnita krema lisnato' },
+            { file: '67. Rožata_1.jpeg', name: 'Dubrovačka rožata', cat: 'desserts', tags: 'rozata rožata karamel puding' },
+            { file: '68. Savijača_od_jabuka_1.jpeg', name: 'Savijača od jabuka', cat: 'desserts', tags: 'strudla štrudla jabuke cimet' },
+            { file: '69. Čokoladna_torta_1.jpeg', name: 'Čokoladna torta', cat: 'desserts', tags: 'cokoladna torta cokolada slatko' },
+            { file: '70. Cheesecake_1.jpeg', name: 'Cheesecake', cat: 'desserts', tags: 'cheesecake torta sir sumsko voce' },
+            { file: '71. Sladoled_1.jpeg', name: 'Kuglica sladoleda', cat: 'desserts', tags: 'sladoled gelato vanilija cokolada' },
+            { file: '72. Espresso_1.jpeg', name: 'Espresso 100% Arabica', cat: 'coffee', tags: 'espresso kava coffee crna' },
+            { file: '73. Kava_s_mlijekom_1.jpeg', name: 'Kava s mlijekom', cat: 'coffee', tags: 'kava mlijeko velika macchiato' },
+            { file: '74. Macchiato_1.jpeg', name: 'Macchiato', cat: 'coffee', tags: 'macchiato kava pjena' },
+            { file: '75. Cappuccino_1.jpeg', name: 'Cappuccino', cat: 'coffee', tags: 'cappuccino kava pjena pjenusavo' },
+            { file: '76. Bijela_kava_1.jpeg', name: 'Bijela kava', cat: 'coffee', tags: 'bijela kava caffe latte' },
+            { file: '77. Nescafé_1.jpeg', name: 'Nescafé Vanilla', cat: 'coffee', tags: 'nescafe nescafé vanilija cokolada' },
+            { file: '78. Ledena_kava_1.jpeg', name: 'Ledena kava', cat: 'coffee', tags: 'ledena kava iced coffee sladoled' },
+            { file: '79. Americano_1.jpeg', name: 'Americano kava', cat: 'coffee', tags: 'americano kava duga crna' },
+            { file: '80. Prirodna voda Jana.jpeg', name: 'Prirodna voda Jana 0.33l', cat: 'drinks', tags: 'jana voda prirodna bocica' },
+            { file: '81. Mineralna voda Jamnica.jpeg', name: 'Mineralna voda Jamnica 0.25l', cat: 'drinks', tags: 'jamnica mineralna gazirana voda' },
+            { file: '82. Coca-Cola.jpeg', name: 'Coca-Cola 0.25l', cat: 'drinks', tags: 'coca-cola coca cola sok gazirano' },
+            { file: '83. Coca-Cola Zero.jpeg', name: 'Coca-Cola Zero 0.25l', cat: 'drinks', tags: 'coca-cola zero bez secera sok' },
+            { file: '84. Fanta.jpeg', name: 'Fanta Orange 0.25l', cat: 'drinks', tags: 'fanta naranca sok gazirano' },
+            { file: '85. Sprite.jpeg', name: 'Sprite 0.25l', cat: 'drinks', tags: 'sprite limun sok gazirano' },
+            { file: '86. Cedevita.jpeg', name: 'Cedevita Naranča', cat: 'drinks', tags: 'cedevita sok vitamin naranca' },
+            { file: '87. Pipi.jpeg', name: 'Pipi narančada 0.25l', cat: 'drinks', tags: 'pipi narancada sok dalmacija' },
+            { file: '88. Cockta.jpeg', name: 'Cockta Original 0.275l', cat: 'drinks', tags: 'cockta sok biljni' },
+            { file: '89. Prirodni sok od naranče.jpeg', name: 'Prirodni sok od naranče', cat: 'drinks', tags: 'sok naranca cjedjeni voćni' },
+            { file: '90. Sok od jabuke.jpeg', name: 'Bistri sok od jabuke', cat: 'drinks', tags: 'sok jabuka vocni' },
+            { file: '91. Ožujsko pivo.jpeg', name: 'Ožujsko pivo 0.5l', cat: 'drinks', tags: 'ozujsko ožujsko pivo žuja piva boce' },
+            { file: '92. Karlovačko pivo.jpeg', name: 'Karlovačko pivo 0.5l', cat: 'drinks', tags: 'karlovacko karlovačko pivo piva' },
+            { file: '93. Pan pivo.jpeg', name: 'Pan Lager pivo 0.5l', cat: 'drinks', tags: 'pan pivo lager piva' },
+            { file: '94. Gemišt.jpeg', name: 'Domaći Gemišt 0.2l', cat: 'drinks', tags: 'gemist gemišt grasevina jamnica vino' },
+            { file: '95. Bevanda.jpeg', name: 'Dalmatinska Bevanda 0.2l', cat: 'drinks', tags: 'bevanda crno vino voda' },
+            { file: '96. Malvazija.jpeg', name: 'Istarska Malvazija 0.75l', cat: 'drinks', tags: 'malvazija bijelo vino istra bocna' },
+            { file: '97. Graševina.jpeg', name: 'Kutjevačka Graševina 0.75l', cat: 'drinks', tags: 'grasevina graševina bijelo vino kutjevo' },
+            { file: '98. Plavac mali.jpeg', name: 'Plavac Mali Premium 0.75l', cat: 'drinks', tags: 'plavac mali crno vino peljesac' },
+            { file: '99. Rakija.jpeg', name: 'Domaća Travarica', cat: 'drinks', tags: 'rakija travarica sljivovica aperitiv' },
+            { file: '100. Pelinkovac.jpeg', name: 'Badel Pelinkovac Antique 0.03l', cat: 'drinks', tags: 'pelinkovac antique badel liker' }
         ];
 
-        // Generate additional items dynamically so database has exactly 214 high-res items s rich variety
-        const extraIcons = ['🍕', '☕', '🍹', '🍔', '🍰', '🍷', '🥗', '🥘', '🍺', '🍸'];
-        const extraCats = ['mains', 'coffee', 'cocktails', 'mains', 'desserts', 'wines', 'mains', 'mains', 'wines', 'cocktails'];
-        for(let i = stockPhotosData.length + 1; i <= 214; i++) {
-            const idx = i % extraIcons.length;
-            stockPhotosData.push({
-                cat: extraCats[idx],
-                icon: extraIcons[idx],
-                name: `Curated Photo #${i} (${extraCats[idx].toUpperCase()})`,
-                tags: `${extraCats[idx]} photo item ${i} kurirano jelo pice`
-            });
+        // 30 Items Dataset for Admin Menu Table Example
+        let products30 = [
+            { id: 1, name: "Espresso 100% Arabica", price: "1.80 €", desc: "Vrhunska 100% Arabica kava s bogatom kremom i aromom.", cat: "Coffee & Drinks", img: "72. Espresso_1.jpeg", active: true },
+            { id: 2, name: "Cappuccino Creamy Latte", price: "2.20 €", desc: "Kremasti espresso s toplim mlijekom i bogatom pjenom.", cat: "Coffee & Drinks", img: "75. Cappuccino_1.jpeg", active: true },
+            { id: 3, name: "Macchiato s toplim mlijekom", price: "2.00 €", desc: "Espresso s kapljicom toplog mlijeka u maloj šalici.", cat: "Coffee & Drinks", img: "74. Macchiato_1.jpeg", active: true },
+            { id: 4, name: "Ledena kava sa sladoledom", price: "3.50 €", desc: "Osvježavajuća hladna kava s kuglicom sladoleda od vanilije.", cat: "Coffee & Drinks", img: "78. Ledena_kava_1.jpeg", active: true },
+            { id: 5, name: "Crni rižoto od jadranske sipe", price: "18.50 €", desc: "Pripremljen po tradicionalnoj dalmatinskoj recepturi sa svježom sipom.", cat: "Tjestenine & Rižota", img: "1. Crni_rižoto_1.jpeg", active: true },
+            { id: 6, name: "Dalmatinski brudet od miješane ribe", price: "21.00 €", desc: "Tradicionalni brudet od jadranske ribe sa zakačenom palentom.", cat: "Morski specijaliteti", img: "2. Brudet_1.jpeg", active: true },
+            { id: 7, name: "Buzara od svježih dagnji", price: "14.00 €", desc: "Svježe jadranske dagnje na bijelu buzaru s češnjakom i peršinom.", cat: "Morski specijaliteti", img: "3. Buzara_od_dagnji_1.jpeg", active: true },
+            { id: 8, name: "Lignje na žaru s blitvom", price: "17.50 €", desc: "Domaće lignje na žaru poslužene s blitvom i krumpirom.", cat: "Morski specijaliteti", img: "4 .Lignje_na_žaru_1.jpeg", active: true },
+            { id: 9, name: "Pržene lignje s umakom tartar", price: "16.00 €", desc: "Hrskave pržene lignje s domaćim tartar umakom i pomfritom.", cat: "Morski specijaliteti", img: "5. Lignje_pržene_1.jpeg", active: true },
+            { id: 10, name: "Škampi na buzaru", price: "26.00 €", desc: "Kraljevski jadranski škampi u aromatičnom umaku od rajčice i vina.", cat: "Morski specijaliteti", img: "6. Škampi_na_buzaru_1.jpeg", active: true },
+            { id: 11, name: "Orada na žaru s krumpirom", price: "22.00 €", desc: "Svježa jadranska orada s gradela s prilogom od povrća.", cat: "Morski specijaliteti", img: "7. Orada_na_žaru_1.jpeg", active: true },
+            { id: 12, name: "Salata od jadranske hobotnice", price: "16.50 €", desc: "Kuhana hobotnica s krumpirom, kaparima i ekstra djevičanskim uljem.", cat: "Morski specijaliteti", img: "10. Hobotnica_salata_1.jpeg", active: true },
+            { id: 13, name: "Ćevapi u lepinji (10 kom)", price: "12.00 €", desc: "Sočni juneći ćevapi na žaru s toplom lepinjom, lukom i kajmakom.", cat: "Jela s roštilja", img: "14. Ćevapi_1.jpeg", active: true },
+            { id: 14, name: "Gurmanska pljeskavica sa sirom", price: "13.50 €", desc: "Punjena pljeskavica sa sirom i slaninom na drvenom ugljenu.", cat: "Jela s roštilja", img: "15. Pljeskavica_1.jpeg", active: true },
+            { id: 15, name: "Miješano meso na žaru", price: "19.00 €", desc: "Bogat pijat s ćevapima, ražnjićima, pljeskavicom i kobasicom.", cat: "Jela s roštilja", img: "16. Miješano_meso_1.jpeg", active: true },
+            { id: 16, name: "Pašticada s domaćim njokima", price: "19.50 €", desc: "Špikovana juneća pašticada spora kuhana u umaku od suhih šljiva.", cat: "Jela s roštilja", img: "23. Pašticada_s_njokima_1.jpeg", active: true },
+            { id: 17, name: "Fuži s istarskim crnim tartufima", price: "20.00 €", desc: "Domaći istarski fuži u baršunastom umaku od crnih tartufa i maslaca.", cat: "Tjestenine & Rižota", img: "30. Fuži_s_tartufima_1.jpeg", active: true },
+            { id: 18, name: "Pljukanci s boškarinom", price: "21.50 €", desc: "Tradicionalni pljukanci s umakom od autohtonog istarskog goveda.", cat: "Tjestenine & Rižota", img: "31. Pljukanci_s_boškarinom_1.jpeg", active: true },
+            { id: 19, name: "Spaghetti Bolognese", price: "11.50 €", desc: "Spaghetti s bogatim mesnim umakom od rajčice i parmezanom.", cat: "Tjestenine & Rižota", img: "34. Spaghetti_Bolognese_1.jpeg", active: true },
+            { id: 20, name: "Pasta Spaghetti Carbonara", price: "12.50 €", desc: "Kremasti spaghetti s hrskavim guancialeom, žumanjkom i pecorinom.", cat: "Tjestenine & Rižota", img: "36. Carbonara_1.jpeg", active: true },
+            { id: 21, name: "Domaći zapečeni štrukli", price: "8.50 €", desc: "Zagorski štrukli punjeni svježim kravljim sirom i zapečeni u vrhnju.", cat: "Jela s roštilja", img: "42. Štrukli_1.jpeg", active: true },
+            { id: 22, name: "Šopska salata sa sirom", price: "6.50 €", desc: "Svježa rajčica, krastavci, paprika i naribani bijeli sir.", cat: "Jela s roštilja", img: "50. Šopska_salata_1.jpeg", active: true },
+            { id: 23, name: "Dalmatinski pršut i paški sir", price: "15.00 €", desc: "Sušeni dalmatinski pršut i odležani paški sir s maslinama.", cat: "Jela s roštilja", img: "58. Pršut_i_sir_1.jpeg", active: true },
+            { id: 24, name: "Domaće palačinke s Nutellom", price: "5.00 €", desc: "Tople palačinke s obilnim punjenjem od Nutelle i lješnjaka.", cat: "Deserti", img: "63. Palačinke_1.jpeg", active: true },
+            { id: 25, name: "Zagrebačka kremšnita", price: "4.50 €", desc: "Lagana krema od jaja između hrskavih lisnatih kora.", cat: "Deserti", img: "66. Kremšnita_1.jpeg", active: true },
+            { id: 26, name: "Dubrovačka rožata", price: "5.50 €", desc: "Tradicionalni puding od jaja i mlijeka s preljevom od karamela.", cat: "Deserti", img: "67. Rožata_1.jpeg", active: true },
+            { id: 27, name: "Čokoladna torta s lješnjacima", price: "5.00 €", desc: "Bogata torta s više slojeva tamne čokolade i prženim lješnjacima.", cat: "Deserti", img: "69. Čokoladna_torta_1.jpeg", active: true },
+            { id: 28, name: "Prirodna voda Jana 0.33l", price: "2.50 €", desc: "Izvorska negazirana prirodna voda u staklenoj bočici.", cat: "Coffee & Drinks", img: "80. Prirodna voda Jana.jpeg", active: true },
+            { id: 29, name: "Coca-Cola 0.25l", price: "2.80 €", desc: "Kultno osvježavajuće gazirano piće u staklenki.", cat: "Coffee & Drinks", img: "82. Coca-Cola.jpeg", active: true },
+            { id: 30, name: "Istarska Malvazija 0.75l", price: "28.00 €", desc: "Vrhunsko suho bijelo vino s cvjetnim i voćnim aromama.", cat: "Coffee & Drinks", img: "96. Malvazija.jpeg", active: true }
+        ];
+
+        let selectedImageFile = '72. Espresso_1.jpeg';
+        let currentPhotoCat = 'all';
+        let currentEditingId = null;
+        let activeCategoryFilter = 'all';
+
+        function getImgUrl(filename) {
+            return '../../images/' + encodeURI(filename);
         }
 
-        let currentCategory = 'all';
+        // Render Table with 30 items
+        function renderProductsTable() {
+            const tbody = document.getElementById('products-table-body');
+            const searchVal = (document.getElementById('table-search').value || '').toLowerCase().trim();
+
+            const filtered = products30.filter(p => {
+                const matchesCat = (activeCategoryFilter === 'all' || p.cat === activeCategoryFilter);
+                const matchesSearch = !searchVal || p.name.toLowerCase().includes(searchVal) || p.desc.toLowerCase().includes(searchVal) || p.cat.toLowerCase().includes(searchVal);
+                return matchesCat && matchesSearch;
+            });
+
+            if (filtered.length === 0) {
+                tbody.innerHTML = `<tr><td colspan="7" style="text-align: center; padding: 40px; color: var(--color-cacao-muted);">
+                    Niti jedan proizvod ne odgovara pretrazi "${searchVal}".
+                </td></tr>`;
+                return;
+            }
+
+            tbody.innerHTML = filtered.map((p, idx) => `
+                <tr>
+                    <td>
+                        <img src="${getImgUrl(p.img)}" class="product-thumb-table" alt="${p.name}" onerror="this.src='https://via.placeholder.com/52?text=Foto'">
+                    </td>
+                    <td>
+                        <div style="font-family: var(--font-heading); font-weight: 700; color: var(--color-cacao); font-size: 16px;">${p.name}</div>
+                        <div style="font-size: 12px; color: var(--color-cacao-muted); margin-top: 2px;">${p.desc}</div>
+                    </td>
+                    <td><span class="badge badge-neutral">${p.cat}</span></td>
+                    <td><span class="price-display" style="font-family: var(--font-heading); font-weight: 800; font-size: 15px;">${p.price}</span></td>
+                    <td>
+                        <label class="switch"><input type="checkbox" ${p.active ? 'checked' : ''} onchange="toggleProductActive(${p.id})"><span class="slider"></span></label>
+                    </td>
+                    <td><span class="badge badge-success">Povezano s POS-om</span></td>
+                    <td style="text-align: right;">
+                        <button class="btn btn-secondary" style="padding: 6px 14px;" onclick="openProductModal('edit', ${p.id})">Uredi</button>
+                    </td>
+                </tr>
+            `).join('');
+        }
+
+        // Automatic Image Prediction based on Product Name
+        function findBestMatchingImage(productName) {
+            if (!productName || !productName.trim()) return null;
+
+            const normalize = (str) => {
+                return str.toLowerCase()
+                    .replace(/[čć]/g, 'c')
+                    .replace(/[š]/g, 's')
+                    .replace(/[ž]/g, 'z')
+                    .replace(/[đ]/g, 'd')
+                    .replace(/[^a-z0-9 ]/g, ' ');
+            };
+
+            const cleanInput = normalize(productName);
+            const inputWords = cleanInput.split(/\s+/).filter(w => w.length > 1);
+
+            let maxScore = 0;
+            let bestMatch = null;
+
+            localImages.forEach(img => {
+                let score = 0;
+                const cleanName = normalize(img.name);
+                const cleanFile = normalize(img.file);
+                const cleanTags = normalize(img.tags);
+
+                if (cleanName === cleanInput || cleanFile.includes(cleanInput)) score += 100;
+
+                inputWords.forEach(word => {
+                    if (cleanName.includes(word)) score += 30;
+                    if (cleanFile.includes(word)) score += 35;
+                    if (cleanTags.includes(word)) score += 20;
+                });
+
+                if (score > maxScore) {
+                    maxScore = score;
+                    bestMatch = img;
+                }
+            });
+
+            return maxScore >= 15 ? bestMatch : null;
+        }
+
+        function onProductNameInput() {
+            const val = document.getElementById('prod-name').value;
+            const match = findBestMatchingImage(val);
+            const banner = document.getElementById('auto-predict-banner');
+            const fileSpan = document.getElementById('auto-predict-filename');
+
+            if (match) {
+                selectedImageFile = match.file;
+                banner.style.display = 'flex';
+                fileSpan.textContent = match.file;
+                document.getElementById('stock-selected-text').innerText = `✓ Odabrana slika: ${match.file} (Automatsko prepoznavanje po nazivu)`;
+                renderStockGallery();
+            } else {
+                banner.style.display = 'none';
+            }
+        }
 
         function renderStockGallery() {
             const query = (document.getElementById('stock-search-input').value || '').toLowerCase().trim();
             const grid = document.getElementById('stock-gallery-grid');
-            
-            const filtered = stockPhotosData.filter(item => {
-                const matchCat = (currentCategory === 'all' || item.cat === currentCategory);
-                const matchQuery = !query || item.name.toLowerCase().includes(query) || item.tags.toLowerCase().includes(query);
+
+            const filtered = localImages.filter(item => {
+                const matchCat = (currentPhotoCat === 'all' || item.cat === currentPhotoCat);
+                const matchQuery = !query || item.name.toLowerCase().includes(query) || item.file.toLowerCase().includes(query) || item.tags.toLowerCase().includes(query);
                 return matchCat && matchQuery;
             });
 
-            document.getElementById('photo-count-badge').innerText = `Showing ${filtered.length} of 214 photos`;
+            document.getElementById('photo-count-badge').innerText = `Prikazano ${filtered.length} od ${localImages.length} slika`;
 
-            if (filtered.length === 0) {
-                grid.innerHTML = `<div style="grid-column: span 4; text-align: center; padding: 40px; color: var(--color-cacao-muted);">
-                    <div style="font-size: 28px; margin-bottom: 8px;">🔍</div>
-                    <div style="font-weight: 700;">No photos found matching '${query}'</div>
-                    <div style="font-size: 12px; margin-top: 4px;">Try searching for terms like 'espresso', 'pizza', 'wine', 'burger' or choose 'All Photos'</div>
-                </div>`;
-                return;
-            }
-
-            grid.innerHTML = filtered.map((item, index) => `
-                <div class="stock-item ${index === 0 && !query ? 'selected' : ''}" onclick="selectStockPhoto(this, '${item.icon}', '${item.name.replace(/'/g, "")}')">
+            grid.innerHTML = filtered.map(item => `
+                <div class="stock-item ${item.file === selectedImageFile ? 'selected' : ''}" onclick="selectStockPhoto('${item.file}', '${item.name.replace(/'/g, "")}')">
                     <div class="stock-item-badge">✓</div>
-                    <div class="stock-item-icon" style="font-size: 32px;">${item.icon}</div>
-                    <div class="stock-item-label" style="font-weight: 700; font-size: 12px; line-height: 1.3;">${item.name}</div>
+                    <img src="${getImgUrl(item.file)}" class="stock-item-img" alt="${item.name}" onerror="this.src='https://via.placeholder.com/80?text=Slika'">
+                    <div class="stock-item-label">${item.file.replace(/^\d+\.\s*/, '')}</div>
                 </div>
             `).join('');
+        }
+
+        function selectStockPhoto(file, name) {
+            selectedImageFile = file;
+            document.getElementById('stock-selected-text').innerText = `✓ Odabrana slika: ${file} · Spremno za spremanje`;
+            document.getElementById('auto-predict-banner').style.display = 'none';
+            renderStockGallery();
         }
 
         function filterStockPhotos() {
@@ -528,30 +639,10 @@
         }
 
         function selectPhotoCategory(cat, btn) {
-            currentCategory = cat;
+            currentPhotoCat = cat;
             document.querySelectorAll('.photo-cat-pill').forEach(p => p.classList.remove('active'));
             btn.classList.add('active');
             renderStockGallery();
-        }
-
-        function openProductModal(mode, name, price, desc, icon) {
-            if(mode === 'edit') {
-                document.getElementById('modal-title').innerText = 'Edit Product & Photo Source';
-                document.getElementById('prod-name').value = name || 'Crni rižot od jadranske sipe';
-                document.getElementById('prod-price').value = price || '18.50 €';
-                document.getElementById('prod-desc').value = desc || 'Pripremljen po tradicionalnoj dalmatinskoj recepturi.';
-            } else {
-                document.getElementById('modal-title').innerText = 'Create New Product';
-                document.getElementById('prod-name').value = '';
-                document.getElementById('prod-price').value = '0.00 €';
-                document.getElementById('prod-desc').value = '';
-            }
-            document.getElementById('modal-product').classList.add('open');
-            renderStockGallery();
-        }
-
-        function closeProductModal() {
-            document.getElementById('modal-product').classList.remove('open');
         }
 
         function switchPhotoTab(tab) {
@@ -568,22 +659,101 @@
             }
         }
 
-        function selectStockPhoto(elem, icon, label) {
-            document.querySelectorAll('.stock-item').forEach(item => item.classList.remove('selected'));
-            elem.classList.add('selected');
-            document.getElementById('stock-selected-info').innerText = `✓ Selected photo: ${label} (${icon}) · Ready for instant CDN sync`;
+        function openProductModal(mode, id = null) {
+            currentEditingId = id;
+            if(mode === 'edit' && id) {
+                const item = products30.find(p => p.id === id);
+                if(item) {
+                    document.getElementById('modal-title').innerText = 'Uredi proizvod i sliku';
+                    document.getElementById('prod-name').value = item.name;
+                    document.getElementById('prod-price').value = item.price;
+                    document.getElementById('prod-desc').value = item.desc;
+                    document.getElementById('prod-tags').value = item.cat + ', svježe pripremljeno';
+                    selectedImageFile = item.img;
+                }
+            } else {
+                document.getElementById('modal-title').innerText = 'Dodaj novi proizvod u jelovnik';
+                document.getElementById('prod-name').value = '';
+                document.getElementById('prod-price').value = '0.00 €';
+                document.getElementById('prod-desc').value = '';
+                document.getElementById('prod-tags').value = 'Glavna jela';
+                selectedImageFile = '72. Espresso_1.jpeg';
+            }
+            document.getElementById('auto-predict-banner').style.display = 'none';
+            document.getElementById('modal-product').classList.add('open');
+            renderStockGallery();
+        }
+
+        function closeProductModal() {
+            document.getElementById('modal-product').classList.remove('open');
         }
 
         function saveProduct() {
+            const name = document.getElementById('prod-name').value;
+            const price = document.getElementById('prod-price').value;
+            const desc = document.getElementById('prod-desc').value;
+            const tags = document.getElementById('prod-tags').value;
+
+            if (!name) {
+                alert('Molimo unesite naziv proizvoda!');
+                return;
+            }
+
+            if (currentEditingId) {
+                const item = products30.find(p => p.id === currentEditingId);
+                if (item) {
+                    item.name = name;
+                    item.price = price;
+                    item.desc = desc;
+                    item.img = selectedImageFile;
+                }
+            } else {
+                const newId = products30.length + 1;
+                products30.unshift({
+                    id: newId,
+                    name: name,
+                    price: price || '0.00 €',
+                    desc: desc || 'Opis po izboru lokala',
+                    cat: tags.split(',')[0] || 'Novo jelo',
+                    img: selectedImageFile,
+                    active: true
+                });
+            }
+
             closeProductModal();
-            alert('Product details and selected photo successfully updated and synced with POS!');
+            renderProductsTable();
+            alert(`Proizvod "${name}" sa slikom "${selectedImageFile}" uspješno je spremljen!`);
+        }
+
+        function toggleProductActive(id) {
+            const item = products30.find(p => p.id === id);
+            if(item) {
+                item.active = !item.active;
+            }
+        }
+
+        function filterByCategory(cat, btn) {
+            activeCategoryFilter = cat;
+            document.querySelectorAll('#cat-filter-badges .badge').forEach(b => {
+                b.classList.remove('badge-orange');
+                b.classList.add('badge-neutral');
+            });
+            btn.classList.remove('badge-neutral');
+            btn.classList.add('badge-orange');
+            renderProductsTable();
+        }
+
+        function filterTableProducts() {
+            renderProductsTable();
+        }
+
+        function syncWithPOS() {
+            alert('🔄 Uvoz stavki iz POS blagajne u tijeku...\nSve 30 stavke uspješno su sinkronizirane s lokalnim slikama!');
         }
 
         window.addEventListener('DOMContentLoaded', () => {
+            renderProductsTable();
             renderStockGallery();
-            if (window.location.search.includes('modal=open')) {
-                openProductModal('edit', 'Espresso 100% Arabica', '2.50 €', 'Vrhunska 100% arabica kava s bogatom kremom.', '☕');
-            }
         });
     </script>
 </body>

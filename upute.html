@@ -1,0 +1,1007 @@
+<!DOCTYPE html>
+<html lang="hr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Korisnički Priručnik za Vlasnike Lokala - Taplito Admin V2.0</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Outfit:wght@500;600;700;800;900&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="tokens.css">
+    <link rel="stylesheet" href="global.css">
+    <style>
+        /* Custom styles for the User Guide page */
+        .guide-container {
+            max-width: 1280px;
+            margin: 0 auto;
+            padding: 32px;
+            display: grid;
+            grid-template-columns: 280px 1fr;
+            gap: 32px;
+        }
+        
+        .guide-sidebar {
+            position: sticky;
+            top: 32px;
+            height: calc(100vh - 64px);
+            display: flex;
+            flex-direction: column;
+            gap: 20px;
+        }
+
+        .guide-nav-card {
+            background: var(--color-elevated);
+            border: 1px solid var(--color-border);
+            border-radius: var(--radius-lg);
+            padding: 20px;
+            box-shadow: var(--shadow-sm);
+        }
+
+        .guide-nav-title {
+            font-family: var(--font-heading);
+            font-size: 14px;
+            font-weight: 800;
+            text-transform: uppercase;
+            letter-spacing: 0.05em;
+            color: var(--color-cacao-muted);
+            margin-bottom: 12px;
+            padding-bottom: 8px;
+            border-bottom: 1px solid var(--color-border);
+        }
+
+        .guide-nav-list {
+            list-style: none;
+            display: flex;
+            flex-direction: column;
+            gap: 6px;
+        }
+
+        .guide-nav-item a {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            padding: 8px 12px;
+            color: var(--color-cacao);
+            text-decoration: none;
+            font-size: 14px;
+            font-weight: 600;
+            border-radius: var(--radius-sm);
+            transition: var(--transition-fast);
+        }
+
+        .guide-nav-item a:hover,
+        .guide-nav-item.active a {
+            background: var(--color-orange-light);
+            color: var(--color-orange);
+        }
+
+        .guide-content {
+            display: flex;
+            flex-direction: column;
+            gap: 40px;
+        }
+
+        /* Hero Banner */
+        .guide-hero {
+            background: linear-gradient(135deg, var(--color-cacao) 0%, #3e322d 100%);
+            border-radius: var(--radius-xl);
+            padding: 48px;
+            color: #FFFFFF;
+            position: relative;
+            overflow: hidden;
+            box-shadow: var(--shadow-lg);
+        }
+
+        .guide-hero::before {
+            content: "";
+            position: absolute;
+            top: -50%;
+            right: -20%;
+            width: 300px;
+            height: 300px;
+            border-radius: 50%;
+            background: var(--color-orange);
+            filter: blur(100px);
+            opacity: 0.25;
+        }
+
+        .guide-hero-badge {
+            background: var(--color-orange);
+            color: #FFFFFF;
+            padding: 6px 12px;
+            border-radius: var(--radius-full);
+            font-family: var(--font-heading);
+            font-size: 12px;
+            font-weight: 800;
+            display: inline-block;
+            margin-bottom: 16px;
+        }
+
+        .guide-hero-title {
+            font-size: 36px;
+            font-weight: 900;
+            color: #FFFFFF;
+            line-height: 1.1;
+            margin-bottom: 12px;
+        }
+
+        .guide-hero-desc {
+            font-size: 16px;
+            color: var(--color-border);
+            max-width: 650px;
+            line-height: 1.6;
+        }
+
+        /* Visual Steps */
+        .steps-flow {
+            display: grid;
+            grid-template-columns: repeat(4, 1fr);
+            gap: 20px;
+            margin-top: 12px;
+        }
+
+        .step-card {
+            background: var(--color-elevated);
+            border: 1px solid var(--color-border);
+            border-radius: var(--radius-lg);
+            padding: 24px;
+            position: relative;
+            transition: var(--transition-normal);
+            box-shadow: var(--shadow-sm);
+        }
+
+        .step-card:hover {
+            transform: translateY(-4px);
+            border-color: var(--color-orange);
+            box-shadow: var(--shadow-md);
+        }
+
+        .step-number {
+            font-family: var(--font-heading);
+            font-size: 32px;
+            font-weight: 900;
+            color: var(--color-orange-border);
+            line-height: 1;
+            margin-bottom: 12px;
+        }
+
+        .step-card:hover .step-number {
+            color: var(--color-orange);
+        }
+
+        .step-title {
+            font-family: var(--font-heading);
+            font-size: 17px;
+            font-weight: 800;
+            color: var(--color-cacao);
+            margin-bottom: 8px;
+        }
+
+        .step-desc {
+            font-size: 13px;
+            color: var(--color-cacao-muted);
+            line-height: 1.5;
+        }
+
+        /* Interactive Simulator Layout */
+        .sim-grid {
+            display: grid;
+            grid-template-columns: 240px 1fr;
+            background: var(--color-elevated);
+            border: 1px solid var(--color-border);
+            border-radius: var(--radius-xl);
+            overflow: hidden;
+            box-shadow: var(--shadow-md);
+            height: 480px;
+        }
+
+        .sim-sidebar {
+            background: var(--color-paper-subtle);
+            border-right: 1px solid var(--color-border);
+            padding: 16px;
+            display: flex;
+            flex-direction: column;
+            gap: 8px;
+        }
+
+        .sim-sidebar-title {
+            font-family: var(--font-heading);
+            font-size: 11px;
+            font-weight: 800;
+            color: var(--color-cacao-muted);
+            text-transform: uppercase;
+            letter-spacing: 0.05em;
+            margin: 12px 0 6px 8px;
+        }
+
+        .sim-nav-btn {
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            padding: 10px 12px;
+            border-radius: var(--radius-sm);
+            color: var(--color-cacao);
+            font-weight: 600;
+            font-size: 13px;
+            cursor: pointer;
+            transition: var(--transition-fast);
+            border: none;
+            background: transparent;
+            text-align: left;
+            width: 100%;
+        }
+
+        .sim-nav-btn:hover,
+        .sim-nav-btn.active {
+            background: #FFFFFF;
+            color: var(--color-orange);
+            box-shadow: var(--shadow-sm);
+        }
+
+        .sim-nav-btn.active {
+            font-weight: 700;
+            border-left: 3px solid var(--color-orange);
+            border-top-left-radius: 0;
+            border-bottom-left-radius: 0;
+        }
+
+        .sim-content {
+            padding: 32px;
+            overflow-y: auto;
+            background: #FFFFFF;
+            display: flex;
+            flex-direction: column;
+            gap: 16px;
+        }
+
+        .sim-badge {
+            background: var(--color-orange-light);
+            border: 1px solid var(--color-orange-border);
+            color: var(--color-orange);
+            font-weight: 700;
+            padding: 4px 10px;
+            border-radius: var(--radius-full);
+            font-size: 12px;
+            align-self: flex-start;
+        }
+
+        .sim-title {
+            font-family: var(--font-heading);
+            font-size: 24px;
+            font-weight: 800;
+            color: var(--color-cacao);
+            margin: 0;
+        }
+
+        .sim-body {
+            font-size: 14px;
+            color: var(--color-cacao-muted);
+            line-height: 1.6;
+        }
+
+        .sim-ui-mockup {
+            background: var(--color-paper);
+            border: 1px solid var(--color-border);
+            border-radius: var(--radius-md);
+            padding: 16px;
+            margin-top: 10px;
+            font-family: monospace;
+            font-size: 12px;
+            color: var(--color-cacao-muted);
+        }
+
+        /* Alert/Callout Box style (from Guidelines) */
+        .callout-box {
+            border-radius: var(--radius-lg);
+            padding: 20px;
+            margin: 16px 0;
+            display: flex;
+            gap: 16px;
+            align-items: flex-start;
+        }
+        
+        .callout-box.tip {
+            background: var(--color-orange-light);
+            border: 1px solid var(--color-orange-border);
+        }
+
+        .callout-box.warning {
+            background: var(--color-status-warning-bg);
+            border: 1px solid #FCD34D;
+        }
+
+        .callout-icon {
+            font-size: 24px;
+            line-height: 1;
+        }
+
+        .callout-content h4 {
+            font-family: var(--font-heading);
+            font-size: 16px;
+            font-weight: 800;
+            color: var(--color-cacao);
+            margin-bottom: 4px;
+        }
+
+        .callout-content p {
+            font-size: 13px;
+            color: var(--color-cacao-muted);
+            line-height: 1.5;
+            margin: 0;
+        }
+
+        /* Vocabulary Table */
+        .brand-rules-box {
+            background: var(--color-elevated);
+            border: 1px solid var(--color-border);
+            border-radius: var(--radius-lg);
+            padding: 24px;
+            box-shadow: var(--shadow-sm);
+        }
+
+        .vocab-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 20px;
+            margin-top: 16px;
+        }
+
+        .vocab-column {
+            background: var(--color-paper);
+            border-radius: var(--radius-md);
+            padding: 18px;
+            border: 1px solid var(--color-border);
+        }
+
+        .vocab-header {
+            font-family: var(--font-heading);
+            font-size: 15px;
+            font-weight: 800;
+            margin-bottom: 12px;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+
+        .vocab-list {
+            list-style: none;
+            display: flex;
+            flex-direction: column;
+            gap: 8px;
+        }
+
+        .vocab-item {
+            font-size: 13px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 6px 10px;
+            border-radius: var(--radius-sm);
+            background: #FFFFFF;
+            border: 1px solid var(--color-border);
+        }
+
+        .vocab-tag {
+            font-weight: 700;
+            font-size: 11px;
+            padding: 2px 6px;
+            border-radius: 4px;
+        }
+
+        .vocab-tag.yes { background: var(--color-status-success-bg); color: var(--color-status-success); }
+        .vocab-tag.no { background: var(--color-status-error-bg); color: var(--color-status-error); }
+
+        /* Accordion */
+        .accordion-item {
+            background: var(--color-elevated);
+            border: 1px solid var(--color-border);
+            border-radius: var(--radius-md);
+            margin-bottom: 12px;
+            overflow: hidden;
+            transition: var(--transition-fast);
+            box-shadow: var(--shadow-sm);
+        }
+
+        .accordion-item:hover {
+            border-color: var(--color-border-strong);
+        }
+
+        .accordion-header {
+            width: 100%;
+            padding: 18px 24px;
+            background: none;
+            border: none;
+            text-align: left;
+            font-family: var(--font-heading);
+            font-size: 16px;
+            font-weight: 700;
+            color: var(--color-cacao);
+            cursor: pointer;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .accordion-arrow {
+            transition: transform var(--transition-normal);
+            font-size: 14px;
+            color: var(--color-cacao-muted);
+        }
+
+        .accordion-content {
+            max-height: 0;
+            overflow: hidden;
+            transition: max-height var(--transition-normal) ease-out;
+            background: var(--color-elevated-hover);
+        }
+
+        .accordion-content-inner {
+            padding: 0 24px 20px 24px;
+            font-size: 14px;
+            color: var(--color-cacao-muted);
+            line-height: 1.6;
+            border-top: 1px solid var(--color-border);
+            padding-top: 16px;
+        }
+
+        .accordion-item.active .accordion-arrow {
+            transform: rotate(180deg);
+        }
+
+        .accordion-item.active .accordion-content {
+            max-height: 500px;
+        }
+
+        /* Floating Back To Top */
+        .back-to-portal {
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+            font-family: var(--font-heading);
+            font-weight: 700;
+            color: var(--color-cacao);
+            text-decoration: none;
+            padding: 8px 16px;
+            border-radius: var(--radius-sm);
+            border: 1px solid var(--color-border);
+            background: #FFFFFF;
+            transition: var(--transition-fast);
+        }
+
+        .back-to-portal:hover {
+            color: var(--color-orange);
+            border-color: var(--color-orange);
+            background: var(--color-orange-light);
+        }
+
+        .header-nav-row {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 24px;
+            padding-bottom: 16px;
+            border-bottom: 1px solid var(--color-border);
+        }
+        
+        /* Highlight labels in descriptions */
+        .guide-hl {
+            font-weight: 700;
+            color: var(--color-cacao);
+            background: var(--color-paper-subtle);
+            padding: 2px 6px;
+            border-radius: 4px;
+            font-family: var(--font-heading);
+        }
+    </style>
+</head>
+<body>
+    <div class="portal-container" style="padding-top: 24px;">
+        <div class="header-nav-row">
+            <a href="index.html" class="back-to-portal">
+                ← Povratak na Demo Portal
+            </a>
+            <div style="font-family: var(--font-heading); font-weight: 800; font-size: 14px; color: var(--color-orange);">
+                KORISNIČKE UPUTE V2.0
+            </div>
+        </div>
+    </div>
+
+    <div class="guide-container">
+        <!-- Lijevi brzi izbornik kroz upute -->
+        <nav class="guide-sidebar">
+            <div class="guide-nav-card">
+                <div class="guide-nav-title">Sadržaj uputa</div>
+                <ul class="guide-nav-list">
+                    <li class="guide-nav-item active" id="nav-hero"><a href="#uvod">🏠 Uvod</a></li>
+                    <li class="guide-nav-item" id="nav-steps"><a href="#brzi-pocetak">🚀 Brzi početak</a></li>
+                    <li class="guide-nav-item" id="nav-simulator"><a href="#karta-sucelja">🗺️ Karta sučelja</a></li>
+                    <li class="guide-nav-item" id="nav-detail"><a href="#detaljne-upute">📖 Upravljanje</a></li>
+                    <li class="guide-nav-item" id="nav-vocab"><a href="#rjecnik">🎯 Taplito Rječnik</a></li>
+                    <li class="guide-nav-item" id="nav-faq"><a href="#cesta-pitanja">❓ Česta pitanja</a></li>
+                </ul>
+            </div>
+            
+            <div class="guide-nav-card" style="background: linear-gradient(135deg, #FFFDF9 0%, #FFF7ED 100%); border-color: var(--color-orange-border);">
+                <div style="font-family: var(--font-heading); font-size: 13px; font-weight: 800; color: var(--color-orange); margin-bottom: 4px;">Trebate pomoć?</div>
+                <p style="font-size: 11px; color: var(--color-cacao-muted); line-height: 1.4; margin: 0;">
+                    Naša podrška je dostupna svakim danom 08-22h.<br><strong>podrska@taplito.hr</strong>
+                </p>
+            </div>
+        </nav>
+
+        <!-- Glavni sadržaj -->
+        <main class="guide-content">
+            <!-- Hero sekcija -->
+            <section id="uvod" class="guide-hero">
+                <div class="guide-hero-badge">Taplito Vodič za Partnere</div>
+                <h1 class="guide-hero-title">Kako upravljati vašim lokalom pomoću Taplita?</h1>
+                <p class="guide-hero-desc">
+                    Dobrodošli u Taplito administratorsko sučelje. Ovaj jednostavan priručnik osmišljen je kako bi vlasnici i voditelji ugostiteljskih objekata (restorana, barova, beach barova i hotela) brzo i lako svladali sve funkcije. Taplito vam omogućuje bržu uslugu, veći promet po stolu i manji pritisak na konobare.
+                </p>
+            </section>
+
+            <!-- Brzi početak: 4 koraka do prve narudžbe -->
+            <section id="brzi-pocetak">
+                <h2 style="font-size: 24px; font-weight: 800; margin-bottom: 8px;">🚀 Brzi početak rada u 4 koraka</h2>
+                <p style="color: var(--color-cacao-muted); margin-bottom: 24px;">Postavite sustav na noge za manje od 30 minuta i pripremite lokal za goste.</p>
+                
+                <div class="steps-flow">
+                    <!-- Korak 1 -->
+                    <div class="step-card">
+                        <div class="step-number">01</div>
+                        <div class="step-title">Spojite blagajnu</div>
+                        <div class="step-desc">
+                            U izborniku <span class="guide-hl">POS</span> unesite parametre za <strong>Remaris</strong> blagajnu kako bi se narudžbe automatski ispisivale na šanku ili kuhinji.
+                        </div>
+                    </div>
+                    
+                    <!-- Korak 2 -->
+                    <div class="step-card">
+                        <div class="step-number">02</div>
+                        <div class="step-title">Uvezite artikle</div>
+                        <div class="step-desc">
+                            Uđite u <span class="guide-hl">Products</span> i kliknite <strong>Import from POS</strong>. Svi vaši artikli s cijenama i grupama bit će sinkronizirani u trenu.
+                        </div>
+                    </div>
+                    
+                    <!-- Korak 3 -->
+                    <div class="step-card">
+                        <div class="step-number">03</div>
+                        <div class="step-title">Izvezite QR kodove</div>
+                        <div class="step-desc">
+                            U <span class="guide-hl">Service Points</span> preuzmite jedinstvene QR kodove za svoje <strong>stolove</strong>. Preuzmite ih pojedinačno ili kao .zip paket za tisak.
+                        </div>
+                    </div>
+                    
+                    <!-- Korak 4 -->
+                    <div class="step-card">
+                        <div class="step-number">04</div>
+                        <div class="step-title">Pratite narudžbe</div>
+                        <div class="step-desc">
+                            Otvorite <span class="guide-hl">Orders</span> i uživajte u narudžbama i napojnicama koje stižu u realnom vremenu bez čekanja i zastoja.
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            <!-- Karta sučelja (Interaktivni simulator) -->
+            <section id="karta-sucelja">
+                <h2 style="font-size: 24px; font-weight: 800; margin-bottom: 8px;">🗺️ Interaktivna karta admin sučelja</h2>
+                <p style="color: var(--color-cacao-muted); margin-bottom: 24px;">Kliknite na stavke u izborniku simulacije kako biste vizualno vidjeli čemu služi koja stranica i gdje se nalaze ključne funkcije.</p>
+                
+                <div class="sim-grid">
+                    <!-- Simulator Sidebar -->
+                    <div class="sim-sidebar">
+                        <div style="font-family: var(--font-heading); font-weight: 900; font-size: 15px; color: var(--color-orange); margin: 8px 0 16px 8px; display: flex; align-items: center; gap: 6px;">
+                            <span style="background: var(--color-orange); color: white; width: 22px; height: 22px; border-radius: 4px; display: flex; align-items: center; justify-content: center; font-size: 11px;">T</span>
+                            TAPLITO DEMO
+                        </div>
+                        
+                        <div class="sim-sidebar-title">Platform</div>
+                        <button class="sim-nav-btn" onclick="showSimContent('settings', this)">
+                            ⚙️ Settings
+                        </button>
+                        
+                        <div class="sim-sidebar-title">Manage</div>
+                        <button class="sim-nav-btn active" onclick="showSimContent('products', this)">
+                            📦 Products
+                        </button>
+                        <button class="sim-nav-btn" onclick="showSimContent('service-points', this)">
+                            📍 Service Points
+                        </button>
+                        <button class="sim-nav-btn" onclick="showSimContent('menus', this)">
+                            📋 Menus
+                        </button>
+                        <button class="sim-nav-btn" onclick="showSimContent('accounts', this)">
+                            👤 Accounts
+                        </button>
+                        
+                        <div class="sim-sidebar-title">Integrations</div>
+                        <button class="sim-nav-btn" onclick="showSimContent('pos', this)">
+                            🔌 POS
+                        </button>
+                        <button class="sim-nav-btn" onclick="showSimContent('payments', this)">
+                            💳 Payment Providers
+                        </button>
+                        
+                        <div class="sim-sidebar-title">Analytics</div>
+                        <button class="sim-nav-btn" onclick="showSimContent('orders', this)">
+                            📊 Orders
+                        </button>
+                    </div>
+                    
+                    <!-- Simulator Content Area -->
+                    <div class="sim-content" id="sim-content-pane">
+                        <span class="sim-badge">Katalog proizvoda & Uvoz</span>
+                        <h3 class="sim-title">Manage › Products</h3>
+                        <p class="sim-body">
+                            Ovo je vaše centralno skladište artikala (jela i pića). Ovdje možete pregledati sve artikle, prilagođavati njihove cijene, dodavati tagove (npr. alergeni, veganski artikli) i postavljati fotografije.
+                        </p>
+                        <div class="callout-box tip" style="margin: 0;">
+                            <div class="callout-icon">💡</div>
+                            <div class="callout-content">
+                                <h4>Brzi savjet za uvoz</h4>
+                                <p>Preporučujemo da uvijek uvozite proizvode jednim klikom iz Remaris POS blagajne kako ne biste morali ručno prepisivati cijene i porezne stope.</p>
+                            </div>
+                        </div>
+                        <div class="sim-ui-mockup">
+                            [ Gumb: Import from POS ]  -  [ Gumb: + Add Product ]<br>
+                            --------------------------------------------------------<br>
+                            🔍 Pretraga proizvoda po nazivu...<br>
+                            --------------------------------------------------------<br>
+                            ● Kava s mlijekom  -  1.80 €  -  [ Uredi ] [ Aktivan ]<br>
+                            ● Coca-Cola 0.25l  -  2.80 €  -  [ Uredi ] [ Aktivan ]<br>
+                            ● Pizza Margherita  -  8.50 €  -  [ Uredi ] [ Aktivan ]
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            <!-- Detaljne Upute po Modulima -->
+            <section id="detaljne-upute">
+                <h2 style="font-size: 24px; font-weight: 800; margin-bottom: 8px;">📖 Detaljno upravljanje sustavom</h2>
+                <p style="color: var(--color-cacao-muted); margin-bottom: 24px;">Kako točno funkcioniraju ključne stranice u svakodnevnom radu vašeg lokala.</p>
+
+                <!-- Menus & Categories -->
+                <div class="brand-rules-box" style="margin-bottom: 24px;">
+                    <div style="display: flex; gap: 14px; align-items: center; margin-bottom: 12px;">
+                        <span style="font-size: 24px;">📋</span>
+                        <h3 style="font-size: 20px; font-weight: 800; color: var(--color-cacao);">Kako izraditi i presložiti Jelovnik (Menus)?</h3>
+                    </div>
+                    <p style="font-size: 14px; color: var(--color-cacao-muted); line-height: 1.6; margin-bottom: 16px;">
+                        Jelovnik predstavlja ono što gost vidi kada skenira QR kod na stolu. Na stranici <span class="guide-hl">Menus</span> možete organizirati ponudu:
+                    </p>
+                    <ul style="padding-left: 20px; font-size: 13px; color: var(--color-cacao-muted); line-height: 1.8; display: flex; flex-direction: column; gap: 8px; margin-bottom: 16px;">
+                        <li><strong>Kategorije</strong>: Grupirajte artikle u logične cjeline (npr. <em>"Hladna predjela"</em>, <em>"Glavna jela"</em>, <em>"Bezalkoholna pića"</em>).</li>
+                        <li><strong>Preslagivanje</strong>: Strelicama gore/dolje pomičite cijele kategorije kako biste npr. ljetne koktele stavili na sam vrh jelovnika za bolji turnover.</li>
+                        <li><strong>Auto Create Menu</strong>: Iskoristite čarobni gumb za automatsko generiranje jelovnika na temelju uvoza iz blagajne – sustav će sam izraditi kategorije i rasporediti proizvode.</li>
+                    </ul>
+                    <div class="callout-box warning" style="margin: 0;">
+                        <div class="callout-icon">⚠️</div>
+                        <div class="callout-content">
+                            <h4>Važno pravilo za vidljivost jelovnika</h4>
+                            <p>Jelovnik mora imati barem jednu kategoriju s dodijeljenim proizvodima kako bi bio aktivan i vidljiv na stolovima. Označite ga kao <strong>"Default"</strong> kako bi se automatski otvarao pri skeniranju.</p>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Service Points (Stolovi) -->
+                <div class="brand-rules-box" style="margin-bottom: 24px;">
+                    <div style="display: flex; gap: 14px; align-items: center; margin-bottom: 12px;">
+                        <span style="font-size: 24px;">📍</span>
+                        <h3 style="font-size: 20px; font-weight: 800; color: var(--color-cacao);">Upravljanje stolovima i preuzimanje QR kodova</h3>
+                    </div>
+                    <p style="font-size: 14px; color: var(--color-cacao-muted); line-height: 1.6; margin-bottom: 16px;">
+                        U Taplito sustavu stolovi, šankovi i ležaljke nazivaju se zajedničkim imenom <span class="guide-hl">Service Points</span>. Za svaki stol sustav automatski stvara jedinstveni QR kod koji je trajno povezan s tim stolom.
+                    </p>
+                    <ul style="padding-left: 20px; font-size: 13px; color: var(--color-cacao-muted); line-height: 1.8; display: flex; flex-direction: column; gap: 8px; margin-bottom: 16px;">
+                        <li><strong>Označavanje zona</strong>: Možete grupirati stolove po zonama (npr. <em>"Terasa uz more"</em>, <em>"Unutrašnjost prizemlje"</em>, <em>"VIP separe"</em>) za lakšu orijentaciju konobara pri donošenju narudžbi.</li>
+                        <li><strong>Preuzimanje QR kodova</strong>: Kliknite na gumb za preuzimanje pokraj stola kako biste spremili QR kod u SVG/PDF formatu visoke rezolucije za tisak na naljepnice ili stalke.</li>
+                        <li><strong>Skupno preuzimanje</strong>: Ako imate puno stolova, označite ih kvačicom i preuzmite sve QR kodove odjednom u jednoj <span class="guide-hl">.zip</span> datoteci.</li>
+                    </ul>
+                </div>
+
+                <!-- Real-time narudžbe i Storno -->
+                <div class="brand-rules-box" style="margin-bottom: 24px;">
+                    <div style="display: flex; gap: 14px; align-items: center; margin-bottom: 12px;">
+                        <span style="font-size: 24px;">📊</span>
+                        <h3 style="font-size: 20px; font-weight: 800; color: var(--color-cacao);">Rad s narudžbama, storno i povrat novca (Refund)</h3>
+                    </div>
+                    <p style="font-size: 14px; color: var(--color-cacao-muted); line-height: 1.6; margin-bottom: 16px;">
+                        Zaslon <span class="guide-hl">Orders</span> je srce vašeg poslovanja u realnom vremenu. Ovdje se prate sve narudžbe pristigle od gostiju.
+                    </p>
+                    <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 16px; margin-bottom: 16px;">
+                        <div style="background: var(--color-status-success-bg); border: 1px solid var(--color-status-success); border-radius: var(--radius-md); padding: 16px;">
+                            <h4 style="color: var(--color-status-success); font-family: var(--font-heading); font-weight: 800; margin-bottom: 6px;">🟢 Status: Paid (Plaćeno)</h4>
+                            <p style="font-size: 12px; color: var(--color-cacao-muted); margin: 0; line-height: 1.4;">
+                                Narudžba je uspješno naplaćena putem Stripe-a, Monrija ili Teye te je automatski poslana na blagajnu u kuhinju/šank.
+                            </p>
+                        </div>
+                        <div style="background: var(--color-status-error-bg); border: 1px solid var(--color-status-error); border-radius: var(--radius-md); padding: 16px;">
+                            <h4 style="color: var(--color-status-error); font-family: var(--font-heading); font-weight: 800; margin-bottom: 6px;">🔴 Status: Refunded (Vraćeno/Stornirano)</h4>
+                            <p style="font-size: 12px; color: var(--color-cacao-muted); margin: 0; line-height: 1.4;">
+                                Narudžba je stornirana i novac je vraćen na karticu gosta. To se događa jednim klikom na gumb <strong>Refund Order</strong> u detaljima narudžbe.
+                            </p>
+                        </div>
+                    </div>
+                    <div class="callout-box warning" style="margin: 0;">
+                        <div class="callout-icon">💡</div>
+                        <div class="callout-content">
+                            <h4>Storno i povrat novca</h4>
+                            <p>Ako gost želi otkazati narudžbu ili je došlo do pogreške, u detaljima te narudžbe kliknite crveni gumb <strong>Refund</strong>. Sustav će automatski vratiti novac gostu na račun, a status narudžbe promijenit će se u <em>Refunded</em>.</p>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            <!-- Brandbook Riječnik / Vocabulary Rules (Strictly Applied) -->
+            <section id="rjecnik" class="brand-rules-box">
+                <div style="display: flex; gap: 14px; align-items: center; margin-bottom: 12px;">
+                    <span style="font-size: 24px;">🎯</span>
+                    <h3 style="font-size: 20px; font-weight: 800; color: var(--color-cacao);">Taplito Rječnik & Pravila Pisanja</h3>
+                </div>
+                <p style="font-size: 14px; color: var(--color-cacao-muted); line-height: 1.6;">
+                    Taplito se zalaže za toplu, profesionalnu i jednostavnu komunikaciju s partnerima i gostima. Kako bismo zadržali dosljednost brenda, prilikom unosa opisa jela i komunikacije s osobljem molimo vas da se pridržavate našeg rječnika:
+                </p>
+                
+                <div class="vocab-grid">
+                    <!-- DA Stupac -->
+                    <div class="vocab-column" style="border-left: 4px solid var(--color-status-success);">
+                        <div class="vocab-header" style="color: var(--color-status-success);">
+                            <span>✓</span> Koristite ove izraze (DA)
+                        </div>
+                        <ul class="vocab-list">
+                            <li class="vocab-item">
+                                <span><strong>gost</strong> (osoba u lokalu)</span>
+                                <span class="vocab-tag yes">DA</span>
+                            </li>
+                            <li class="vocab-item">
+                                <span><strong>stol / ležaljka / šank</strong></span>
+                                <span class="vocab-tag yes">DA</span>
+                            </li>
+                            <li class="vocab-item">
+                                <span><strong>lokal</strong> (ugostiteljski objekt)</span>
+                                <span class="vocab-tag yes">DA</span>
+                            </li>
+                            <li class="vocab-item">
+                                <span><strong>narudžba / račun</strong></span>
+                                <span class="vocab-tag yes">DA</span>
+                            </li>
+                            <li class="vocab-item">
+                                <span><strong>košarica / meni</strong></span>
+                                <span class="vocab-tag yes">DA</span>
+                            </li>
+                        </ul>
+                    </div>
+
+                    <!-- NE Stupac -->
+                    <div class="vocab-column" style="border-left: 4px solid var(--color-status-error);">
+                        <div class="vocab-header" style="color: var(--color-status-error);">
+                            <span>✕</span> Izbjegavajte ove izraze (NE)
+                        </div>
+                        <ul class="vocab-list">
+                            <li class="vocab-item">
+                                <span><strong>korisnik</strong> (zvuči previše tehnički)</span>
+                                <span class="vocab-tag no">NE</span>
+                            </li>
+                            <li class="vocab-item">
+                                <span><strong>uslužna točka</strong> (pred gostima)</span>
+                                <span class="vocab-tag no">NE</span>
+                            </li>
+                            <li class="vocab-item">
+                                <span><strong>poslovnica / objekt</strong></span>
+                                <span class="vocab-tag no">NE</span>
+                            </li>
+                            <li class="vocab-item">
+                                <span><strong>order ticket / cart</strong></span>
+                                <span class="vocab-tag no">NE</span>
+                            </li>
+                            <li class="vocab-item">
+                                <span><strong>katalog / ponuda</strong></span>
+                                <span class="vocab-tag no">NE</span>
+                            </li>
+                        </ul>
+                    </div>
+                </div>
+
+                <div class="callout-box tip" style="margin-top: 20px; margin-bottom: 0;">
+                    <div class="callout-icon">✍️</div>
+                    <div class="callout-content">
+                        <h4>Pisanje opisa jela i pića (Benefit-first)</h4>
+                        <p>Kada unosite opise jela u katalogu, uvijek prvo navedite prednost ili okus, a tek onda tehnički sastav. Na primjer: <em>"Sočan burger od 100% domaće junetine u brioche pecivu s domaćim umakom i hrskavim krumpirićima"</em> umjesto <em>"Burger 150g, pecivo, salata, krumpir"</em>.</p>
+                    </div>
+                </div>
+            </section>
+
+            <!-- Česta Pitanja (FAQ - Accordion) -->
+            <section id="cesta-pitanja">
+                <h2 style="font-size: 24px; font-weight: 800; margin-bottom: 8px;">❓ Česta pitanja i rješavanje problema</h2>
+                <p style="color: var(--color-cacao-muted); margin-bottom: 24px;">Najčešći upiti vlasnika i osoblja u svakodnevnom radu.</p>
+
+                <div class="accordion-item">
+                    <button class="accordion-header" onclick="toggleAccordion(this)">
+                        Kako gost plaća račun na stolu?
+                        <span class="accordion-arrow">▼</span>
+                    </button>
+                    <div class="accordion-content">
+                        <div class="accordion-content-inner">
+                            Gost skenira QR kod na stolu, izabere jela i pića u digitalnom <strong>meniju</strong>, stisne <strong>Plati</strong> i unosi podatke sa svoje kartice (ili koristi Apple Pay/Google Pay). Plaćanje se obrađuje trenutno preko integriranog payment providera (Stripe, Monri ili Teya), a račun se šalje gostu na e-mail.
+                        </div>
+                    </div>
+                </div>
+
+                <div class="accordion-item">
+                    <button class="accordion-header" onclick="toggleAccordion(this)">
+                        Što ako narudžba ne stigne na šank ili u kuhinju?
+                        <span class="accordion-arrow">▼</span>
+                    </button>
+                    <div class="accordion-content">
+                        <div class="accordion-content-inner">
+                            Prvo provjerite status interneta u vašem lokalu. Zatim uđite u izbornik <span class="guide-hl">Integrations › POS</span> i provjerite je li kvačica na sinkronizaciji zelena. Ako se greška ponavlja, otvorite <span class="guide-hl">Analytics › Orders</span> u Taplitu kako biste vidjeli točne detalje te narudžbe i po potrebi ju ručno izdiktirali šanku dok se veza s POS blagajnom (Remaris) ponovno ne uspostavi.
+                        </div>
+                    </div>
+                </div>
+
+                <div class="accordion-item">
+                    <button class="accordion-header" onclick="toggleAccordion(this)">
+                        Kako konobar zna na koji stol treba odnijeti narudžbu?
+                        <span class="accordion-arrow">▼</span>
+                    </button>
+                    <div class="accordion-content">
+                        <div class="accordion-content-inner">
+                            Svaki QR kod je jedinstveno mapiran na određeni <strong>stol</strong> (npr. Stol 14). Kada gost naruči, na ispisu u kuhinji/šanku i na zaslonu narudžbi jasno je naznačeno ime uslužnog mjesta (npr. "Stol 14"). Konobar samo uzima pripremljena jela i odnosi ih direktno na taj stol bez potrebe za uzimanjem narudžbe.
+                        </div>
+                    </div>
+                </div>
+
+                <div class="accordion-item">
+                    <button class="accordion-header" onclick="toggleAccordion(this)">
+                        Kako funkcioniraju digitalne napojnice (Tips)?
+                        <span class="accordion-arrow">▼</span>
+                    </button>
+                    <div class="accordion-content">
+                        <div class="accordion-content-inner">
+                            Gost prilikom plaćanja računa može odabrati postotak napojnice (npr. 5%, 10%, 15% ili proizvoljan iznos). Ta napojnica se obračunava zajedno s računom. Detaljnu statistiku prikupljenih napojnica po danima i smjenama osoblja možete pratiti u izborniku <span class="guide-hl">Analytics › Tips</span> za pravednu raspodjelu unutar tima.
+                        </div>
+                    </div>
+                </div>
+            </section>
+        </main>
+    </div>
+
+    <script>
+        // Interactive Simulator Content Switcher
+        function showSimContent(tab, element) {
+            // Remove active classes
+            const buttons = document.querySelectorAll('.sim-nav-btn');
+            buttons.forEach(btn => btn.classList.remove('active'));
+            
+            // Add active class to clicked button
+            element.classList.add('active');
+            
+            const contentPane = document.getElementById('sim-content-pane');
+            
+            // Data for switcher
+            const contentData = {
+                'settings': {
+                    badge: 'Platforma & Postavke',
+                    title: 'Platform › Settings',
+                    body: 'Ovdje podešavate osnovne informacije o svom lokalu: OIB, adresu, valutu (EUR), radno vrijeme i postavke za digitalne napojnice. U ovom dijelu također konfigurirate općenite postavke računa.',
+                    mockup: `OIB: HR12345678901<br>Valuta: EUR (€)<br>Digitalne napojnice: [ Aktivirano ] (Prijedlozi: 5%, 10%, 15%)<br>Radno vrijeme: Pon - Ned (08:00 - 24:00)`
+                },
+                'products': {
+                    badge: 'Katalog proizvoda & Uvoz',
+                    title: 'Manage › Products',
+                    body: 'Ovo je vaše centralno skladište artikala (jela i pića). Ovdje možete pregledati sve artikle, prilagođavati njihove cijene, dodavati tagove (npr. alergeni, veganski artikli) i postavljati fotografije.',
+                    mockup: `[ Gumb: Import from POS ]  -  [ Gumb: + Add Product ]<br>--------------------------------------------------------<br>🔍 Pretraga proizvoda po nazivu...<br>--------------------------------------------------------<br>● Kava s mlijekom  -  1.80 €  -  [ Uredi ] [ Aktivan ]<br>● Coca-Cola 0.25l  -  2.80 €  -  [ Uredi ] [ Aktivan ]<br>● Pizza Margherita  -  8.50 €  -  [ Uredi ] [ Aktivan ]`
+                },
+                'service-points': {
+                    badge: 'Fizički stolovi & QR kodovi',
+                    title: 'Manage › Service Points',
+                    body: 'Ovdje kreirate stolove, šankove i ležaljke te ih raspoređujete u zone. Sustav za svako mjesto stvara jedinstveni QR kod koji preuzimate u SVG ili PDF formatu spremnom za tisak.',
+                    mockup: `[ Gumb: + Add Service Point ]  -  [ Gumb: Download All (ZIP) ]<br>--------------------------------------------------------<br>Zona: Terasa (10 stolova)<br>● Stol 1  -  ID: sp_t1  -  [ Preuzmi QR ] [ Status: Slobodno ]<br>● Stol 2  -  ID: sp_t2  -  [ Preuzmi QR ] [ Status: Slobodno ]`
+                },
+                'menus': {
+                    badge: 'Jelovnici & Kategorije',
+                    title: 'Manage › Menus',
+                    body: 'Upravljajte digitalnim jelovnikom koji se prikazuje gostima. Grupirajte artikle u kategorije (Predjela, Glavna jela, Piva) i preslažite ih strelicama gore/dolje kako biste istaknuli najvažnije artikle.',
+                    mockup: `[ Gumb: ✨ Auto Create Menu ]  -  [ Gumb: + Add Menu ]<br>--------------------------------------------------------<br>Aktivni jelovnik: Glavni Meni [ Default ]<br>▼ 1. Bezalkoholna pića (5 artikala) [ Pomakni dolje ]<br>▼ 2. Topli napitci (12 artikala) [ Pomakni gore ]`
+                },
+                'accounts': {
+                    badge: 'Upravljanje Osobljem',
+                    title: 'Manage › Accounts',
+                    body: 'Kreirajte korisničke račune za svoje zaposlenike. Dodijelite im uloge poput Voditelj, Konobar ili Kuhinja s različitim razinama pristupa (npr. samo konobari mogu vidjeti napojnice ili raditi storno).',
+                    mockup: `[ Gumb: + Add Account ]<br>--------------------------------------------------------<br>● Ana Horvat  -  Uloga: Voditelj  -  [ Aktivan ]<br>● Ivan Kovač  -  Uloga: Konobar   -  [ Uredi PIN ]<br>● Marko Lekić -  Uloga: Kuhinja   -  [ Aktivan ]`
+                },
+                'pos': {
+                    badge: 'Integracija Blagajne',
+                    title: 'Integrations › POS',
+                    body: 'Povežite Taplito sa svojom blagajnom (Remaris) unošenjem API hosta i registracijskog ključa. Ovo omogućuje da sve narudžbe automatski idu na šank/kuhinjski pisač bez ručnog prepisivanja.',
+                    mockup: `POS sustav: [ Remaris POS ] [ Povezano ]<br>API Host: https://api.remaris.com/v1<br>Register ID: REM-ZG-019283<br>[ Testiraj vezu ]  -  [ Sinkroniziraj artikle ]`
+                },
+                'payments': {
+                    badge: 'Konfiguracija Naplate',
+                    title: 'Integrations › Payment Providers',
+                    body: 'Postavite payment gatewaye preko kojih gosti plaćaju karticama. Podržane su izravne integracije za Stripe (kartice), Teya terminale i Monri payment gateway.',
+                    mockup: `● Teya Pay  -  Status: [ Aktivirano ]  -  [ Postavke ]<br>● Monri     -  Status: [ Nije spojeno ] -  [ Spoji ]<br>● Stripe    -  Status: [ Aktivirano ]  -  [ Postavke ]`
+                },
+                'orders': {
+                    badge: 'Nadzor narudžbi & Povrati',
+                    title: 'Analytics › Orders',
+                    body: 'Pratite promet i pojedinačne narudžbe. Svaka narudžba prikazuje točno vrijeme, iznos, broj stola i status plaćanja (Paid, Refunded). Ako gost otkaže, ovdje radite storno gumbom Refund.',
+                    mockup: `Ukupno danas: 1,420.00 €  -  Paid narudžbe: 84  -  Storno: 1<br>--------------------------------------------------------<br>● Narudžba #4812  -  Stol 5  -  Iznos: 18.20 €  -  [ Paid ] [ Detalji ]<br>● Narudžba #4811  -  Stol 12 -  Iznos: 32.50 €  -  [ Refunded ]`
+                }
+            };
+            
+            const data = contentData[tab];
+            if (data) {
+                contentPane.innerHTML = `
+                    <span class="sim-badge">${data.badge}</span>
+                    <h3 class="sim-title">${data.title}</h3>
+                    <p class="sim-body">${data.body}</p>
+                    <div class="callout-box tip" style="margin: 0;">
+                        <div class="callout-icon">💡</div>
+                        <div class="callout-content">
+                            <h4>Brzi savjet</h4>
+                            <p>Sva polja u ovom modulu prilagođena su mobilnim uređajima i radu u hodu, tako da možete upravljati lokalom izravno s mobitela.</p>
+                        </div>
+                    </div>
+                    <div class="sim-ui-mockup">${data.mockup}</div>
+                `;
+            }
+        }
+
+        // Accordion Toggle function
+        function toggleAccordion(button) {
+            const item = button.parentElement;
+            const isActive = item.classList.contains('active');
+            
+            // Close all items
+            const allItems = document.querySelectorAll('.accordion-item');
+            allItems.forEach(i => {
+                i.classList.remove('active');
+                i.querySelector('.accordion-content').style.maxHeight = null;
+            });
+            
+            if (!isActive) {
+                item.classList.add('active');
+                const content = item.querySelector('.accordion-content');
+                content.style.maxHeight = content.scrollHeight + "px";
+            }
+        }
+
+        // Simple scroll highlighting for left navigation
+        window.addEventListener('scroll', () => {
+            const sections = ['uvod', 'brzi-pocetak', 'karta-sucelja', 'detaljne-upute', 'rjecnik', 'cesta-pitanja'];
+            let current = 'uvod';
+            
+            sections.forEach(sec => {
+                const el = document.getElementById(sec);
+                if (el) {
+                    const rect = el.getBoundingClientRect();
+                    if (rect.top <= 150) {
+                        current = sec;
+                    }
+                }
+            });
+            
+            const navIds = {
+                'uvod': 'nav-hero',
+                'brzi-pocetak': 'nav-steps',
+                'karta-sucelja': 'nav-simulator',
+                'detaljne-upute': 'nav-detail',
+                'rjecnik': 'nav-vocab',
+                'cesta-pitanja': 'nav-faq'
+            };
+            
+            const navItems = document.querySelectorAll('.guide-nav-item');
+            navItems.forEach(item => item.classList.remove('active'));
+            
+            const activeNav = document.getElementById(navIds[current]);
+            if (activeNav) {
+                activeNav.classList.add('active');
+            }
+        });
+    </script>
+</body>
+</html>
